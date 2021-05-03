@@ -27,7 +27,7 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Player target = getServer().getPlayer(args[0]);
+        final Player target = getServer().getPlayer(args[0]);
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (player.isOp() || player.hasPermission("obelouix.gamemode")) {

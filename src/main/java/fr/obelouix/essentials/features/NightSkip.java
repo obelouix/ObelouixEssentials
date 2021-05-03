@@ -24,7 +24,7 @@ public class NightSkip implements Listener {
     @EventHandler
     public void countSleepingPlayers(PlayerDeepSleepEvent event) {
 
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if (player.isSleeping()) {
             if (!player.isOp() || !player.hasPermission("obelouix.nightskipping.exempt")) {
                 playerList.add(player);
@@ -43,7 +43,7 @@ public class NightSkip implements Listener {
     }
     @EventHandler
     public void skipNight(PlayerDeepSleepEvent event){
-        int percentageSleeping = (playerList.size() / Bukkit.getOnlinePlayers().size()) * 100;
+        final int percentageSleeping = (playerList.size() / Bukkit.getOnlinePlayers().size()) * 100;
         Player player = event.getPlayer();
         if(percentageSleeping >= Essentials.getInstance().getConfig().getInt("player-sleep-percentage")){
             for (Player p: Bukkit.getOnlinePlayers()) {

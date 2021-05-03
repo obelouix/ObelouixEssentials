@@ -68,7 +68,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
      */
     @EventHandler
     public void lockInventory(InventoryClickEvent event) {
-        ItemStack itemStackClicked = event.getCurrentItem();
+        final ItemStack itemStackClicked = event.getCurrentItem();
         Player player = (Player) event.getWhoClicked();
         if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))) {
             if (itemStackClicked != null) {
@@ -83,7 +83,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
      */
     @EventHandler
     public void freezeOnJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if (PlayerConfig.get().getBoolean("frozen")) {
             Essentials.getInstance().getLOGGER().info("freezing " + player.getName());
             addFrozenPlayer(player);
