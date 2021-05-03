@@ -1,12 +1,7 @@
 package fr.obelouix.essentials.features;
 
 import fr.obelouix.essentials.Essentials;
-import net.luckperms.api.model.group.Group;
-import net.luckperms.api.node.Node;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.permissions.Permission;
-
-import java.util.Objects;
 
 public class LuckPermsSetup {
 

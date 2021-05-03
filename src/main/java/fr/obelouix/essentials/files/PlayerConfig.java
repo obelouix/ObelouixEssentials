@@ -6,18 +6,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 import java.io.File;
 
-public class PlayerConfig implements Listener {
+public class PlayerConfig {
 
     static File configFile;
     static FileConfiguration config;
     static File dataFolder = Essentials.getInstance().getDataFolder();
     static File userDataFolder = new File(dataFolder.getPath() + File.separator + "userdata");
+
     public static void create(Player p) {
-        configFile = new File(userDataFolder  + File.separator + p.getName() + ".yml");
+        configFile = new File(userDataFolder + File.separator + p.getName() + ".yml");
         if (!userDataFolder.exists()) userDataFolder.mkdir();
         if (!configFile.exists()) {
             try {
