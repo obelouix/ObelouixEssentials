@@ -11,10 +11,10 @@ import java.io.File;
 
 public class PlayerConfig {
 
-    static File configFile;
-    static FileConfiguration config;
-    static File dataFolder = Essentials.getInstance().getDataFolder();
-    static File userDataFolder = new File(dataFolder.getPath() + File.separator + "userdata");
+    private static final File dataFolder = Essentials.getInstance().getDataFolder();
+    private static final File userDataFolder = new File(dataFolder.getPath() + File.separator + "userdata");
+    private static File configFile;
+    private static FileConfiguration config;
 
     public static void create(Player p) {
         configFile = new File(userDataFolder + File.separator + p.getName() + ".yml");
@@ -22,7 +22,7 @@ public class PlayerConfig {
         if (!configFile.exists()) {
             try {
                 configFile.createNewFile();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Error creating " + configFile.getName() + "!");
                 Bukkit.getConsoleSender().sendMessage(e.getMessage());
             }
