@@ -1,0 +1,38 @@
+package fr.obelouix.essentials.event;
+
+import fr.obelouix.essentials.Essentials;
+import fr.obelouix.essentials.commands.FreezeCommand;
+import fr.obelouix.essentials.features.NightSkip;
+import fr.obelouix.essentials.files.PlayerConfig;
+import org.bukkit.event.Listener;
+
+public class EventRegistry {
+
+    private static EventRegistry instance;
+
+    private EventRegistry(){
+    }
+
+    public static EventRegistry getInstance(){
+        if(instance == null){
+            instance = new EventRegistry();
+        }
+        return instance;
+    }
+
+    public void init(){
+        registerEvent(new PlayerConfig());
+        registerEvent(new PlayerJoin());
+        registerEvent(new FreezeOnJoin());
+        registerEvent(new FreezeCommand());
+        if(Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")){
+            registerEvent(new NightSkip());
+        }
+
+    }
+
+    private void registerEvent(Listener listener){
+        Essentials.getInstance().getServer().getPluginManager().registerEvents(listener, Essentials.getInstance());
+    }
+
+}

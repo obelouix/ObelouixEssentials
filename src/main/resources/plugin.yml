@@ -1,0 +1,97 @@
+name: ObelouixEssentials
+version: 0.1-SNAPSHOT
+main: fr.obelouix.essentials.Essentials
+api-version: 1.16
+prefix: ObelouixEssentials
+authors: [ Obelouix ]
+load: POSTWORLD
+depend:
+  - LuckPerms
+commands:
+  gamemode:
+    description: get or set the gamemode of a player
+    usage: /gamemode [player] [survival|0|creative|1|adventure|2|spectator|3]
+    permission: obelouix.gamemode
+  money:
+    description: Show your bank account
+    usage: /money
+    permission: obelouix.money
+    aliases:
+      - balance
+  pluginmanager:
+    description: Gets a list of plugins running on the server
+    usage: /PluginManager
+    permission: obelouix.plugins
+    aliases:
+      - plm
+  time:
+    description: get or set the time of a world
+    usage: /time
+    permission: obelouix.time
+  day:
+    description: set the day in a world
+    usage: /day
+    permission: obelouix.time.day
+  night:
+    description: set the night in a world
+    usage: /night
+    permission: obelouix.time.night
+  morning:
+    description: set the time to morning in a world
+    usage: /morning
+    permission: obelouix.time.morning
+  midday:
+    description: set the time to midday in a world
+    usage: /midday
+    permission: obelouix.time.midday
+  noon:
+    description: set the time to noon in a world
+    usage: /noon
+    permission: obelouix.time.noon
+  midnight:
+    description: set the time to midnight in a world
+    usage: /midnight
+    permission: obelouix.time.midnight
+  enderchest:
+    description: open your or someone else enderchest
+    usage: /enderchest [player]
+    permission: obelouix.enderchest
+  openinv:
+    description: open your or someone else inventory
+    usage: /openinv [player]
+    aliases:
+      - invsee
+      - oinv
+    permission: obelouix.openinv
+  freeze:
+    description: freeze a player
+    usage: /freeze <player>
+    permission: obelouix.freeze
+permissions:
+  obelouix.gamemode:
+    default: op
+  obelouix.*:
+    default: op
+    description: Give players with op everything by default
+    children:
+      obelouix.time.*: true
+      obelouix.enderchest.*: true
+      obelouix.openinv.*: true
+  obelouix.time.*:
+    default: op
+    children:
+      - obelouix.time.day
+      - obelouix.time.morning
+      - obelouix.time.midday
+      - obelouix.time.noon
+      - obelouix.time.midnight
+  obelouix.enderchest:
+    default: op
+    children:
+      - obelouix.enderchest.others
+  obelouix.inventory:
+    default: op
+    children:
+      - obelouix.openinv.others
+  obelouix.freeze:
+    default: op
