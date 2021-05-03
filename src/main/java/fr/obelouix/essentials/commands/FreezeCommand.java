@@ -192,7 +192,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         completion.add("list");
         if (sender.hasPermission("obelouix.freeze")) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                //only add players who can frozen in the completion list
+                //only add players who can be frozen in the completion list
                 if (!p.hasPermission("obelouix.freeze.exempt")) completion.add(p.getName());
             }
         }
