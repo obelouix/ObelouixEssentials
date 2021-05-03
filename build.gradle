@@ -9,6 +9,7 @@ version = '1.0-SNAPSHOT'
 
 sourceCompatibility = "16"
 targetCompatibility = "16"
+//see https://www.spigotmc.org/wiki/intellij-debug-your-plugin/
 libsDirName = '../server/plugins'
 
 repositories {
