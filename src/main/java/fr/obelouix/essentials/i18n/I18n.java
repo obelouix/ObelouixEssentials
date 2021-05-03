@@ -8,17 +8,16 @@ import java.util.ResourceBundle;
 public class I18n {
 
     private static I18n instance;
-    private String language = Locale.getDefault().getLanguage();
-    private String country = Locale.getDefault().getCountry().toUpperCase(Locale.ROOT);
-    ResourceBundle messages;
+    private final String language = Locale.getDefault().getLanguage();
+    private final String country = Locale.getDefault().getCountry().toUpperCase(Locale.ROOT);
+    private final ResourceBundle messages;
 
-    private I18n(){
-        if(ResourceBundle.getBundle("Messages_" + language + country) == null){
+    private I18n() {
+        if (ResourceBundle.getBundle("Messages_" + language + country) == null) {
             Essentials.getInstance().getLOGGER().warning("No translation file found for locale " + language + country
                     + ". Using enUS by default");
             messages = ResourceBundle.getBundle("Messages_enUS");
-        }
-        else{
+        } else {
             messages = ResourceBundle.getBundle("Messages_" + language + country);
         }
     }
