@@ -35,26 +35,37 @@ import java.util.Objects;
 
 public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
 
-    private static ArrayList<String> frozenPlayers = new ArrayList<>();
+    //ArrayList to store every frozen player
+    private static final ArrayList<String> frozenPlayers = new ArrayList<>();
 
+    //May be used somewhere else
     public static void addFrozenPlayer(Player player) {
         frozenPlayers.add(player.getName());
     }
 
+
     public static void freezePlayer(Player player) {
+        //remove all potion effects the player have
         for (PotionEffect potionEffect : player.getActivePotionEffects()) {
             player.removePotionEffect(potionEffect.getType());
         }
+        //add infinity slowness, negative jump boost and blindness to player
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 9999999, 100, false, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 9999999, -100, false, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 9999999, 100, false, false, false));
+        //set the player invulnerable so he can't be killed by other player and monsters or die from starvation
         player.setInvulnerable(true);
+        //Change player gamemode to ADVENTURE so he can't edit the terrain
+        player.setGameMode(GameMode.ADVENTURE);
+        //If player is in creative mode or is allowed to fly, deny him to fly
         if (player.getGameMode() == GameMode.CREATIVE || player.getAllowFlight()) {
             player.setAllowFlight(false);
-            player.setGameMode(GameMode.ADVENTURE);
         }
     }
 
+    /**
+     * Block user from editing his inventory when he's frozen
+     */
     @EventHandler
     public void lockInventory(InventoryClickEvent event) {
         ItemStack itemStackClicked = event.getCurrentItem();
@@ -67,6 +78,9 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         }
     }
 
+    /**
+     * If player was frozen before quitting , freeze it again when he join
+     */
     @EventHandler
     public void freezeOnJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -77,6 +91,9 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         }
     }
 
+    /**
+     * Block user from teleporting with ender pearls or chorus fruits when he's frozen
+     */
     @EventHandler
     public void disableTeleportation(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
@@ -89,6 +106,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                 event.setCancelled(true);
             }
             final Title title = Title.title(Component.empty(), baseComponent, times);
+            //show the warning in Minecraft's title space instead of chat
             player.showTitle(title);
         }
     }
@@ -100,13 +118,14 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                 Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
 
                 if (target != null && !args[0].equalsIgnoreCase("list")) {
+                    //if player is not immune to freeze, execute this
                     if (!target.hasPermission("obelouix.freeze.exempt")) {
                         PlayerConfig.load(target);
                         //unfroze part
                         if (frozenPlayers.contains(target.getName())) {
 
                             PlayerConfig.get().set("frozen", false);
-
+                            //restore his previous gamemode
                             switch (Objects.requireNonNull(PlayerConfig.get().getString("gamemode_before_frozen"))) {
                                 case "ADVENTURE":
                                     target.setGameMode(GameMode.ADVENTURE);
@@ -135,6 +154,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                         //freeze part
                         else {
                             PlayerConfig.get().set("frozen", true);
+                            //save the player gamemode before changing it
                             PlayerConfig.get().set("gamemode_before_frozen", target.getGameMode().toString());
                             PlayerConfig.save();
                             frozenPlayers.add(target.getName());
@@ -143,12 +163,12 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                                     ChatColor.AQUA + target.getName() + ChatColor.GREEN));
                             target.sendMessage(ChatColor.GRAY + I18n.getInstance().getMessage("command.freeze.inform"));
                         }
-                    }
-                    else{
+                    } else {
                         sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("command.freeze.exempt"));
                     }
 
-                } else if (target == null && args[0].equalsIgnoreCase("list")) {
+                } //show every frozen player in a list
+                else if (target == null && args[0].equalsIgnoreCase("list")) {
                     if (frozenPlayers.size() > 0) {
                         StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().getMessage("command.freeze.list") + ": ");
                         for (String player : frozenPlayers) {
@@ -172,7 +192,8 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         completion.add("list");
         if (sender.hasPermission("obelouix.freeze")) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                completion.add(p.getName());
+                //only add players who can frozen in the completion list
+                if (!p.hasPermission("obelouix.freeze.exempt")) completion.add(p.getName());
             }
         }
         return completion;
