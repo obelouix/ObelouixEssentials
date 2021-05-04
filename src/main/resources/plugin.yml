@@ -18,12 +18,6 @@ commands:
     permission: obelouix.money
     aliases:
       - balance
-  pluginmanager:
-    description: Gets a list of plugins running on the server
-    usage: /PluginManager
-    permission: obelouix.plugins
-    aliases:
-      - plm
   time:
     description: get or set the time of a world
     usage: /time

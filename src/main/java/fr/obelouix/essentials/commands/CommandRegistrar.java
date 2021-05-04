@@ -27,7 +27,6 @@ public class CommandRegistrar {
 
     public void init(){
        registerCommand("gamemode", new CommandGameMode());
-       registerCommand("pluginmanager", new pluginManagerCommand());
        registerCommand("time", new TimeCommand());
        registerCommand("day", new DayCommand());
        registerCommand("night", new NightCommand());
