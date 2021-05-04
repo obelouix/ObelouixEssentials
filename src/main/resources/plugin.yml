@@ -67,6 +67,10 @@ commands:
     description: freeze a player
     usage: /freeze <player>
     permission: obelouix.freeze
+  effect:
+    description: give a potion effect to a player
+    usage: /effect [player] <effect> [duration] [amplifier]
+    permission: obelouix.effect
 permissions:
   obelouix.gamemode:
     default: op
@@ -95,3 +99,5 @@ permissions:
       - obelouix.openinv.others
   obelouix.freeze:
     default: op
+    children:
+      - obelouix.freeze.exempt

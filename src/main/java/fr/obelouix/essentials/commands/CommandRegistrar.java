@@ -38,6 +38,7 @@ public class CommandRegistrar {
        registerCommand("enderchest", new EnderchestCommand());
        registerCommand("openinv", new OpenInventoryCommand());
        registerCommand("freeze", new FreezeCommand());
+        registerCommand("effect", new EffectCommand());
     }
 
     private void registerCommand(String command, CommandExecutor executor){
