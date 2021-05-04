@@ -66,7 +66,13 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                     if (args[1].equalsIgnoreCase("clear")) {
                         for (PotionEffectType effectType : PotionEffectType.values()) {
                             if (target.hasPotionEffect(effectType)) {
-                                target.removePotionEffect(effectType);
+                                //don't remove effects if player is frozen
+                                if (FreezeCommand.getFrozenPlayers().get(FreezeCommand.getFrozenPlayers().indexOf(target.getName())) != null) {
+                                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("command.effect.clear.failed.cause.frozen"));
+                                    break;
+                                } else {
+                                    target.removePotionEffect(effectType);
+                                }
                             }
                         }
                     }
