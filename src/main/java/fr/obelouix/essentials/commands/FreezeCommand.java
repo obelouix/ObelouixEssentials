@@ -46,7 +46,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
 
     public static void freezePlayer(Player player) {
         //remove all potion effects the player have
-        for (PotionEffect potionEffect : player.getActivePotionEffects()) {
+        for (final PotionEffect potionEffect : player.getActivePotionEffects()) {
             player.removePotionEffect(potionEffect.getType());
         }
         //add infinity slowness, negative jump boost and blindness to player
@@ -69,7 +69,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
     @EventHandler
     public void lockInventory(InventoryClickEvent event) {
         final ItemStack itemStackClicked = event.getCurrentItem();
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
         if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))) {
             if (itemStackClicked != null) {
                 event.setCancelled(true);
@@ -96,7 +96,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
      */
     @EventHandler
     public void disableTeleportation(PlayerTeleportEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         final TextComponent baseComponent = Component.text(I18n.getInstance().getMessage("command.freeze.deny.use"))
                 .color(TextColor.color(0xF80400));
         final Title.Times times = Title.Times.of(Ticks.duration(15), Duration.ofMillis(5000), Ticks.duration(20));
@@ -115,7 +115,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender.hasPermission("obelouix.freeze"))
             if (args.length == 1) {
-                Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
+                final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
 
                 if (target != null && !args[0].equalsIgnoreCase("list")) {
                     //if player is not immune to freeze, execute this
@@ -137,6 +137,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                                     target.setGameMode(GameMode.SPECTATOR);
                                     break;
                                 case "SURVIVAL":
+                                default:
                                     target.setGameMode(GameMode.SURVIVAL);
                                     break;
                             }
@@ -144,7 +145,8 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                             PlayerConfig.get().set("gamemode_before_frozen", null);
                             PlayerConfig.save();
                             frozenPlayers.remove(target.getName());
-                            for (PotionEffect potionEffect : target.getActivePotionEffects()) {
+
+                            for (final PotionEffect potionEffect : target.getActivePotionEffects()) {
                                 target.removePotionEffect(potionEffect.getType());
                             }
                             sender.sendMessage(MessageFormat.format(I18n.getInstance().getMessage("command.freeze.unfreeze.success"),
@@ -170,7 +172,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                 } //show every frozen player in a list
                 else if (target == null && args[0].equalsIgnoreCase("list")) {
                     if (frozenPlayers.size() > 0) {
-                        StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().getMessage("command.freeze.list") + ": ");
+                        final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().getMessage("command.freeze.list") + ": ");
                         for (String player : frozenPlayers) {
                             msg.append(ChatColor.DARK_RED).append(player);
                             if (!Objects.equals(player, frozenPlayers.get(frozenPlayers.lastIndexOf(player)))) {
@@ -188,12 +190,14 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        List<String> completion = new ArrayList<>();
+
+        final List<String> completion = new ArrayList<>();
         completion.add("list");
+
         if (sender.hasPermission("obelouix.freeze")) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
                 //only add players who can be frozen in the completion list
-                if (!p.hasPermission("obelouix.freeze.exempt")) completion.add(p.getName());
+                if (!player.hasPermission("obelouix.freeze.exempt")) completion.add(player.getName());
             }
         }
         return completion;
