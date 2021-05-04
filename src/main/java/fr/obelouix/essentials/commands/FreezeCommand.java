@@ -43,6 +43,9 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         frozenPlayers.add(player.getName());
     }
 
+    public static ArrayList<String> getFrozenPlayers() {
+        return frozenPlayers;
+    }
 
     public static void freezePlayer(Player player) {
         //remove all potion effects the player have
@@ -140,7 +143,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                                     target.setGameMode(GameMode.SURVIVAL);
                                     break;
                             }
-
+                            target.setInvulnerable(false);
                             PlayerConfig.get().set("gamemode_before_frozen", null);
                             PlayerConfig.save();
                             frozenPlayers.remove(target.getName());
