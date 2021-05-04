@@ -30,6 +30,13 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                             player.addPotionEffect(effectType.createEffect(600, 0));
                         }
                     }
+                    if (args[0].equalsIgnoreCase("clear")) {
+                        for (PotionEffectType effectType : PotionEffectType.values()) {
+                            if (player.hasPotionEffect(effectType)) {
+                                player.removePotionEffect(effectType);
+                            }
+                        }
+                    }
                 } else {
                     for (PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[0].equalsIgnoreCase(effectType.getName())) {
@@ -44,7 +51,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 int duration = 600;
                 int amplifier = 0;
 
-                if (args.length >= 3 && args.length <= 4) {
+                if (args.length >= 3) {
                     if (NumericValue.isNumeric(args[2])) {
                         duration = Integer.parseInt(args[2]);
                     }
@@ -56,6 +63,13 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if (target != null) {
+                    if (args[1].equalsIgnoreCase("clear")) {
+                        for (PotionEffectType effectType : PotionEffectType.values()) {
+                            if (target.hasPotionEffect(effectType)) {
+                                target.removePotionEffect(effectType);
+                            }
+                        }
+                    }
                     for (PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[1].equalsIgnoreCase(effectType.getName())) {
                             target.addPotionEffect(effectType.createEffect(duration, amplifier));
@@ -78,6 +92,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
         List<String> completion = new ArrayList<>();
 
         if (args.length == 1) {
+            completion.add("clear");
             for (PotionEffectType effect : PotionEffectType.values()) {
                 completion.add(effect.getName().toLowerCase(Locale.ROOT));
             }
@@ -89,8 +104,19 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
             }
         }
         if (args.length == 2) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (args[0].equalsIgnoreCase(player.getName())) {
+                    completion.add("clear");
+                    break;
+                }
+            }
             for (PotionEffectType effect : PotionEffectType.values()) {
-                completion.add(effect.getName().toLowerCase(Locale.ROOT));
+                if (!args[0].equalsIgnoreCase(effect.getName())) {
+                    completion.add(effect.getName().toLowerCase(Locale.ROOT));
+                } else {
+                    completion.clear();
+                    break;
+                }
             }
         }
         return completion;
