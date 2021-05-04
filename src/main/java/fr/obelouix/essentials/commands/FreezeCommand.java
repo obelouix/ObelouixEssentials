@@ -70,11 +70,10 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
     public void lockInventory(InventoryClickEvent event) {
         final ItemStack itemStackClicked = event.getCurrentItem();
         final Player player = (Player) event.getWhoClicked();
-        if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))) {
-            if (itemStackClicked != null) {
-                event.setCancelled(true);
-                player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("state.frozen.deny.moveitem"));
-            }
+        if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))
+                && (itemStackClicked != null)) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("state.frozen.deny.moveitem"));
         }
     }
 
@@ -173,7 +172,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                 else if (target == null && args[0].equalsIgnoreCase("list")) {
                     if (frozenPlayers.size() > 0) {
                         final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().getMessage("command.freeze.list") + ": ");
-                        for (String player : frozenPlayers) {
+                        for (final String player : frozenPlayers) {
                             msg.append(ChatColor.DARK_RED).append(player);
                             if (!Objects.equals(player, frozenPlayers.get(frozenPlayers.lastIndexOf(player)))) {
                                 msg.append(ChatColor.GOLD + ",");
