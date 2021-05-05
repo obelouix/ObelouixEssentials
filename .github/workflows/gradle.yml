@@ -28,3 +28,16 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+    
+  codeQL:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+    
+ 
