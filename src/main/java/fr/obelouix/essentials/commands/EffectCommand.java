@@ -40,7 +40,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 } else {
                     for (PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[0].equalsIgnoreCase(effectType.getName())) {
-                            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("command.effect.sender.console.cant_apply"));
+                            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().translateToPlayerLocale((Player) sender,"command.effect.sender.console.cant_apply"));
                         }
                     }
                 }
@@ -68,7 +68,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                             if (target.hasPotionEffect(effectType)) {
                                 //don't remove effects if player is frozen
                                 if (FreezeCommand.getFrozenPlayers().get(FreezeCommand.getFrozenPlayers().indexOf(target.getName())) != null) {
-                                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("command.effect.clear.failed.cause.frozen"));
+                                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().translateToPlayerLocale((Player) sender,"command.effect.clear.failed.cause.frozen"));
                                     break;
                                 } else {
                                     target.removePotionEffect(effectType);
@@ -80,7 +80,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                         if (args[1].equalsIgnoreCase(effectType.getName())) {
                             target.addPotionEffect(effectType.createEffect(duration, amplifier));
                             sender.sendMessage(ChatColor.GREEN +
-                                    MessageFormat.format(I18n.getInstance().getMessage("command.effect.applied.other"),
+                                    MessageFormat.format(I18n.getInstance().translateToPlayerLocale((Player) sender,"command.effect.applied.other"),
                                             ChatColor.AQUA + effectType.getName() + ChatColor.GREEN,
                                             ChatColor.GOLD + target.getName() + ChatColor.GREEN,
                                             ChatColor.RED + String.valueOf(duration * 20)));

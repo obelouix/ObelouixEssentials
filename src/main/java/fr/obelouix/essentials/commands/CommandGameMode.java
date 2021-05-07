@@ -38,7 +38,7 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
                             if (Objects.equals(args[0], opt)) {
                                 isPlayer = false;
                                 setGameMode(command, args[0], player);
-                                player.sendMessage(ChatColor.GREEN + I18n.getInstance().getMessage("ownGameModeUpdated") + " "
+                                player.sendMessage(ChatColor.GREEN + I18n.getInstance().translateToPlayerLocale(player,"ownGameModeUpdated") + " "
                                         + ChatColor.AQUA + I18n.getInstance().getMessage(args[0]));
                                 break;
                             }
@@ -47,12 +47,12 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
                     } else {
                         String currentGameMode = null;
                         switch (target.getGameMode()) {
-                            case CREATIVE -> currentGameMode = I18n.getInstance().getMessage("creative");
-                            case SURVIVAL -> currentGameMode = I18n.getInstance().getMessage("survival");
-                            case ADVENTURE -> currentGameMode = I18n.getInstance().getMessage("adventure");
-                            case SPECTATOR -> currentGameMode = I18n.getInstance().getMessage("spectator");
+                            case CREATIVE -> currentGameMode = I18n.getInstance().translateToPlayerLocale(player,"creative");
+                            case SURVIVAL -> currentGameMode = I18n.getInstance().translateToPlayerLocale(player,"survival");
+                            case ADVENTURE -> currentGameMode = I18n.getInstance().translateToPlayerLocale(player,"adventure");
+                            case SPECTATOR -> currentGameMode = I18n.getInstance().translateToPlayerLocale(player,"spectator");
                         }
-                        player.sendMessage(MessageFormat.format(I18n.getInstance().getMessage("current_gamemode"),
+                        player.sendMessage(MessageFormat.format(I18n.getInstance().translateToPlayerLocale(player,"current_gamemode"),
                                 ChatColor.AQUA + target.getName() + ChatColor.GREEN,
                                 ChatColor.AQUA + currentGameMode));
                     }
@@ -65,7 +65,7 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
                         return true;
                     } else {
                         setGameMode(command, args[1], target);
-                        player.sendMessage(MessageFormat.format(I18n.getInstance().getMessage("otherGameModeUpdated"),
+                        player.sendMessage(MessageFormat.format(I18n.getInstance().translateToPlayerLocale(player,"otherGameModeUpdated"),
                                 ChatColor.AQUA + target.getName() + ChatColor.GREEN,
                                 ChatColor.AQUA + I18n.getInstance().getMessage(target.getGameMode().toString().toLowerCase())));
                         return true;
@@ -96,12 +96,12 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
 
     private void sendGameModeUpdatedMessage(Player player, String GameMode) {
         player.sendMessage(ChatColor.GREEN + I18n.getInstance().getMessage("ownGameModeUpdated") + " "
-                + ChatColor.AQUA + I18n.getInstance().getMessage(GameMode));
+                + ChatColor.AQUA + I18n.getInstance().translateToPlayerLocale(player,GameMode));
     }
 
     private void playerNotOnline(Player player, @NotNull String[] args) {
         player.sendMessage(ChatColor.GOLD + args[0] + " "
-                + ChatColor.DARK_RED + I18n.getInstance().getMessage("player_not_online"));
+                + ChatColor.DARK_RED + I18n.getInstance().translateToPlayerLocale(player,"player_not_online"));
     }
 
     @Override

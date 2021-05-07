@@ -32,7 +32,7 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
                     else
                     {
                         player.sendMessage(ChatColor.GOLD + args[0] + " "
-                                + ChatColor.DARK_RED + I18n.getInstance().getMessage("player_not_online"));
+                                + ChatColor.DARK_RED + I18n.getInstance().translateToPlayerLocale(player,"player_not_online"));
                     }
                 }
             }

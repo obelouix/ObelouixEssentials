@@ -40,7 +40,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
                         worldHour = worldHour - 24;
                     }
 
-                    player.sendMessage(MessageFormat.format(ChatColor.GOLD + I18n.getInstance().getMessage("current_world_time"),
+                    player.sendMessage(MessageFormat.format(ChatColor.GOLD + I18n.getInstance().translateToPlayerLocale(player,"current_world_time"),
                             ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD,
                             ChatColor.RED + ((Player) sender).getWorld().getName() + ChatColor.GOLD));
                 } else {
@@ -105,7 +105,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
             worldHour = worldHour - 24;
         }
 
-        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(I18n.getInstance().getMessage("command.time.set"),
+        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(I18n.getInstance().translateToPlayerLocale(player,"command.time.set"),
                 ChatColor.RED + player.getWorld().getName() + ChatColor.GOLD,
                 ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD
         ));
