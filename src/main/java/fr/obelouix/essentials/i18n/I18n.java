@@ -31,8 +31,13 @@ public class I18n {
         return instance;
     }
 
-    //Method for sending a message based on player's Locale
-    private String translateToPlayerLocale(Player player, String message){
+    /**
+     * Method for sending a message based on player's Locale
+     * @param player the player that will receive the message
+     * @param message a {@link String} ID of the message
+     * @return the @param message
+     */
+    public String translateToPlayerLocale(Player player, String message){
         final String playerLanguage = player.locale().getLanguage();
         final String playerCountry = player.locale().getCountry().toUpperCase();
         if(ResourceBundle.getBundle("Messages_" + playerLanguage + playerCountry) == null){
@@ -46,7 +51,7 @@ public class I18n {
     }
 
     public String getMessage(String message){
-        return  messages.getString(message);
+        return messages.getString(message);
     }
 
 }
