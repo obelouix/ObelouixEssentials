@@ -129,19 +129,10 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                             PlayerConfig.get().set("frozen", false);
                             //restore his previous gamemode
                             switch (Objects.requireNonNull(PlayerConfig.get().getString("gamemode_before_frozen"))) {
-                                case "ADVENTURE":
-                                    target.setGameMode(GameMode.ADVENTURE);
-                                    break;
-                                case "CREATIVE":
-                                    target.setGameMode(GameMode.CREATIVE);
-                                    break;
-                                case "SPECTATOR":
-                                    target.setGameMode(GameMode.SPECTATOR);
-                                    break;
-                                case "SURVIVAL":
-                                default:
-                                    target.setGameMode(GameMode.SURVIVAL);
-                                    break;
+                                case "ADVENTURE" -> target.setGameMode(GameMode.ADVENTURE);
+                                case "CREATIVE" -> target.setGameMode(GameMode.CREATIVE);
+                                case "SPECTATOR" -> target.setGameMode(GameMode.SPECTATOR);
+                                default -> target.setGameMode(GameMode.SURVIVAL);
                             }
                             target.setInvulnerable(false);
                             PlayerConfig.get().set("gamemode_before_frozen", null);

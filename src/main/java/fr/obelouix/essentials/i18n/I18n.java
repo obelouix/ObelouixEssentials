@@ -1,13 +1,8 @@
 package fr.obelouix.essentials.i18n;
 
-import com.google.common.net.UrlEscapers;
 import fr.obelouix.essentials.Essentials;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -57,30 +52,6 @@ public class I18n {
 
     public String getMessage(String message){
         return messages.getString(message);
-    }
-
-    private File[] getResourceFolderFiles () {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        URL url = loader.getResource("/");
-        String path = url.getPath();
-        return new File(path).listFiles();
-    }
-
-    public List<String> setI18NAliases(String path) {
-        List<String> alias = new ArrayList<>();
-
-        if(path.equals("command.help.alias")) alias.add("?");
-
-        for (File file : I18n.getInstance().getResourceFolderFiles()) {
-            if (file.getName().startsWith("Messages_") && !file.getName().startsWith("Messages_en")) {
-
-                String messageFile = file.getName().replaceFirst("[.][^.]+$", "");
-                ResourceBundle resourceBundle = ResourceBundle.getBundle(messageFile);
-                alias.add(resourceBundle.getString(path));
-
-            }
-        }
-        return alias;
     }
 
 }
