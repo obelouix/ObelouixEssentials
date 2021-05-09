@@ -1,5 +1,6 @@
 package fr.obelouix.essentials.event;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.files.PlayerConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +13,7 @@ public class PlayerJoin implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         PlayerConfig.create(player);
-
+        Essentials.getInstance().getLOGGER().info(player.getLocale());
     }
 
 }

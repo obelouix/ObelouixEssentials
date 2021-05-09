@@ -142,9 +142,11 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                             for (final PotionEffect potionEffect : target.getActivePotionEffects()) {
                                 target.removePotionEffect(potionEffect.getType());
                             }
-                            sender.sendMessage(MessageFormat.format(I18n.getInstance().translateToPlayerLocale((Player) sender,"command.freeze.unfreeze.success"),
-                                    ChatColor.AQUA + target.getName() + ChatColor.GREEN));
-                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().translateToPlayerLocale(target,"command.freeze.unfreeze.inform"));
+                            if (sender instanceof Player) {
+                                sender.sendMessage(MessageFormat.format(I18n.getInstance().translateToPlayerLocale((Player) sender, "command.freeze.unfreeze.success"),
+                                        ChatColor.AQUA + target.getName() + ChatColor.GREEN));
+                            }
+                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().translateToPlayerLocale(target, "command.freeze.unfreeze.inform"));
                         }
                         //freeze part
                         else {

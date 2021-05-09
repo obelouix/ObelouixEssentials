@@ -1,5 +1,5 @@
 name: ObelouixEssentials
-version: 0.1-SNAPSHOT
+version: @version@
 main: fr.obelouix.essentials.Essentials
 api-version: 1.16
 prefix: ObelouixEssentials
