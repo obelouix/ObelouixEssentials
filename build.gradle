@@ -1,7 +1,10 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+import org.jetbrains.gradle.ext.Remote
 
 plugins {
     id 'java'
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.0"
+    id "de.undercouch.download" version "4.1.1"
 }
 
 group = 'fr.obelouix'
@@ -29,7 +32,6 @@ repositories {
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'io.github.waterfallmc:waterfall-api:1.16-R0.5-SNAPSHOT'
     compileOnly 'io.papermc:paperlib:1.0.6'
     implementation 'net.luckperms:api:5.3'
 }
@@ -37,7 +39,39 @@ dependencies {
 processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from(sourceSets.main.resources.srcDirs) {
-        //this don't want to work , don't know why
         filter(ReplaceTokens, tokens: ['version': project.version])
     }
 }
+
+/**
+ * this task will setup the server folder
+ */
+task setupServer(type: Download) {
+    new File("$projectDir", "server").mkdir()
+    src 'https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/652/downloads/paper-1.16.5-652.jar'
+    dest "/server"
+    overwrite false
+    new File("$projectDir/server", "eula.txt").text = "eula=true"
+    new File("$projectDir/server", "launch.bat").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar .\\paper-1.16.5-652.jar nogui"
+}
+
+/**
+ * This, will create the debug task
+ */
+idea {
+    project {
+        settings {
+            taskTriggers {
+                afterSync tasks.getByName("projects"),tasks.getByName("setupServer")
+            }
+            runConfigurations {
+                "PaperMC Server"(Remote){
+                    mode = Remote.RemoteMode.LISTEN
+                    host  = "localhost"
+                    port = 5005
+                }
+            }
+        }
+    }
+}
+
