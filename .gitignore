@@ -78,10 +78,11 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-*.iml
+ObelouixEssentials.iml
 # modules.xml
 # .idea/misc.xml
-*.ipr
+ObelouixEssentials.ipr
+ObelouixEssentials.iws
 
 # Sonarlint plugin
 # https://plugins.jetbrains.com/plugin/7973-sonarlint
