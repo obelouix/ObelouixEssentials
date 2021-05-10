@@ -1,5 +1,6 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.jetbrains.gradle.ext.Remote
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
@@ -52,7 +53,12 @@ task setupServer(type: Download) {
     dest "/server"
     overwrite false
     new File("$projectDir/server", "eula.txt").text = "eula=true"
-    new File("$projectDir/server", "launch.bat").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar .\\paper-1.16.5-652.jar nogui"
+    if(Os.isFamily(Os.FAMILY_WINDOWS)){
+        new File("$projectDir/server", "launch.bat").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar .\\paper-1.16.5-652.jar nogui"
+    }
+    else{
+        new File("$projectDir/server", "launch.sh").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar ./paper-1.16.5-652.jar nogui"
+    }
 }
 
 /**
