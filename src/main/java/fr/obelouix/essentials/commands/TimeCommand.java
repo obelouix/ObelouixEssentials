@@ -44,7 +44,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
                             ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD,
                             ChatColor.RED + ((Player) sender).getWorld().getName() + ChatColor.GOLD));
                 } else {
-                    for (World world : Bukkit.getWorlds()) {
+                    for (final World world : Bukkit.getWorlds()) {
                         worldHour = world.getTime() / 1000 + 6;
                         worldMinute = ((world.getTime()) % 1000) * 60 / 1000;
 
@@ -57,7 +57,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
                     }
                 }
             } else if (args.length == 1) {
-                Player player = (Player) sender;
+                final Player player = (Player) sender;
                 if (args[0].equalsIgnoreCase("day")) {
                     if (player.hasPermission("obelouix.time.day")) {
                         player.getWorld().setTime(0);
@@ -97,7 +97,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
     }
 
     protected void sendPlayerTimeMessage(CommandSender sender, int time) {
-        Player player = (Player) sender;
+        final Player player = (Player) sender;
         worldHour = time / 1000 + 6;
         worldMinute = (time % 1000) * 60 / 1000;
 
@@ -111,17 +111,11 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
         ));
     }
 
-    private void setTimeFromConsole(long ticks) {
-        for (World world : Bukkit.getWorlds()) {
-            world.setTime(ticks);
-        }
-    }
-
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         final List<String> completion = new ArrayList<>();
         if (args.length == 1) {
-            for (String time : times) {
+            for (final String time : times) {
                 if (sender.hasPermission("obelouix.time." + time)) {
                     completion.add(time);
                 }

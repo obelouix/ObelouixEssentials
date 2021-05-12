@@ -44,7 +44,7 @@ public class NightSkip implements Listener {
     @EventHandler
     public void skipNight(PlayerDeepSleepEvent event){
         final int percentageSleeping = (playerList.size() / Bukkit.getOnlinePlayers().size()) * 100;
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if(percentageSleeping >= Essentials.getInstance().getConfig().getInt("player-sleep-percentage")){
             for (Player p: Bukkit.getOnlinePlayers()) {
                 p.sendMessage(I18n.getInstance().getMessage("message.everyone_is_sleeping"));

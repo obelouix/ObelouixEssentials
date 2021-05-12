@@ -16,7 +16,7 @@ public class MidnightCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player player){
             if(player.hasPermission("obelouix.time.midnight")){
                 player.getWorld().setTime(18000);
-                TimeCommand timeCommand = new TimeCommand();
+                final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 18000);
             }
         }

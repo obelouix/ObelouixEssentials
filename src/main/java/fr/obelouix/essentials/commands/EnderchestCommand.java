@@ -25,7 +25,7 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
                 }
             } else if(args.length == 1){
                 if(player.hasPermission("obelouix.enderchest.others")){
-                    Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
+                    final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
                     if(target != null){
                         player.openInventory(target.getEnderChest());
                     }

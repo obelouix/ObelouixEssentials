@@ -49,7 +49,7 @@ public class CommandRegistrar {
     }
 
     protected void wrongCommandUsage(CommandSender sender, Command command) {
-        Player player = (Player) sender;
+        final Player player = (Player) sender;
         player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
     }
 

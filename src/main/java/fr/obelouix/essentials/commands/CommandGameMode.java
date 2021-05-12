@@ -32,7 +32,7 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
                     if (args.length == 1) {
                         if (target == null) {
                             boolean isPlayer = true;
-                            for (String opt : OPTIONS) {
+                            for (final String opt : OPTIONS) {
                                 if (Objects.equals(args[0], opt)) {
                                     isPlayer = false;
                                     setGameMode(command, args[0], player);
@@ -111,7 +111,7 @@ public class CommandGameMode implements CommandExecutor, TabCompleter {
         StringUtil.copyPartialMatches(args[0], OPTIONS, completion);
         if (args.length == 1) {
             Collections.sort(completion);
-            for (Player online : getServer().getOnlinePlayers()) {
+            for (final Player online : getServer().getOnlinePlayers()) {
                 completion.add(online.getName());
             }
         }

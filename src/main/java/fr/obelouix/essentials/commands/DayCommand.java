@@ -16,7 +16,7 @@ public class DayCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player player){
             if(player.hasPermission("obelouix.time.day")){
                 player.getWorld().setTime(0);
-                TimeCommand timeCommand = new TimeCommand();
+                final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 0);
             }
         }

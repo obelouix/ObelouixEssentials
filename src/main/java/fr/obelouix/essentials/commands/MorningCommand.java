@@ -16,7 +16,7 @@ public class MorningCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player player){
             if(player.hasPermission("obelouix.time.morning")){
                 player.getWorld().setTime(2000);
-                TimeCommand timeCommand = new TimeCommand();
+                final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 2000);
             }
         }

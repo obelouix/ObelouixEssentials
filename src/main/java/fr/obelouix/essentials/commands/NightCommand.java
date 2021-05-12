@@ -16,7 +16,7 @@ public class NightCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player player){
             if(player.hasPermission("obelouix.time.night")){
                 player.getWorld().setTime(13188);
-                TimeCommand timeCommand = new TimeCommand();
+                final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 13188);
             }
         }

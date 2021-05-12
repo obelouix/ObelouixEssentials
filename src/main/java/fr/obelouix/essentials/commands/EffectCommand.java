@@ -25,7 +25,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
         if (sender.hasPermission("obelouix.effects")) {
             if (args.length == 1) {
                 if (sender instanceof Player player) {
-                    for (PotionEffectType effectType : PotionEffectType.values()) {
+                    for (final PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[0].equalsIgnoreCase(effectType.getName())) {
                             player.addPotionEffect(effectType.createEffect(600, 0));
                         }
@@ -47,7 +47,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
             }
             if (args.length > 1 && args.length < 5) {
 
-                Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
+                final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
                 int duration = 600;
                 int amplifier = 0;
 
@@ -95,16 +95,16 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
 
-        List<String> completion = new ArrayList<>();
+        final List<String> completion = new ArrayList<>();
 
         if (args.length == 1) {
             completion.add("clear");
-            for (PotionEffectType effect : PotionEffectType.values()) {
+            for (final PotionEffectType effect : PotionEffectType.values()) {
                 completion.add(effect.getName().toLowerCase(Locale.ROOT));
             }
 
             if (sender.hasPermission("obelouix.effects.others")) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                for (final Player player : Bukkit.getOnlinePlayers()) {
                     completion.add(player.getName());
                 }
             }
