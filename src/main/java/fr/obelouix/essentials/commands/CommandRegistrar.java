@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class CommandRegistrar {
     }
 
     public void init() {
-        registerCommand("gamemode", new CommandGameMode());
+        registerCommand("gamemode", new GamemodeCommand());
         registerCommand("time", new TimeCommand());
         registerCommand("day", new DayCommand());
         registerCommand("night", new NightCommand());
@@ -49,8 +48,8 @@ public class CommandRegistrar {
     }
 
     protected void wrongCommandUsage(CommandSender sender, Command command) {
-        final Player player = (Player) sender;
-        player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
+        // final Player player = (Player) sender;
+        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
     }
 
 }
