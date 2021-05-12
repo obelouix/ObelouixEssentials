@@ -21,6 +21,7 @@ public final class Essentials extends JavaPlugin {
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
 
+
         /*if(luckPermsProvider != null){
             if(this.getConfig().getBoolean("auto-setup-admin-group")){
                 new LuckPermsSetup().setup();

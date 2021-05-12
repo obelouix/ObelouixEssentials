@@ -1,6 +1,6 @@
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.jetbrains.gradle.ext.Remote
 import org.apache.tools.ant.taskdefs.condition.Os
+import org.jetbrains.gradle.ext.Remote
 
 plugins {
     id 'java'
@@ -15,7 +15,7 @@ sourceCompatibility = "16"
 targetCompatibility = "16"
 //see https://www.spigotmc.org/wiki/intellij-debug-your-plugin/
 libsDirName = '../server/plugins'
-ext{
+ext {
     paperURL = 'https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/655/downloads/paper-1.16.5-655.jar'
     paperVersion = '1.16.5-655'
 }
@@ -58,10 +58,9 @@ task setupServer(type: Download) {
     dest "/server"
     overwrite false
     new File("$projectDir/server", "eula.txt").text = "eula=true"
-    if(Os.isFamily(Os.FAMILY_WINDOWS)){
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
         new File("$projectDir/server", "launch.bat").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar .\\paper-${paperVersion}.jar nogui"
-    }
-    else{
+    } else {
         new File("$projectDir/server", "launch.sh").text = "java -Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=y -jar ./paper-${paperVersion}.jar nogui"
     }
 }
@@ -73,12 +72,12 @@ idea {
     project {
         settings {
             taskTriggers {
-                afterSync tasks.getByName("projects"),tasks.getByName("setupServer")
+                afterSync tasks.getByName("projects"), tasks.getByName("setupServer")
             }
             runConfigurations {
-                "PaperMC Server"(Remote){
+                "PaperMC Server"(Remote) {
                     mode = Remote.RemoteMode.LISTEN
-                    host  = "localhost"
+                    host = "localhost"
                     port = 5005
                 }
             }

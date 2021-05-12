@@ -6,14 +6,32 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 public class PlayerJoin implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+    public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         PlayerConfig.create(player);
-        Essentials.getInstance().getLOGGER().info(player.getLocale());
+
+        //Use a Runnable to get the player locale that will run once, when player join the server
+        final BukkitRunnable task = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!Objects.equals(PlayerConfig.get().getString("locale"), player.locale().toString())) {
+                    //registering player locale in his file
+                    PlayerConfig.load(player);
+                    PlayerConfig.get().set("locale", player.locale().toString());
+                    PlayerConfig.save();
+                }
+            }
+        };
+
+        task.runTaskLater(Essentials.getInstance(), 10L);
+
     }
 
 }
