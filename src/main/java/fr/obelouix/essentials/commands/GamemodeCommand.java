@@ -25,7 +25,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length > 0 && args.length < 3) {
-            Player target = getServer().getPlayer(args[0]);
+            final Player target = getServer().getPlayer(args[0]);
             if (args.length == 1) {
                 if (sender.hasPermission("obelouix.gamemode")) {
 
@@ -120,9 +120,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         String currentGameMode = null;
         switch (target.getGameMode()) {
             case CREATIVE -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "creative");
-            case SURVIVAL -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "survival");
             case ADVENTURE -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "adventure");
             case SPECTATOR -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "spectator");
+            default -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "survival");
         }
         sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "current_gamemode"),
                 ChatColor.AQUA + target.getName() + ChatColor.GREEN,
