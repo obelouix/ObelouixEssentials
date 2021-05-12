@@ -32,7 +32,7 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
                     else
                     {
                         player.sendMessage(ChatColor.GOLD + args[0] + " "
-                                + ChatColor.DARK_RED + I18n.getInstance().translateToPlayerLocale(player,"player_not_online"));
+                                + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "player_not_online"));
                     }
                 }
             }

@@ -1,9 +1,11 @@
 package fr.obelouix.essentials.i18n;
 
 import fr.obelouix.essentials.Essentials;
+import fr.obelouix.essentials.files.PlayerConfig;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class I18n {
@@ -33,19 +35,20 @@ public class I18n {
 
     /**
      * Method for sending a message based on player's Locale
-     * @param player the player that will receive the message
+     *
+     * @param player  the player that will receive the message
      * @param message a {@link String} ID of the message
      * @return the @param message
      */
-    public String translateToPlayerLocale(Player player, String message){
-        final String playerLanguage = player.locale().getLanguage();
-        final String playerCountry = player.locale().getCountry().toUpperCase();
-        if(ResourceBundle.getBundle("Messages_" + playerLanguage + playerCountry) == null){
-            playerMessages = ResourceBundle.getBundle("Messages_" + playerLanguage + playerCountry);
-        }
-        else {
+    public String sendTranslatedMessage(Player player, String message) {
+        PlayerConfig.load(player);
+        final String playerLocale = Objects.requireNonNull(PlayerConfig.get().getString("locale")).replace("_", "");
+        if (ResourceBundle.getBundle("Messages_" + playerLocale) == null) {
             //if the plugin doesn't have translations for the player's locale use the default one
             playerMessages = ResourceBundle.getBundle("Messages_enUS");
+
+        } else {
+            playerMessages = ResourceBundle.getBundle("Messages_" + playerLocale);
         }
         return playerMessages.getString(message);
     }
