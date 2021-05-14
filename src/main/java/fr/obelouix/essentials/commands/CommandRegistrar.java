@@ -66,7 +66,7 @@ public class CommandRegistrar {
      * @param command command name
      * @param c       class of the command
      */
-    private void registerCommand(String command, Class<TPSBar> c) {
+    private void registerCommand(String command, Class c) {
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
