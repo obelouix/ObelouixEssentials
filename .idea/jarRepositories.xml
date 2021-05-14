@@ -26,5 +26,20 @@
       <option name="name" value="sonatype" />
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="JitPack" />
+      <option name="name" value="JitPack" />
+      <option name="url" value="https://jitpack.io" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="purpur-repo" />
+      <option name="name" value="purpur-repo" />
+      <option name="url" value="file:/$PROJECT_DIR$/%22https:/repo.pl3x.net/%22" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="purpur-repo" />
+      <option name="name" value="purpur-repo" />
+      <option name="url" value="https://repo.pl3x.net/" />
+    </remote-repository>
   </component>
 </project>

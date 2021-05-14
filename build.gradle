@@ -6,6 +6,7 @@ plugins {
     id 'java'
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.0"
     id "de.undercouch.download" version "4.1.1"
+
 }
 
 group = 'fr.obelouix'
@@ -16,8 +17,8 @@ targetCompatibility = "16"
 //see https://www.spigotmc.org/wiki/intellij-debug-your-plugin/
 libsDirName = '../server/plugins'
 ext {
-    paperURL = 'https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/655/downloads/paper-1.16.5-655.jar'
-    paperVersion = '1.16.5-655'
+    paperVersion = '1.16.5-670'
+    paperURL = "https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/670/downloads/paper-${paperVersion}.jar"
 }
 
 
@@ -27,12 +28,17 @@ repositories {
         name = 'papermc-repo'
         url = 'https://papermc.io/repo/repository/maven-public/'
     }
-    maven {
-        url 'https://papermc.io/repo/repository/maven-public/'
+    maven{
+        name ='purpur-repo'
+        url = 'https://repo.pl3x.net/'
     }
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
     }
 }
 
@@ -40,6 +46,7 @@ dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'io.papermc:paperlib:1.0.6'
     implementation 'net.luckperms:api:5.3'
+    compileOnly 'net.pl3x.purpur:purpur-api:1.16.5-R0.1-SNAPSHOT'
 }
 
 processResources {

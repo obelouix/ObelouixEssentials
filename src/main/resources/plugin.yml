@@ -63,6 +63,9 @@ commands:
     description: give a potion effect to a player
     usage: /effect [player] <effect> [duration] [amplifier]
     permission: obelouix.effect
+  vanish:
+    description: hide yourself from other players
+    permission: obelouix.vanish
 permissions:
   obelouix.gamemode:
     default: op
@@ -93,3 +96,7 @@ permissions:
     default: op
     children:
       - obelouix.freeze.exempt
+  obelouix.vanish:
+    default: op
+    children:
+      - obelouix.vanish.seevanished
