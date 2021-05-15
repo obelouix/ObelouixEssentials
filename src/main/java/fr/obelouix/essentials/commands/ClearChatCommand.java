@@ -22,13 +22,13 @@ public class ClearChatCommand implements CommandExecutor, TabCompleter {
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     for (int lineNumber = 0; lineNumber < 100; lineNumber++) {
                         if (lineNumber == 92 || lineNumber == 98) {
-                            player.sendMessage(ChatColor.GOLD + "=====================================================");
+                            onlinePlayer.sendMessage(ChatColor.GOLD + "=====================================================");
                         } else if (lineNumber == 95) {
-                            player.sendMessage(ChatColor.DARK_RED +
+                            onlinePlayer.sendMessage(ChatColor.DARK_RED +
                                     "                      "
-                                    + I18n.getInstance().sendTranslatedMessage(player, "command.clearchat.result"));
+                                    + I18n.getInstance().sendTranslatedMessage(onlinePlayer, "command.clearchat.result"));
                         } else {
-                            player.sendMessage("");
+                            onlinePlayer.sendMessage("");
                         }
                     }
 
