@@ -66,6 +66,9 @@ commands:
   vanish:
     description: hide yourself from other players
     permission: obelouix.vanish
+  clearchat:
+    description: clear the chat history
+    permission: obelouix.clearchat
 permissions:
   obelouix.gamemode:
     default: op
