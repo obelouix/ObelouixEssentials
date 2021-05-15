@@ -21,12 +21,12 @@ import java.util.ArrayList;
 
 public class TPSBarCommand extends Command implements Listener {
 
+    //a list that contains every player who have successfully typed the command
     private static final ArrayList<String> playerList = new ArrayList<>();
     private final DecimalFormat df = new DecimalFormat("#.##");
-    private final CommandRegistrar cmdRegistrar = CommandRegistrar.getInstance();
     private double[] TPS = Bukkit.getTPS();
-    private Component TPSValueComponent = Component.text("");
     private Component BarComponent = Component.text("");
+    private Component TPSValueComponent = Component.text("");
     private final BossBar bossBar = BossBar.bossBar(BarComponent, (float) Math.max(Math.min(TPS[0] / 20.0D, 1.0D), 0.0D), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
     private Component MSPTValueComponent = Component.text("");
 
@@ -53,10 +53,14 @@ public class TPSBarCommand extends Command implements Listener {
         return true;
     }
 
+    /**
+     * @return a {@link BukkitRunnable} task
+     */
     private BukkitRunnable updateBar() {
         return new BukkitRunnable() {
             @Override
             public void run() {
+                //refresh the TPS at every run
                 TPS = Bukkit.getTPS();
 
                 BarComponent = Component.text("TPS: ").color(TextColor.color(0xFFBA06));
@@ -73,8 +77,10 @@ public class TPSBarCommand extends Command implements Listener {
         };
     }
 
-
-    public void setTPSValueColor() {
+    /**
+     * update the {@link TextColor} of the TPS based on his value
+     */
+    private void setTPSValueColor() {
         if (TPS[0] >= 18) {
             TPSValueComponent = TPSValueComponent.color(TextColor.color(0, 255, 0));
             bossBar.color(BossBar.Color.GREEN);
@@ -87,7 +93,10 @@ public class TPSBarCommand extends Command implements Listener {
         }
     }
 
-    public void setMSPTValueComponent() {
+    /**
+     * update the {@link TextColor} of the MSPT based on his value
+     */
+    private void setMSPTValueComponent() {
         if (Bukkit.getServer().getAverageTickTime() <= 40) {
             MSPTValueComponent = Component.text(df.format(Bukkit.getServer().getAverageTickTime())).color(TextColor.color(0, 255, 0));
         } else if (Bukkit.getServer().getAverageTickTime() > 40 && Bukkit.getServer().getAverageTickTime() < 50) {

@@ -8,12 +8,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
+/**
+ * main class of the Plugin
+ */
 public final class Essentials extends JavaPlugin {
 
     private static final Logger LOGGER = Logger.getLogger("ObelouixEssentials");
     private static Essentials instance;
     public final String SERVER_VERSION = Bukkit.getVersion();
-   //private final RegisteredServiceProvider<LuckPerms> luckPermsProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 
     @Override
     public void onEnable() {
@@ -22,13 +24,6 @@ public final class Essentials extends JavaPlugin {
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
-
-
-        /*if(luckPermsProvider != null){
-            if(this.getConfig().getBoolean("auto-setup-admin-group")){
-                new LuckPermsSetup().setup();
-            }
-        }*/
 
     }
 
@@ -42,11 +37,11 @@ public final class Essentials extends JavaPlugin {
         return LOGGER;
     }
 
-    public static Essentials getInstance(){
+    /**
+     * @return instance of {@link Essentials} class
+     */
+    public static Essentials getInstance() {
         return instance;
     }
 
-    /*public @NotNull LuckPerms getLuckPermsProvider() {
-        return luckPermsProvider.getProvider();
-    }*/
 }

@@ -11,6 +11,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
+/**
+ * class relating to command registration
+ */
 public class CommandRegistrar {
 
     private static CommandRegistrar instance;
@@ -19,6 +22,9 @@ public class CommandRegistrar {
     private CommandRegistrar() {
     }
 
+    /**
+     * @return instance of {@link CommandRegistrar} class
+     */
     public static CommandRegistrar getInstance() {
         if (instance == null) {
             instance = new CommandRegistrar();
@@ -43,7 +49,6 @@ public class CommandRegistrar {
 
         //add the Pupur TPS bar if not using Pupur
         if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {
-            PluginInstance.getLOGGER().info("coucou");
             registerCommand("tpsbar", TPSBarCommand.class);
         }
     }
