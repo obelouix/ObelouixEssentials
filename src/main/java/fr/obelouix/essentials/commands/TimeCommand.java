@@ -1,6 +1,7 @@
 package fr.obelouix.essentials.commands;
 
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -28,7 +29,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender.isOp() || sender.hasPermission("obelouix.time")) {
+        if (IPermission.test(sender, "obelouix.time")) {
 
             if (args.length == 0) {
                 if (sender instanceof Player player) {
@@ -59,32 +60,32 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
             } else if (args.length == 1) {
                 final Player player = (Player) sender;
                 if (args[0].equalsIgnoreCase("day")) {
-                    if (player.hasPermission("obelouix.time.day")) {
+                    if (IPermission.test(player, "obelouix.time.day")) {
                         player.getWorld().setTime(0);
                         sendPlayerTimeMessage(player, 0);
                     }
                 } else if (args[0].equalsIgnoreCase("morning")) {
-                    if (player.hasPermission("obelouix.time.morning")) {
+                    if (IPermission.test(player, "obelouix.time.morning")) {
                         player.getWorld().setTime(2000);
                         sendPlayerTimeMessage(player, 2000);
                     }
                 } else if (args[0].equalsIgnoreCase("midday")) {
-                    if (player.hasPermission("obelouix.time.midday")) {
+                    if (IPermission.test(player, "obelouix.time.midday")) {
                         player.getWorld().setTime(6000);
                         sendPlayerTimeMessage(player, 6000);
                     }
                 } else if (args[0].equalsIgnoreCase("noon")) {
-                    if (player.hasPermission("obelouix.time.noon")) {
+                    if (IPermission.test(player, "obelouix.time.noon")) {
                         player.getWorld().setTime(9000);
                         sendPlayerTimeMessage(player, 9000);
                     }
                 } else if (args[0].equalsIgnoreCase("night")) {
-                    if (player.hasPermission("obelouix.time.night")) {
+                    if (IPermission.test(player, "obelouix.time.night")) {
                         player.getWorld().setTime(13188);
                         sendPlayerTimeMessage(player, 13188);
                     }
                 } else if (args[0].equalsIgnoreCase("midnight")) {
-                    if (player.hasPermission("obelouix.time.midnight")) {
+                    if (IPermission.test(player, "obelouix.time.midnight")) {
                         player.getWorld().setTime(18000);
                         sendPlayerTimeMessage(player, 18000);
                     }

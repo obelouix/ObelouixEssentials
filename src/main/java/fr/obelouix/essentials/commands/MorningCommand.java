@@ -1,5 +1,6 @@
 package fr.obelouix.essentials.commands;
 
+import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,7 @@ public class MorningCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if(player.hasPermission("obelouix.time.morning")){
+            if (IPermission.test(player, "obelouix.time.morning")) {
                 player.getWorld().setTime(2000);
                 final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 2000);

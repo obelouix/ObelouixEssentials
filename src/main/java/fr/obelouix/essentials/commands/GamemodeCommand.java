@@ -2,6 +2,7 @@ package fr.obelouix.essentials.commands;
 
 import com.google.common.collect.ImmutableList;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -27,7 +28,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         if (args.length > 0 && args.length < 3) {
             final Player target = getServer().getPlayer(args[0]);
             if (args.length == 1) {
-                if (sender.hasPermission("obelouix.gamemode")) {
+                if (IPermission.test(sender, "obelouix.gamemode")) {
 
                     if (target == null) {
 

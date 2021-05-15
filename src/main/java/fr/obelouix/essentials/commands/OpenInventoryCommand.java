@@ -2,6 +2,7 @@ package fr.obelouix.essentials.commands;
 
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,17 +21,15 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
             if(args.length == 0){
-                if(player.hasPermission("obelouix.openinv")){
+                if (IPermission.test(player, "obelouix.openinv")) {
                     player.openInventory(player.getInventory());
                 }
             } else if(args.length == 1){
-                if(player.hasPermission("obelouix.openinv.others")){
+                if (IPermission.test(player, "obelouix.openinv.others")) {
                     Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
-                    if(target != null){
+                    if (target != null) {
                         player.openInventory(target.getInventory());
-                    }
-                    else
-                    {
+                    } else {
                         player.sendMessage(ChatColor.GOLD + args[0] + " "
                                 + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "player_not_online"));
                     }

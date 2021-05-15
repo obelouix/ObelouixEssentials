@@ -2,6 +2,7 @@ package fr.obelouix.essentials.commands;
 
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import fr.obelouix.essentials.utils.NumericValue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +23,7 @@ import java.util.Locale;
 public class EffectCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender.hasPermission("obelouix.effects")) {
+        if (IPermission.test(sender, "obelouix.effects")) {
             if (args.length == 1) {
                 if (sender instanceof Player player) {
                     for (final PotionEffectType effectType : PotionEffectType.values()) {
@@ -40,7 +41,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 } else {
                     for (PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[0].equalsIgnoreCase(effectType.getName())) {
-                            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage((Player) sender, "command.effect.sender.console.cant_apply"));
+                            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "command.effect.sender.console.cant_apply"));
                         }
                     }
                 }
@@ -68,7 +69,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                             if (target.hasPotionEffect(effectType)) {
                                 //don't remove effects if player is frozen
                                 if (FreezeCommand.getFrozenPlayers().get(FreezeCommand.getFrozenPlayers().indexOf(target.getName())) != null) {
-                                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage((Player) sender, "command.effect.clear.failed.cause.frozen"));
+                                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "command.effect.clear.failed.cause.frozen"));
                                     break;
                                 } else {
                                     target.removePotionEffect(effectType);
@@ -80,7 +81,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                         if (args[1].equalsIgnoreCase(effectType.getName())) {
                             target.addPotionEffect(effectType.createEffect(duration, amplifier));
                             sender.sendMessage(ChatColor.GREEN +
-                                    MessageFormat.format(I18n.getInstance().sendTranslatedMessage((Player) sender, "command.effect.applied.other"),
+                                    MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.effect.applied.other"),
                                             ChatColor.AQUA + effectType.getName() + ChatColor.GREEN,
                                             ChatColor.GOLD + target.getName() + ChatColor.GREEN,
                                             ChatColor.RED + String.valueOf(duration * 20)));

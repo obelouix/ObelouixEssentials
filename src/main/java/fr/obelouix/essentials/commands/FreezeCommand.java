@@ -3,6 +3,7 @@ package fr.obelouix.essentials.commands;
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.files.PlayerConfig;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
@@ -115,7 +116,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender.hasPermission("obelouix.freeze"))
+        if (IPermission.test(sender, "obelouix.freeze")) {
             if (args.length == 1) {
                 final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
 
@@ -143,7 +144,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                                 target.removePotionEffect(potionEffect.getType());
                             }
                             if (sender instanceof Player) {
-                                sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage((Player) sender, "command.freeze.unfreeze.success"),
+                                sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.unfreeze.success"),
                                         ChatColor.AQUA + target.getName() + ChatColor.GREEN));
                             }
                             target.sendMessage(ChatColor.GRAY + I18n.getInstance().sendTranslatedMessage(target, "command.freeze.unfreeze.inform"));
@@ -156,18 +157,18 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                             PlayerConfig.save();
                             frozenPlayers.add(target.getName());
                             freezePlayer(target);
-                            sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage((Player) sender, "command.freeze.success"),
+                            sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.success"),
                                     ChatColor.AQUA + target.getName() + ChatColor.GREEN));
                             target.sendMessage(ChatColor.GRAY + I18n.getInstance().sendTranslatedMessage(target, "command.freeze.inform"));
                         }
                     } else {
-                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage((Player) sender, "command.freeze.exempt"));
+                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.exempt"));
                     }
 
                 } //show every frozen player in a list
                 else if (target == null && args[0].equalsIgnoreCase("list")) {
                     if (frozenPlayers.size() > 0) {
-                        final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().sendTranslatedMessage((Player) sender, "command.freeze.list") + ": ");
+                        final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.list") + ": ");
                         for (final String player : frozenPlayers) {
                             msg.append(ChatColor.DARK_RED).append(player);
                             if (!Objects.equals(player, frozenPlayers.get(frozenPlayers.lastIndexOf(player)))) {
@@ -176,10 +177,11 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                         }
                         sender.sendMessage(String.valueOf(msg));
                     } else {
-                        sender.sendMessage(ChatColor.GREEN + I18n.getInstance().sendTranslatedMessage((Player) sender, "command.freeze.list.empty"));
+                        sender.sendMessage(ChatColor.GREEN + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.list.empty"));
                     }
                 }
             }
+        }
         return true;
     }
 
