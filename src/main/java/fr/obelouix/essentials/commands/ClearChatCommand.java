@@ -19,7 +19,7 @@ public class ClearChatCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
             if (IPermission.test(player, "obelouix.clearchat")) {
-                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     for (int lineNumber = 0; lineNumber < 100; lineNumber++) {
                         if (lineNumber == 92 || lineNumber == 98) {
                             onlinePlayer.sendMessage(ChatColor.GOLD + "=====================================================");
