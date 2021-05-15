@@ -5,6 +5,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ public class TPSBarCommand extends Command implements Listener {
 
     private static final ArrayList<String> playerList = new ArrayList<>();
     private final DecimalFormat df = new DecimalFormat("#.##");
+    private final CommandRegistrar cmdRegistrar = CommandRegistrar.getInstance();
     private double[] TPS = Bukkit.getTPS();
     private Component TPSValueComponent = Component.text("");
     private Component BarComponent = Component.text("");
@@ -34,7 +36,7 @@ public class TPSBarCommand extends Command implements Listener {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (player.hasPermission("obelouix.tpbsbar")) {
+            if (cmdRegistrar.testPermission(player, "obelouix.tpsbar")) {
                 if (!playerList.contains(player.getName())) {
                     updateBar().runTaskTimer(Essentials.getInstance(), 0, 20L);
                     player.showBossBar(bossBar);
@@ -44,12 +46,14 @@ public class TPSBarCommand extends Command implements Listener {
                     playerList.remove(player.getName());
                 }
             }
+        } else {
+            sender.sendMessage(ChatColor.DARK_RED + "This command can only be run by a player");
         }
         return true;
     }
 
     private BukkitRunnable updateBar() {
-        final BukkitRunnable task = new BukkitRunnable() {
+        return new BukkitRunnable() {
             @Override
             public void run() {
                 TPS = Bukkit.getTPS();
@@ -66,7 +70,6 @@ public class TPSBarCommand extends Command implements Listener {
                 bossBar.progress((float) Math.max(Math.min(TPS[0] / 20.0D, 1.0D), 0.0D));
             }
         };
-        return task;
     }
 
 
