@@ -44,7 +44,7 @@ public class CommandRegistrar {
         //add the Pupur TPS bar if not using Pupur
         if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {
             PluginInstance.getLOGGER().info("coucou");
-            registerCommand("tpsbar", TPSBar.class);
+            registerCommand("tpsbar", TPSBarCommand.class);
         }
     }
 
