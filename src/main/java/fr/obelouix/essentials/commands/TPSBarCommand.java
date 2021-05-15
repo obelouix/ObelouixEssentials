@@ -1,6 +1,7 @@
 package fr.obelouix.essentials.commands;
 
 import fr.obelouix.essentials.Essentials;
+import fr.obelouix.essentials.permissions.IPermission;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -36,7 +37,7 @@ public class TPSBarCommand extends Command implements Listener {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (cmdRegistrar.testPermission(player, "obelouix.tpsbar")) {
+            if (IPermission.test(player, "obelouix.tpsbar")) {
                 if (!playerList.contains(player.getName())) {
                     updateBar().runTaskTimer(Essentials.getInstance(), 0, 20L);
                     player.showBossBar(bossBar);
@@ -98,7 +99,7 @@ public class TPSBarCommand extends Command implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if (playerList.contains(player.getName())) {
             player.hideBossBar(bossBar);
             playerList.remove(player.getName());

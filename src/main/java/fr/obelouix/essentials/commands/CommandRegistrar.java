@@ -5,8 +5,6 @@ import fr.obelouix.essentials.i18n.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -92,22 +90,6 @@ public class CommandRegistrar {
     protected void wrongCommandUsage(CommandSender sender, Command command) {
         // final Player player = (Player) sender;
         sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
-    }
-
-    /**
-     * This method will test if a {@link Player} has the right to run a command
-     *
-     * @param player     {@link Player} who send a command
-     * @param permission the {@link Permission} to test on the player
-     * @return {@code true} by default
-     */
-    protected boolean testPermission(Player player, String permission) {
-        if (!player.hasPermission(permission)) {
-            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "no_permission"));
-            Essentials.getInstance().getLOGGER().info("Refused command to " + player.getName());
-            return false;
-        }
-        return true;
     }
 
 }
