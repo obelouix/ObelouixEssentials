@@ -41,5 +41,10 @@
       <option name="name" value="purpur-repo" />
       <option name="url" value="https://repo.pl3x.net/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="ProtocolLib" />
+      <option name="name" value="ProtocolLib" />
+      <option name="url" value="https://repo.dmulloy2.net/repository/public/" />
+    </remote-repository>
   </component>
 </project>
