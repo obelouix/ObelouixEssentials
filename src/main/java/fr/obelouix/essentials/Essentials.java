@@ -2,7 +2,6 @@ package fr.obelouix.essentials;
 
 import fr.obelouix.essentials.commands.CommandRegistrar;
 import fr.obelouix.essentials.event.EventRegistry;
-import fr.obelouix.essentials.i18n.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,11 +19,9 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        LOGGER.info(I18n.getInstance().getMessage("plugin_startup"));
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
-
     }
 
     @Override
@@ -36,12 +33,10 @@ public final class Essentials extends JavaPlugin {
     public Logger getLOGGER() {
         return LOGGER;
     }
-
     /**
      * @return instance of {@link Essentials} class
      */
     public static Essentials getInstance() {
         return instance;
     }
-
 }

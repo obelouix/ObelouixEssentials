@@ -74,7 +74,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
     public void lockInventory(InventoryClickEvent event) {
         final ItemStack itemStackClicked = event.getCurrentItem();
         final Player player = (Player) event.getWhoClicked();
-        if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))
+        if (frozenPlayers.size() > 0 && player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))
                 && (itemStackClicked != null)) {
             event.setCancelled(true);
             player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "state.frozen.deny.moveitem"));

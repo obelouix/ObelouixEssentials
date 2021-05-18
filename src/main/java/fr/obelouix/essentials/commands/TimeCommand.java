@@ -53,7 +53,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
                             worldHour = worldHour - 24;
                         }
 
-                        sender.sendMessage(MessageFormat.format(I18n.getInstance().getMessage("current_world_time"),
+                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "current_world_time"),
                                 format.format(worldHour) + "h" + format.format(worldMinute), world.getName()));
                     }
                 }

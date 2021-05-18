@@ -58,9 +58,4 @@ public class I18n {
 
         return playerMessages.getString(message);
     }
-
-    public String getMessage(String message){
-        return messages.getString(message);
-    }
-
 }

@@ -52,6 +52,7 @@ public class CommandRegistrar {
         if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {
             registerCommand("tpsbar", TPSBarCommand.class);
         }
+        registerCommand("workbench", new WorkbenchCommand());
     }
 
     /**
@@ -63,7 +64,6 @@ public class CommandRegistrar {
     private void registerCommand(String command, CommandExecutor executor) {
         Objects.requireNonNull(PluginInstance.getCommand(command)).setExecutor(executor);
         Objects.requireNonNull(PluginInstance.getCommand(command)).setTabCompleter((TabCompleter) executor);
-        Objects.requireNonNull(PluginInstance.getCommand(command)).setPermissionMessage(ChatColor.DARK_RED + I18n.getInstance().getMessage("no_permission"));
     }
 
     /**

@@ -47,7 +47,7 @@ public class NightSkip implements Listener {
         final Player player = event.getPlayer();
         if(percentageSleeping >= Essentials.getInstance().getConfig().getInt("player-sleep-percentage")){
             for (Player p: Bukkit.getOnlinePlayers()) {
-                p.sendMessage(I18n.getInstance().getMessage("message.everyone_is_sleeping"));
+                p.sendMessage(I18n.getInstance().sendTranslatedMessage(player, "message.everyone_is_sleeping"));
                 p.showBossBar(bossBar);
             }
             if(Objects.equals(Essentials.getInstance().getConfig().getString("type-of-skip"), "progressive")){
