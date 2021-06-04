@@ -1,0 +1,81 @@
+# +------------------------------------------------------+ #
+# |                        Global                        | #
+# +------------------------------------------------------+ #
+
+# ===================== DATA STORAGE ===================== #
+
+# Information needed to access the plugin database
+# Never share these information to people you don't trust
+
+# set this to SQLite if you want to use a local database file
+# or set it to MySQL if you want to connect to a remote database
+# Default is : SQLite
+database-type: "SQLite"
+
+# Only needed for MySQL
+mysql-address: "localhost"
+# Only needed for MySQL
+mysql-port: "3306"
+# Name of the local or remote database
+mysql-database: "ObelouixEssentials"
+# Only needed for MySQL
+mysql-user: "user"
+# Only needed for MySQL
+mysql-password: ""
+
+# ========================= CHAT ========================= #
+
+# if set, this will color the name of opped players in the chat.
+# use HEX color code here , default is : "#e60000" -> red
+op-color: "#e60000"
+
+# +------------------------------------------------------+ #
+# |                       Features                       | #
+# +------------------------------------------------------+ #
+
+# ==================== NIGHT SKIPPER ==================== #
+
+# enable this feature
+enable-night-skipping: true
+
+# percentage of player required to skip the night
+# players with the permission 'obelouix.nightskipping.exempt'
+# are excluded from the count
+player-sleep-percentage: 50
+
+# you can choose between 2 skip:
+# - progressive: skip the night by speeding it
+# - instant: instantly skip the night when the required percent of player is reached
+type-of-skip: progressive
+
+# show a message in hotbar
+chat-output: true
+
+# show the percentage of player sleeping on a bossbar
+bossbar: true
+
+# show the percentage of player sleeping upside the hotbar
+hotbar: true
+
+
+# ====================== LuckPerms ====================== #
+
+# THIS PART REQUIRE TO HAVE LUCKPERMS INSTALLED
+
+# NEVER SET IT TO true UNLESS YOU KNOW WHAT YOU'RE DOING
+auto-setup-admin-group: true
+admin-group: "admin"
+
+# when a player is sent to jail, change his group
+change-group-for-jailed-players: true
+jailed-group: "prisoner"
+
+# +------------------------------------------------------+ #
+# |                        Economy                       | #
+# +------------------------------------------------------+ #
+
+enable-economy-system: true
+economy-symbol: '$'
+# log every player's transactions
+log-transactions: true
+enable-jobs: true
