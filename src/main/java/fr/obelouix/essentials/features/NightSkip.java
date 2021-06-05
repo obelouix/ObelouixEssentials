@@ -30,13 +30,13 @@ public class NightSkip implements Listener {
                 playerList.add(player);
             }
 
-            for (Player p : Bukkit.getOnlinePlayers()) {
+            for (final Player p : Bukkit.getOnlinePlayers()) {
                 p.sendMessage("Sleeping");
             }
         }
         else{
             playerList.remove(player);
-            for (Player p: Bukkit.getOnlinePlayers()) {
+            for (final Player p: Bukkit.getOnlinePlayers()) {
                 p.sendMessage("No longer sleeping");
             }
         }

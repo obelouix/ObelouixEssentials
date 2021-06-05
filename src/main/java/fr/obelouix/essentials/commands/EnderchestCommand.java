@@ -43,16 +43,13 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
        final List<String> completion = new ArrayList<>();
-       if(args.length == 1){
-           if(sender.hasPermission("obelouix.enderchest.others")){
+       if(args.length == 1 && sender.hasPermission("obelouix.enderchest.others")){
                for (final Player player : Bukkit.getOnlinePlayers()) {
                    if(!player.getName().equals(sender.getName())){
                        completion.add(player.getName());
                    }
                }
            }
-       }
-
         return completion;
     }
 }

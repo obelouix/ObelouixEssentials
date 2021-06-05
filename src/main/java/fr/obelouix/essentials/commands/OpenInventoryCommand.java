@@ -26,7 +26,7 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
                 }
             } else if(args.length == 1){
                 if (IPermission.test(player, "obelouix.openinv.others")) {
-                    Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
+                    final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
                     if (target != null) {
                         player.openInventory(target.getInventory());
                     } else {
@@ -45,7 +45,7 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
         final List<String> completion = new ArrayList<>();
         if(args.length == 1){
             if(sender.hasPermission("obelouix.openinv.others")){
-                for (Player p: Bukkit.getOnlinePlayers()) {
+                for (final Player p: Bukkit.getOnlinePlayers()) {
                     if(!p.getName().equals(sender.getName())){
                         completion.add(p.getName());
                     }

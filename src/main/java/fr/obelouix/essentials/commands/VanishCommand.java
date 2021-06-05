@@ -19,15 +19,14 @@ import java.util.Objects;
 public class VanishCommand implements CommandExecutor, TabCompleter, Listener {
 
     private boolean isVanished = false;
-    private Player player;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (IPermission.test(sender, "obelouix.vanish") && sender instanceof Player) {
             PlayerConfig.load(Objects.requireNonNull(((Player) sender).getPlayer()));
-            player = (Player) sender;
-            for (Player otherPlayers : Bukkit.getOnlinePlayers()) {
+            Player player = (Player) sender;
+            for (final Player otherPlayers : Bukkit.getOnlinePlayers()) {
                 if (!PlayerConfig.get().getBoolean("vanished")) {
                     if (!isVanished) isVanished = true;
                 } else {

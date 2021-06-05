@@ -39,7 +39,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                         }
                     }
                 } else {
-                    for (PotionEffectType effectType : PotionEffectType.values()) {
+                    for (final PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[0].equalsIgnoreCase(effectType.getName())) {
                             sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "command.effect.sender.console.cant_apply"));
                         }
@@ -52,20 +52,16 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 int duration = 600;
                 int amplifier = 0;
 
-                if (args.length >= 3) {
-                    if (NumericValue.isNumeric(args[2])) {
+                if (args.length >= 3 && NumericValue.isNumeric(args[2])) {
                         duration = Integer.parseInt(args[2]);
-                    }
                 }
-                if (args.length == 4) {
-                    if (NumericValue.isNumeric(args[3])) {
+                if (args.length == 4 && NumericValue.isNumeric(args[3])) {
                         amplifier = Integer.parseInt(args[3]);
-                    }
                 }
 
                 if (target != null) {
                     if (args[1].equalsIgnoreCase("clear")) {
-                        for (PotionEffectType effectType : PotionEffectType.values()) {
+                        for (final PotionEffectType effectType : PotionEffectType.values()) {
                             if (target.hasPotionEffect(effectType)) {
                                 //don't remove effects if player is frozen
                                 if (FreezeCommand.getFrozenPlayers().get(FreezeCommand.getFrozenPlayers().indexOf(target.getName())) != null) {
@@ -77,7 +73,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                             }
                         }
                     }
-                    for (PotionEffectType effectType : PotionEffectType.values()) {
+                    for (final PotionEffectType effectType : PotionEffectType.values()) {
                         if (args[1].equalsIgnoreCase(effectType.getName())) {
                             target.addPotionEffect(effectType.createEffect(duration, amplifier));
                             sender.sendMessage(ChatColor.GREEN +

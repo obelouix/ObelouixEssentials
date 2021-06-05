@@ -12,19 +12,9 @@ import java.util.ResourceBundle;
 public class I18n {
 
     private static I18n instance;
-    private final String language = Locale.getDefault().getLanguage();
-    private final String country = Locale.getDefault().getCountry().toUpperCase(Locale.ROOT);
-    private final ResourceBundle messages;
     private ResourceBundle playerMessages;
 
     private I18n() {
-        if (ResourceBundle.getBundle("Messages_" + language + country) == null) {
-            Essentials.getInstance().getLOGGER().warning("No translation file found for locale " + language + country
-                    + ". Using enUS by default");
-            messages = ResourceBundle.getBundle("Messages_enUS");
-        } else {
-            messages = ResourceBundle.getBundle("Messages_" + language + country);
-        }
     }
 
     public static I18n getInstance(){

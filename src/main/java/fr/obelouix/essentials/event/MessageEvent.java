@@ -16,7 +16,7 @@ public class MessageEvent implements Listener {
 
     @EventHandler
     public void onPlayerSendMessage(AsyncChatEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if (player.isOp() && Objects.requireNonNull(pluginInstance.getConfig().getString("op-color")).length() > 0) {
             player.displayName(Component.text(player.getName())
                     .color(TextColor.color(Objects.requireNonNull(

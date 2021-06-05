@@ -17,7 +17,7 @@ public class NoonCommand implements CommandExecutor, TabCompleter {
         if(sender instanceof Player player){
             if (IPermission.test(player, "obelouix.time.noon")) {
                 player.getWorld().setTime(9000);
-                TimeCommand timeCommand = new TimeCommand();
+                final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 9000);
             }
         }
