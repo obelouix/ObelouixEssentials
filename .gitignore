@@ -151,4 +151,10 @@ gradle-app.setting
 **/build/
 **/server/
 
+### Paper Server ###
+run/
+
+### Other ###
+identifier.sqlite
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle,java,intellij
