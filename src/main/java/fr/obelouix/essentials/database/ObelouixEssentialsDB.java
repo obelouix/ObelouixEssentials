@@ -78,7 +78,7 @@ public class ObelouixEssentialsDB {
             SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'economy'('UUID' VARCHAR(36) PRIMARY KEY, 'money' REAL);");
         }
 
-        for (String SQL_COMMAND : SQL_COMMANDS){
+        for (final String SQL_COMMAND : SQL_COMMANDS){
             statement.execute(SQL_COMMAND);
         }
     }

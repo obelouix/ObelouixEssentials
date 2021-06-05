@@ -1,10 +1,5 @@
 package fr.obelouix.essentials.commands;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import com.comphenix.protocol.wrappers.PlayerInfoData;
-import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.files.PlayerConfig;
 import fr.obelouix.essentials.permissions.IPermission;
@@ -14,20 +9,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.server.ServerListPingEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class VanishCommand implements CommandExecutor, TabCompleter, Listener {
 
-    private final Essentials pluginInstance = Essentials.getInstance();
     private boolean isVanished = false;
     private Player player;
 

@@ -4,14 +4,10 @@ import fr.obelouix.essentials.Essentials;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import net.luckperms.api.model.group.Group;
-import net.luckperms.api.model.user.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
 
 public class MessageEvent implements Listener {
