@@ -66,7 +66,7 @@ public class ObelouixEssentialsDB {
     public String getString(@NotNull String SQLQuery) throws SQLException, ClassNotFoundException {
         connect();
         final Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SQLQuery);
+        final ResultSet resultSet = statement.executeQuery(SQLQuery);
         if (resultSet.next()) return  resultSet.getString(1);
         return "";
     }
