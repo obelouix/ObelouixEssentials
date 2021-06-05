@@ -26,24 +26,6 @@ public class MessageEvent implements Listener {
                     .color(TextColor.color(Objects.requireNonNull(
                             TextColor.fromHexString(Objects.requireNonNull(
                                     pluginInstance.getConfig().getString("op-color")))))));
-        } else {
-            if (pluginInstance.isLuckPermsEnabled()) {
-                User user = pluginInstance.getLuckPermsAPI().getUserManager().getUser(player.getUniqueId());
-                Collection<Group> inheritedGroups = Objects.requireNonNull(user).getInheritedGroups(user.getQueryOptions());
-                Collection<String> prefixes = new ArrayList<>();
-                Collection<String> suffixes = new ArrayList<>();
-
-                for (Group group : inheritedGroups) {
-                    prefixes.add(group.getCachedData().getMetaData().getPrefix());
-                    suffixes.add(group.getCachedData().getMetaData().getSuffix());
-                }
-                Component displayName = Component.text("");
-                for (String prefix : prefixes) {
-                    displayName.append(Component.text(prefix + " "));
-                }
-                player.displayName(displayName.append(Component.text(player.getName())));
-            }
         }
-    }
-
+        }
 }

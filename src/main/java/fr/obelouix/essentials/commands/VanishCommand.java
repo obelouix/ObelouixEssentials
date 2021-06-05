@@ -51,26 +51,6 @@ public class VanishCommand implements CommandExecutor, TabCompleter, Listener {
         return true;
     }
 
-    @EventHandler
-    private void modifyServerList(ServerListPingEvent event) {
-        if (pluginInstance.isProtocolLibLoaded() && isVanished) {
-            PacketContainer packetContainer = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
-            packetContainer.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.REMOVE_PLAYER);
-            PlayerInfoData playerInfoData = new PlayerInfoData(WrappedGameProfile.fromPlayer(player), 0,
-                    EnumWrappers.NativeGameMode.NOT_SET, null);
-            packetContainer.getPlayerInfoDataLists().write(0, Collections.singletonList(playerInfoData));
-            try {
-                for (Player others : Bukkit.getOnlinePlayers()) {
-                    if (IPermission.test(others, "obelouix.vanish.seevanished")) {
-                        pluginInstance.getProtocolManager().sendServerPacket(others, packetContainer);
-                    }
-                }
-            } catch (InvocationTargetException e) {
-                pluginInstance.getLOGGER().severe("Failed to send tab list remove packet!" + e);
-            }
-        }
-    }
-
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         return null;

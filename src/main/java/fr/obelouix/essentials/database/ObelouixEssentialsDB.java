@@ -1,6 +1,7 @@
 package fr.obelouix.essentials.database;
 
 import fr.obelouix.essentials.Essentials;
+import fr.obelouix.essentials.config.Config;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -8,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ObelouixEssentialsDB {
@@ -64,12 +67,20 @@ public class ObelouixEssentialsDB {
     }
 
     private void initDatabase() throws SQLException {
+        final List<String> SQL_COMMANDS = new ArrayList<>();
+        final Statement statement = connection.createStatement();
 
-        final String playerTable = "CREATE TABLE IF NOT EXISTS 'players' ('name' VARCHAR(16), 'UUID' VARCHAR(36), PRIMARY KEY ('UUID'));";
-        Statement statement = connection.createStatement();
-        statement.execute(playerTable);
-        final String connection_historyTable = "CREATE TABLE IF NOT EXISTS 'connection_history'('ID' INTEGER PRIMARY KEY AUTOINCREMENT,'UUID' VARCHAR(36), 'logon' DATETIME ,'logout' DATETIME);";
-        statement.execute(connection_historyTable);
+        SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'players' ('name' VARCHAR(16), 'UUID' VARCHAR(36), PRIMARY KEY ('UUID'));");
+        SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'connection_history'('ID' INTEGER PRIMARY KEY AUTOINCREMENT,'UUID' VARCHAR(36), 'logon' DATETIME ,'logout' DATETIME);");
+
+        System.out.println(Config.isEconomyEnabled);
+        if(Config.isEconomyEnabled){
+            SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'economy'('UUID' VARCHAR(36) PRIMARY KEY, 'money' REAL);");
+        }
+
+        for (String SQL_COMMAND : SQL_COMMANDS){
+            statement.execute(SQL_COMMAND);
+        }
     }
 
 }

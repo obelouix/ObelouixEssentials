@@ -74,8 +74,9 @@ jailed-group: "prisoner"
 # |                        Economy                       | #
 # +------------------------------------------------------+ #
 
-enable-economy-system: true
-economy-symbol: '$'
+economy:
+  enabled: true
+  symbol: '$'
 # log every player's transactions
 log-transactions: true
 enable-jobs: true

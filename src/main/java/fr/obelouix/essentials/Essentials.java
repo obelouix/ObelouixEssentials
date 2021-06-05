@@ -22,11 +22,6 @@ public final class Essentials extends JavaPlugin {
     private static Essentials instance;
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
-    private boolean isProtocolLibLoaded;
-    private ProtocolManager protocolManager;
-    private RegisteredServiceProvider<LuckPerms> luckPermsProvider;
-    private boolean isLuckPermsEnabled;
-    private LuckPerms luckPermsAPI;
 
     /**
      * @return instance of {@link Essentials} class
@@ -38,16 +33,6 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        isProtocolLibLoaded = isDepEnabled("ProtocolLib");
-        if (isProtocolLibLoaded) {
-            protocolManager = ProtocolLibrary.getProtocolManager();
-        }
-        isLuckPermsEnabled = isDepEnabled("LuckPerms");
-        if (isLuckPermsEnabled) {
-            luckPermsProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-            getLOGGER().info("LuckPerms found...");
-            luckPermsAPI = luckPermsProvider.getProvider();
-        }
 
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
@@ -83,21 +68,5 @@ public final class Essentials extends JavaPlugin {
             LOGGER.warning(plugin + " not detected. Some functionalities will not work.");
         }
         return true;
-    }
-
-    public boolean isProtocolLibLoaded() {
-        return isProtocolLibLoaded;
-    }
-
-    public ProtocolManager getProtocolManager() {
-        return protocolManager;
-    }
-
-    public boolean isLuckPermsEnabled() {
-        return isLuckPermsEnabled;
-    }
-
-    public LuckPerms getLuckPermsAPI() {
-        return luckPermsAPI;
     }
 }
