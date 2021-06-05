@@ -32,7 +32,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                         }
                     }
                     if (args[0].equalsIgnoreCase("clear")) {
-                        for (PotionEffectType effectType : PotionEffectType.values()) {
+                        for (final PotionEffectType effectType : PotionEffectType.values()) {
                             if (player.hasPotionEffect(effectType)) {
                                 player.removePotionEffect(effectType);
                             }
@@ -111,13 +111,13 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
             }
         }
         if (args.length == 2) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
                 if (args[0].equalsIgnoreCase(player.getName())) {
                     completion.add("clear");
                     break;
                 }
             }
-            for (PotionEffectType effect : PotionEffectType.values()) {
+            for (final PotionEffectType effect : PotionEffectType.values()) {
                 if (!args[0].equalsIgnoreCase(effect.getName())) {
                     completion.add(effect.getName().toLowerCase(Locale.ROOT));
                 } else {

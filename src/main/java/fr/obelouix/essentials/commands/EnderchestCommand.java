@@ -45,9 +45,9 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
        final List<String> completion = new ArrayList<>();
        if(args.length == 1){
            if(sender.hasPermission("obelouix.enderchest.others")){
-               for (Player p: Bukkit.getOnlinePlayers()) {
-                   if(!p.getName().equals(sender.getName())){
-                       completion.add(p.getName());
+               for (final Player player : Bukkit.getOnlinePlayers()) {
+                   if(!player.getName().equals(sender.getName())){
+                       completion.add(player.getName());
                    }
                }
            }

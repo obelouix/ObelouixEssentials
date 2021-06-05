@@ -78,10 +78,10 @@ public class CommandRegistrar {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
             bukkitCommandMap.setAccessible(true);
-            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
-            Constructor[] constructors = c.getDeclaredConstructors();
+            final CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            final Constructor[] constructors = c.getDeclaredConstructors();
             Constructor constructor = null;
-            for (Constructor value : constructors) {
+            for (final Constructor value : constructors) {
                 constructor = value;
                 if (constructor.getGenericParameterTypes().length == 0) break;
             }
