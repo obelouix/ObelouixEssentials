@@ -10,7 +10,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 
 public class PlayerJoin implements Listener {
@@ -31,6 +34,14 @@ public class PlayerJoin implements Listener {
                     "INSERT into connection_history(UUID,logon) \n"
                             + "SELECT '" + UUID + "','" + now + "'\n"
                             + "WHERE NOT EXISTS(SELECT uuid,logon from connection_history WHERE uuid='" + UUID + "' and logon = '" + now + "');");
+
+            final String ecoUUID = ObelouixEssentialsDB.getInstance().getString("SELECT uuid FROM economy WHERE uuid = '" + UUID + "';");
+            ObelouixEssentialsDB.getInstance().close();
+
+            if (ecoUUID.equals("") || LocalDate.ofInstant(Instant.ofEpochMilli(player.getFirstPlayed()), ZoneId.systemDefault()).equals(LocalDate.now())) {
+                ObelouixEssentialsDB.getInstance().executeQuery("INSERT INTO economy VALUES('" + UUID + "', 0.00);");
+            }
+
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
