@@ -62,7 +62,7 @@ public class EconomyCommand implements TabExecutor {
         }
         if (!UUID.equals("")) {
             try {
-                float SQLamount = Float.parseFloat(dbInstance.getString("SELECT money FROM economy WHERE uuid='" + UUID + '"'));
+                final float SQLamount = Float.parseFloat(dbInstance.getString("SELECT money FROM economy WHERE uuid='" + UUID + '"'));
                 if (operation.equals("give")) {
                     dbInstance.executeQuery("UPDATE economy SET money=money+" + amount + " WHERE uuid = '" + UUID + "'");
                 } else if (operation.equals("set")) {
