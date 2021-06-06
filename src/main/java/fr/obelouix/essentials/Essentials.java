@@ -5,6 +5,7 @@ import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.event.Level;
 
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -29,7 +30,6 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();

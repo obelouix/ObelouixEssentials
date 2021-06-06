@@ -19,6 +19,10 @@ commands:
     permission: obelouix.money
     aliases:
       - balance
+  eco:
+    description: manage the money of a player
+    usage: /eco <give|set|remove>
+    permission: obelouix.commands.eco
   time:
     description: get or set the time of a world
     usage: /time
@@ -118,3 +122,5 @@ permissions:
     default: op
     children:
       - obelouix.vanish.seevanished
+  obelouix.commands.eco:
+    default: op
