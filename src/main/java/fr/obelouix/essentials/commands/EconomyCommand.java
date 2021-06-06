@@ -82,7 +82,7 @@ public class EconomyCommand implements TabExecutor {
                 completion.add("remove");
             }
             else if(args.length == 2){
-                for (Player player: Bukkit.getOnlinePlayers()){
+                for (final Player player: Bukkit.getOnlinePlayers()){
                     completion.add(player.getName());
                 }
             } else if(args.length == 3){
