@@ -11,5 +11,6 @@ public class Config {
      * Get the status of the economy system (if it is enabled or not)
      */
     public static final boolean isEconomyEnabled = Essentials.getInstance().getConfig().getBoolean("economy.enabled");
+    public static final boolean allowNegativeBalance = Essentials.getInstance().getConfig().getBoolean("economy.allow-negative-balance");
 
 }
