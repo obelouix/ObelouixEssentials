@@ -78,12 +78,22 @@ public class ObelouixEssentialsDB {
         SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'players' ('name' VARCHAR(16), 'UUID' VARCHAR(36), PRIMARY KEY ('UUID'));");
         SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'connection_history'('ID' INTEGER PRIMARY KEY AUTOINCREMENT,'UUID' VARCHAR(36), 'logon' DATETIME ,'logout' DATETIME);");
 
-        if(Config.isEconomyEnabled){
+        if (Config.isEconomyEnabled) {
             SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'economy'('UUID' VARCHAR(36) PRIMARY KEY, 'money' NUMERIC(14,2));");
         }
 
-        for (final String SQL_COMMAND : SQL_COMMANDS){
+        for (final String SQL_COMMAND : SQL_COMMANDS) {
             statement.execute(SQL_COMMAND);
+        }
+    }
+
+    /**
+     * CALL THIS METHOD ONLY IN onDisable() Method
+     */
+    public void closeOnServerReload() throws SQLException {
+        if (!connection.isClosed() && Essentials.getInstance().isReloading()) {
+            Essentials.getInstance().getLOGGER().info("Closing database connection because it is not...");
+            connection.close();
         }
     }
 
