@@ -29,6 +29,9 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        if (!Bukkit.getServer().getOnlineMode()) {
+            LOGGER.severe("The server is in INSECURE MODE. Don't ask for support if you have any problem");
+        }
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
