@@ -14,7 +14,7 @@ public class CommandPreprocessorEvent implements Listener {
 
     @EventHandler
     public void preprocessPlayerCommand(PlayerCommandPreprocessEvent event) {
-        String message = event.getMessage().toLowerCase(Locale.ROOT);
+        final String message = event.getMessage().toLowerCase(Locale.ROOT);
         /* if a player with the permission of reloading the server run this command
            he will be shown this message to ask him to not reload to avoid problems */
         if (message.startsWith("/reload") && event.getPlayer().hasPermission("bukkit.command.reload")) {
