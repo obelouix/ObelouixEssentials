@@ -62,21 +62,44 @@ public class EconomyCommand implements TabExecutor {
         }
         if (!UUID.equals("")) {
             try {
-                final float SQLamount = Float.parseFloat(dbInstance.getString("SELECT money FROM economy WHERE uuid='" + UUID + '"'));
                 if (operation.equals("give")) {
-                    dbInstance.executeQuery("UPDATE economy SET money=money+" + amount + " WHERE uuid = '" + UUID + "'");
+                    dbInstance.update("UPDATE economy SET money=money+" + amount + " WHERE uuid = '" + UUID + "'");
+
+                    sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
+                            "obelouix.commands.eco.give"),
+                            ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol + ChatColor.GREEN,
+                            ChatColor.AQUA + target));
+
                 } else if (operation.equals("set")) {
                     if (Config.allowNegativeBalance && amount < 0) {
-                        dbInstance.executeQuery("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
+                        dbInstance.update("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
+
+                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
+                                "obelouix.commands.eco.set"),
+                                ChatColor.AQUA + target + ChatColor.GREEN,
+                                ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol));
+
                     } else if (amount < 0) {
+
                         sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender,
                                 "obelouix.commands.eco.negative_balance_not_allowed"));
+
                     } else {
-                        dbInstance.executeQuery("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
+                        dbInstance.update("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
+
+                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
+                                "obelouix.commands.eco.set"),
+                                ChatColor.AQUA + target + ChatColor.GREEN,
+                                ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol));
                     }
                     //this part is for the remove argument
                 } else {
-                    dbInstance.executeQuery("UPDATE economy SET money=money-" + amount + " WHERE uuid = '" + UUID + "'");
+                    dbInstance.update("UPDATE economy SET money=money-" + amount + " WHERE uuid = '" + UUID + "'");
+
+                    sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
+                            "obelouix.commands.eco.remove"),
+                            ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol + ChatColor.GREEN,
+                            ChatColor.AQUA + target));
                 }
             } catch (SQLException | ClassNotFoundException throwables) {
                 throwables.printStackTrace();

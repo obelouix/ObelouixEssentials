@@ -63,11 +63,17 @@ public class ObelouixEssentialsDB {
         close();
     }
 
+    public void update(String SQL) throws SQLException, ClassNotFoundException {
+        connect();
+        final Statement statement = connection.createStatement();
+        statement.executeUpdate(SQL);
+    }
+
     public String getString(@NotNull String SQLQuery) throws SQLException, ClassNotFoundException {
         connect();
         final Statement statement = connection.createStatement();
         final ResultSet resultSet = statement.executeQuery(SQLQuery);
-        if (resultSet.next()) return  resultSet.getString(1);
+        if (resultSet.next()) return resultSet.getString(1);
         return "";
     }
 
