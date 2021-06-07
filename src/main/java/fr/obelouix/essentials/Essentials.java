@@ -1,6 +1,7 @@
 package fr.obelouix.essentials;
 
 import fr.obelouix.essentials.commands.CommandRegistrar;
+import fr.obelouix.essentials.database.ItemPriceDatabase;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
@@ -41,6 +42,8 @@ public final class Essentials extends JavaPlugin {
         try {
             dbInstance.connect();
             dbInstance.close();
+            ItemPriceDatabase itemPriceDatabase = new ItemPriceDatabase();
+            itemPriceDatabase.setup();
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }

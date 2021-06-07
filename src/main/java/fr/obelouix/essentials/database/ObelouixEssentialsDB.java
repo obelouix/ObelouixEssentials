@@ -86,6 +86,7 @@ public class ObelouixEssentialsDB {
 
         if (Config.isEconomyEnabled) {
             SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'economy'('UUID' VARCHAR(36) PRIMARY KEY, 'money' NUMERIC(14,2));");
+            SQL_COMMANDS.add("CREATE TABLE IF NOT EXISTS 'item_price'('item' VARCHAR(100) PRIMARY KEY, 'value' NUMERIC(14,2));");
         }
 
         for (final String SQL_COMMAND : SQL_COMMANDS) {
@@ -97,7 +98,7 @@ public class ObelouixEssentialsDB {
      * CALL THIS METHOD ONLY IN onDisable() Method
      */
     public void closeOnServerReload() throws SQLException {
-        if (!connection.isClosed() && Essentials.getInstance().isReloading()) {
+        if (!connection.isClosed() && Essentials.getInstance().isReloading() && connection != null) {
             Essentials.getInstance().getLOGGER().info("Closing database connection because it is not...");
             connection.close();
         }
