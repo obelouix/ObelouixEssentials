@@ -22,6 +22,7 @@ public class EventRegistry {
     }
 
     public void init() {
+        registerEvent(new CommandPreprocessorEvent());
         registerEvent(new PlayerJoin());
         registerEvent(new FreezeCommand());
         if (Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")) {
