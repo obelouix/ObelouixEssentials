@@ -1,7 +1,6 @@
 package fr.obelouix.essentials.database;
 
 import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
 
 import java.sql.SQLException;
 import java.util.Locale;
@@ -9,11 +8,10 @@ import java.util.Locale;
 public class ItemPriceDatabase {
 
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
-    private BlockData blockData;
 
     public void setup() {
 
-        for (Material material : Material.values()) {
+        for (final Material material : Material.values()) {
             if (!material.isAir() || !material.isEmpty()) {
                 try {
                     if (material.isBlock()) {

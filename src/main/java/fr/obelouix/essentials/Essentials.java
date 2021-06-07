@@ -42,7 +42,7 @@ public final class Essentials extends JavaPlugin {
         try {
             dbInstance.connect();
             dbInstance.close();
-            ItemPriceDatabase itemPriceDatabase = new ItemPriceDatabase();
+            final ItemPriceDatabase itemPriceDatabase = new ItemPriceDatabase();
             itemPriceDatabase.setup();
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
