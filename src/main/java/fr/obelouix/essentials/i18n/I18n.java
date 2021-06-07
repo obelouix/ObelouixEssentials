@@ -1,18 +1,15 @@
 package fr.obelouix.essentials.i18n;
 
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.files.PlayerConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class I18n {
 
     private static I18n instance;
-    private ResourceBundle playerMessages;
 
     private I18n() {
     }
@@ -32,6 +29,7 @@ public class I18n {
      * @return the @param message
      */
     public String sendTranslatedMessage(CommandSender commandSender, String message) {
+        ResourceBundle playerMessages;
         if (commandSender instanceof Player) {
             PlayerConfig.load((Player) commandSender);
             final String playerLocale = Objects.requireNonNull(PlayerConfig.get().getString("locale")).replace("_", "");
