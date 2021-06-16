@@ -1,18 +1,15 @@
 package fr.obelouix.essentials.i18n;
 
-import fr.obelouix.essentials.Essentials;
-import fr.obelouix.essentials.files.PlayerConfig;
+import fr.obelouix.essentials.data.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Locale;
-import java.util.Objects;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class I18n {
 
     private static I18n instance;
-    private ResourceBundle playerMessages;
 
     private I18n() {
     }
@@ -32,20 +29,21 @@ public class I18n {
      * @return the @param message
      */
     public String sendTranslatedMessage(CommandSender commandSender, String message) {
+        final PlayerData playerData = new PlayerData();
+        ResourceBundle playerMessages;
         if (commandSender instanceof Player) {
-            PlayerConfig.load((Player) commandSender);
-            final String playerLocale = Objects.requireNonNull(PlayerConfig.get().getString("locale")).replace("_", "");
-            if (ResourceBundle.getBundle("Messages_" + playerLocale) == null) {
-                //if the plugin doesn't have translations for the player's locale use the default one
-                playerMessages = ResourceBundle.getBundle("Messages_enUS");
-
-            } else {
-                playerMessages = ResourceBundle.getBundle("Messages_" + playerLocale);
+            try {
+                final String playerLocale = "messages_" + playerData.getPlayerLocale();
+                playerMessages = ResourceBundle.getBundle(playerLocale);
+            } catch (MissingResourceException e) {
+                playerMessages = ResourceBundle.getBundle("messages_en_US");
             }
+
         } else {
-            playerMessages = ResourceBundle.getBundle("Messages_enUS");
+            playerMessages = ResourceBundle.getBundle("messages_en_US");
         }
 
         return playerMessages.getString(message);
     }
 }
+

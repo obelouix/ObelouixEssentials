@@ -4,6 +4,8 @@ import fr.obelouix.essentials.i18n.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public interface IPlayer {
 
@@ -14,6 +16,15 @@ public interface IPlayer {
             return false;
         }
         return true;
+    }
+
+    /**
+     * This method allow to get the client locale of a player
+     *
+     * @return the locale of the player
+     */
+    static String getPlayerLocaleString(@NotNull Player player) {
+        return player.locale().toString();
     }
 
 }

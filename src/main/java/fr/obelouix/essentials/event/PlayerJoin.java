@@ -1,20 +1,17 @@
 package fr.obelouix.essentials.event;
 
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.files.PlayerConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Objects;
 
 public class PlayerJoin implements Listener {
 
@@ -47,20 +44,21 @@ public class PlayerJoin implements Listener {
         }
         PlayerConfig.create(player);
 
+/*
         //Use a Runnable to get the player locale that will run once, when player join the server
         final BukkitRunnable task = new BukkitRunnable() {
             @Override
             public void run() {
-                if (!Objects.equals(PlayerConfig.get().getString("locale"), player.locale().toString())) {
+                if (!Objects.equals(PlayerConfig.get().getString("locale"), IPlayer.getPlayerLocaleString(player))) {
                     //registering player locale in his file
                     PlayerConfig.load(player);
-                    PlayerConfig.get().set("locale", player.locale().toString());
+                    PlayerConfig.get().set("locale", IPlayer.getPlayerLocaleString(player));
                     PlayerConfig.save();
                 }
             }
         };
-
         task.runTaskLater(Essentials.getInstance(), 10L);
+*/
         PlayerConfig.get().set("vanished", false);
         PlayerConfig.save();
     }

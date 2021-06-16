@@ -4,6 +4,7 @@ import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.commands.FreezeCommand;
 import fr.obelouix.essentials.commands.TPSBarCommand;
 import fr.obelouix.essentials.commands.VanishCommand;
+import fr.obelouix.essentials.data.PlayerData;
 import fr.obelouix.essentials.features.NightSkip;
 import org.bukkit.event.Listener;
 
@@ -23,6 +24,7 @@ public class EventRegistry {
 
     public void init() {
         registerEvent(new PlayerJoin());
+        registerEvent(new PlayerData());
         registerEvent(new FreezeCommand());
         if (Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")) {
             registerEvent(new NightSkip());
