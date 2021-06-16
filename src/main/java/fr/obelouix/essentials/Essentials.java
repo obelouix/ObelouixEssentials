@@ -1,7 +1,6 @@
 package fr.obelouix.essentials;
 
 import fr.obelouix.essentials.commands.CommandRegistrar;
-import fr.obelouix.essentials.database.ItemPriceDatabase;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
@@ -35,6 +34,7 @@ public final class Essentials extends JavaPlugin {
         if (!Bukkit.getServer().getOnlineMode()) {
             LOGGER.severe("The server is in INSECURE MODE. Don't ask for support if you have any problem");
         }
+
         this.saveDefaultConfig();
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
@@ -42,8 +42,8 @@ public final class Essentials extends JavaPlugin {
         try {
             dbInstance.connect();
             dbInstance.close();
-            final ItemPriceDatabase itemPriceDatabase = new ItemPriceDatabase();
-            itemPriceDatabase.setup();
+/*            final ItemPriceDatabase itemPriceDatabase = new ItemPriceDatabase();
+            itemPriceDatabase.setup();*/
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }

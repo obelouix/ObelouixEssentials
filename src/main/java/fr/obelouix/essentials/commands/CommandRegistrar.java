@@ -49,6 +49,7 @@ public class CommandRegistrar {
         registerCommand("vanish", new VanishCommand());
         registerCommand("clearchat", new ClearChatCommand());
         registerCommand("eco", new EconomyCommand());
+        registerCommand("fly", new FlyCommand());
 
         //add the Pupur TPS bar if not using Pupur
         if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {

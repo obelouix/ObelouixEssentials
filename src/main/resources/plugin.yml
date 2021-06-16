@@ -88,6 +88,10 @@ commands:
     description: get your ping
     permission: obelouix.command.ping
     usage: /ping [player]
+  fly:
+    description: enable/disable your (or others) fly mode
+    usage: /fly [player]
+    permission: obelouix.commands.fly
 permissions:
   obelouix.gamemode:
     default: op
