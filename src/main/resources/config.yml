@@ -77,6 +77,8 @@ jailed-group: "prisoner"
 economy:
   enabled: true
   symbol: '$'
+  #Allow player to have a negative amount of money
+  allow-negative-balance: false
 # log every player's transactions
 log-transactions: true
 enable-jobs: true

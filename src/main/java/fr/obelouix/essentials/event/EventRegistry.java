@@ -23,6 +23,7 @@ public class EventRegistry {
     }
 
     public void init() {
+        registerEvent(new CommandPreprocessorEvent());
         registerEvent(new PlayerJoin());
         registerEvent(new PlayerData());
         registerEvent(new FreezeCommand());

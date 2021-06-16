@@ -5,6 +5,7 @@ import fr.obelouix.essentials.i18n.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -63,7 +64,7 @@ public class CommandRegistrar {
      * @param command  the command string
      * @param executor class executor of the command
      */
-    private void registerCommand(String command, CommandExecutor executor) {
+    private void registerCommand(@NotNull String command, @NotNull CommandExecutor executor) {
         Objects.requireNonNull(PluginInstance.getCommand(command)).setExecutor(executor);
         Objects.requireNonNull(PluginInstance.getCommand(command)).setTabCompleter((TabCompleter) executor);
     }
@@ -74,7 +75,7 @@ public class CommandRegistrar {
      * @param command command name
      * @param c       class of the command
      */
-    private void registerCommand(String command, Class c) {
+    private void registerCommand(@NotNull String command, @NotNull Class c) {
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
@@ -95,7 +96,7 @@ public class CommandRegistrar {
         }
     }
 
-    protected void wrongCommandUsage(CommandSender sender, Command command) {
+    protected void wrongCommandUsage(@NotNull CommandSender sender, @NotNull Command command) {
         sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
     }
 }

@@ -32,16 +32,25 @@ repositories {
         url = 'https://repo.dmulloy2.net/repository/public/'
     }
 
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven/'
+    }
+
 }
 
 dependencies {
-    implementation("com.google.inject:guice:5.0.1")
+
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'io.papermc:paperlib:1.0.6'
     compileOnly 'net.luckperms:api:5.3'
-    compileOnly 'com.comphenix.protocol:ProtocolLib:4.6.1-SNAPSHOT'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0-SNAPSHOT'
+    implementation 'org.spongepowered:configurate-core:4.1.1"'
+    implementation 'org.spongepowered:configurate-yaml:4.1.1'
+
+    //test dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
 test {
