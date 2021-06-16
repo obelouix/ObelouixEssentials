@@ -22,16 +22,16 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             if (IPermission.test(sender, "obelouix.commands.fly")) {
-                String target = args[0];
+                final String target = args[0];
                 if (IPlayer.isOnline(target, sender)) {
-                    boolean allowFlight = Objects.requireNonNull(Bukkit.getPlayer(target)).getAllowFlight();
+                    final boolean allowFlight = Objects.requireNonNull(Bukkit.getPlayer(target)).getAllowFlight();
                     Objects.requireNonNull(Bukkit.getPlayer(target)).setAllowFlight(!allowFlight);
 
                 }
             }
         } else if (args.length == 0) {
             if (sender instanceof Player player) {
-                boolean allowFlight = player.getAllowFlight();
+                final boolean allowFlight = player.getAllowFlight();
                 player.setAllowFlight(!allowFlight);
                 sendFlyMessage(sender, !allowFlight);
             }
@@ -58,9 +58,9 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        List<String> playerCollection = new ArrayList<>();
+        final List<String> playerCollection = new ArrayList<>();
         if (args.length == 1) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
                 playerCollection.add(player.getName());
             }
         }
