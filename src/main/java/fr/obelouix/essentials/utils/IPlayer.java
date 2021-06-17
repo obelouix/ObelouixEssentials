@@ -11,8 +11,9 @@ public interface IPlayer {
 
     static boolean isOnline(String playerName, CommandSender sender) {
         if (Bukkit.getPlayer(playerName) == null) {
-            sender.sendMessage(ChatColor.GOLD + playerName + " "
-                    + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "player_not_online"));
+            if (!playerName.equals("*"))
+                sender.sendMessage(ChatColor.GOLD + playerName + " "
+                        + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "player_not_online"));
             return false;
         }
         return true;
