@@ -9,52 +9,63 @@ softdepend:
   - ProtocolLib
   - LuckPerms
 commands:
+  clearchat:
+    description: clear the chat history
+    permission: obelouix.clearchat
+  day:
+    description: set the day in a world
+    usage: /day
+    permission: obelouix.time.day
+  eco:
+    description: manage the money of a player
+    usage: /eco <give|set|remove>
+    permission: obelouix.commands.eco
+  effect:
+    description: give a potion effect to a player
+    usage: /effect [player] <effect> [duration] [amplifier]
+    permission: obelouix.effect
+  enderchest:
+    description: open your or someone else enderchest
+    usage: /enderchest [player]
+    permission: obelouix.enderchest
+  fly:
+    description: enable/disable your (or others) fly mode
+    usage: /fly [player]
+    permission: obelouix.commands.fly
+  freeze:
+    description: freeze a player
+    usage: /freeze <player>
+    permission: obelouix.freeze
   gamemode:
     description: get or set the gamemode of a player
     usage: /gamemode [player] [survival|0|creative|1|adventure|2|spectator|3]
     permission: obelouix.gamemode
+  midday:
+    description: set the time to midday in a world
+    usage: /midday
+    permission: obelouix.time.midday
+  midnight:
+    description: set the time to midnight in a world
+    usage: /midnight
+    permission: obelouix.time.midnight
+  morning:
+    description: set the time to morning in a world
+    usage: /morning
+    permission: obelouix.time.morning
   money:
     description: Show your bank account
     usage: /money
     permission: obelouix.money
     aliases:
       - balance
-  eco:
-    description: manage the money of a player
-    usage: /eco <give|set|remove>
-    permission: obelouix.commands.eco
-  time:
-    description: get or set the time of a world
-    usage: /time
-    permission: obelouix.time
-  day:
-    description: set the day in a world
-    usage: /day
-    permission: obelouix.time.day
   night:
     description: set the night in a world
     usage: /night
     permission: obelouix.time.night
-  morning:
-    description: set the time to morning in a world
-    usage: /morning
-    permission: obelouix.time.morning
-  midday:
-    description: set the time to midday in a world
-    usage: /midday
-    permission: obelouix.time.midday
   noon:
     description: set the time to noon in a world
     usage: /noon
     permission: obelouix.time.noon
-  midnight:
-    description: set the time to midnight in a world
-    usage: /midnight
-    permission: obelouix.time.midnight
-  enderchest:
-    description: open your or someone else enderchest
-    usage: /enderchest [player]
-    permission: obelouix.enderchest
   openinv:
     description: open your or someone else inventory
     usage: /openinv [player]
@@ -62,20 +73,17 @@ commands:
       - invsee
       - oinv
     permission: obelouix.openinv
-  freeze:
-    description: freeze a player
-    usage: /freeze <player>
-    permission: obelouix.freeze
-  effect:
-    description: give a potion effect to a player
-    usage: /effect [player] <effect> [duration] [amplifier]
-    permission: obelouix.effect
+  ping:
+    description: get your ping
+    permission: obelouix.command.ping
+    usage: /ping [player]
+  time:
+    description: get or set the time of a world
+    usage: /time
+    permission: obelouix.time
   vanish:
     description: hide yourself from other players
     permission: obelouix.vanish
-  clearchat:
-    description: clear the chat history
-    permission: obelouix.clearchat
   workbench:
     description: open a crafting table interface
     permission: obelouix.command.workbench
@@ -84,17 +92,8 @@ commands:
       - craft
       - craftingtable
       - wb
-  ping:
-    description: get your ping
-    permission: obelouix.command.ping
-    usage: /ping [player]
-  fly:
-    description: enable/disable your (or others) fly mode
-    usage: /fly [player]
-    permission: obelouix.commands.fly
+
 permissions:
-  obelouix.gamemode:
-    default: op
   obelouix.*:
     default: op
     description: Give players with op everything by default
@@ -102,14 +101,10 @@ permissions:
       obelouix.time.*: true
       obelouix.enderchest.*: true
       obelouix.openinv.*: true
-  obelouix.time.*:
+  obelouix.gamemode:
     default: op
-    children:
-      - obelouix.time.day
-      - obelouix.time.morning
-      - obelouix.time.midday
-      - obelouix.time.noon
-      - obelouix.time.midnight
+  obelouix.commands.eco:
+    default: op
   obelouix.enderchest:
     default: op
     children:
@@ -118,17 +113,23 @@ permissions:
     default: op
     children:
       - obelouix.commands.fly.others
-  obelouix.inventory:
-    default: op
-    children:
-      - obelouix.openinv.others
   obelouix.freeze:
     default: op
     children:
       - obelouix.freeze.exempt
+  obelouix.inventory:
+    default: op
+    children:
+      - obelouix.openinv.others
+  obelouix.time.*:
+    default: op
+    children:
+      - obelouix.time.day
+      - obelouix.time.morning
+      - obelouix.time.midday
+      - obelouix.time.noon
+      - obelouix.time.midnight
   obelouix.vanish:
     default: op
     children:
       - obelouix.vanish.seevanished
-  obelouix.commands.eco:
-    default: op
