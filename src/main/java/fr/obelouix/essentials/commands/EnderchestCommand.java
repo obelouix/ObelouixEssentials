@@ -21,11 +21,11 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
             if(args.length == 0){
-                if (IPermission.test(player, "obelouix.enderchest")) {
+                if (IPermission.test(player, "obelouix.commands.enderchest")) {
                     player.openInventory(player.getEnderChest());
                 }
             } else if(args.length == 1){
-                if (IPermission.test(player, "obelouix.enderchest.others")) {
+                if (IPermission.test(player, "obelouix.commands.enderchest.others")) {
                     final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
                     if (target != null) {
                         player.openInventory(target.getEnderChest());
@@ -43,13 +43,13 @@ public class EnderchestCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
        final List<String> completion = new ArrayList<>();
-       if(args.length == 1 && sender.hasPermission("obelouix.enderchest.others")){
-               for (final Player player : Bukkit.getOnlinePlayers()) {
-                   if(!player.getName().equals(sender.getName())){
-                       completion.add(player.getName());
-                   }
-               }
-           }
+        if (args.length == 1 && sender.hasPermission("obelouix.commands.enderchest.others")) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
+                if (!player.getName().equals(sender.getName())) {
+                    completion.add(player.getName());
+                }
+            }
+        }
         return completion;
     }
 }

@@ -15,7 +15,7 @@ public class DayCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if (IPermission.test(player, "obelouix.time.day")) {
+            if (IPermission.test(player, "obelouix.commands.time.day")) {
                 player.getWorld().setTime(0);
                 final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 0);

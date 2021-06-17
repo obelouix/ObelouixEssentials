@@ -15,7 +15,7 @@ public class MidnightCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if (IPermission.test(player, "obelouix.time.midnight")) {
+            if (IPermission.test(player, "obelouix.commands.time.midnight")) {
                 player.getWorld().setTime(18000);
                 final TimeCommand timeCommand = new TimeCommand();
                 timeCommand.sendPlayerTimeMessage(player, 18000);

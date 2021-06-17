@@ -23,7 +23,7 @@ import java.util.Locale;
 public class EffectCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (IPermission.test(sender, "obelouix.effects")) {
+        if (IPermission.test(sender, "obelouix.commands.effect")) {
             if (args.length == 1) {
                 if (sender instanceof Player player) {
                     for (final PotionEffectType effectType : PotionEffectType.values()) {
@@ -100,7 +100,7 @@ public class EffectCommand implements CommandExecutor, TabCompleter {
                 completion.add(effect.getName().toLowerCase(Locale.ROOT));
             }
 
-            if (sender.hasPermission("obelouix.effects.others")) {
+            if (sender.hasPermission("obelouix.commands.effect.others")) {
                 for (final Player player : Bukkit.getOnlinePlayers()) {
                     completion.add(player.getName());
                 }

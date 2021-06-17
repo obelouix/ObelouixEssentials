@@ -29,7 +29,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         if (args.length > 0 && args.length < 3) {
             final Player target = getServer().getPlayer(args[0]);
             if (args.length == 1) {
-                if (IPermission.test(sender, "obelouix.gamemode")) {
+                if (IPermission.test(sender, "obelouix.commands.gamemode")) {
 
                     if (target == null) {
 

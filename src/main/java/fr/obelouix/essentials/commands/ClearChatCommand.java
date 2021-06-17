@@ -18,7 +18,7 @@ public class ClearChatCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (IPermission.test(player, "obelouix.clearchat")) {
+            if (IPermission.test(player, "obelouix.commands.clearchat")) {
                 for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     for (int lineNumber = 0; lineNumber < 100; lineNumber++) {
                         if (lineNumber == 92 || lineNumber == 98) {

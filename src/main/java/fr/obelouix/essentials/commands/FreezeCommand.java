@@ -146,7 +146,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (IPermission.test(sender, "obelouix.freeze")) {
+        if (IPermission.test(sender, "obelouix.commands.freeze")) {
             if (args.length == 1) {
                 final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
 
@@ -221,7 +221,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         final List<String> completion = new ArrayList<>();
         completion.add("list");
 
-        if (sender.hasPermission("obelouix.freeze")) {
+        if (sender.hasPermission("obelouix.commands.freeze")) {
             for (final Player player : Bukkit.getOnlinePlayers()) {
                 //only add players who can be frozen in the completion list
                 if (!player.hasPermission("obelouix.freeze.exempt")) completion.add(player.getName());

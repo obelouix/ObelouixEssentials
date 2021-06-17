@@ -37,7 +37,7 @@ public class TPSBarCommand extends Command implements Listener {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (IPermission.test(player, "obelouix.tpsbar")) {
+            if (IPermission.test(player, "obelouix.commands.tpsbar")) {
                 if (!playerList.contains(player.getName())) {
                     updateBar().runTaskTimer(Essentials.getInstance(), 0, 20L);
                     player.showBossBar(bossBar);

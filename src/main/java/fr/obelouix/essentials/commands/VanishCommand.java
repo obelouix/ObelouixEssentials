@@ -23,7 +23,7 @@ public class VanishCommand implements CommandExecutor, TabCompleter, Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (IPermission.test(sender, "obelouix.vanish") && sender instanceof Player) {
+        if (IPermission.test(sender, "obelouix.commands.vanish") && sender instanceof Player) {
             PlayerConfig.load(Objects.requireNonNull(((Player) sender).getPlayer()));
             Player player = (Player) sender;
             for (final Player otherPlayers : Bukkit.getOnlinePlayers()) {

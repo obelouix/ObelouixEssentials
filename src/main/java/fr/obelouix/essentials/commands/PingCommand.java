@@ -56,7 +56,7 @@ public class PingCommand implements CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         final List<String> completion = new ArrayList<>();
-        if (IPermission.test(sender, "obelouix.command.ping.other") && args.length == 1) {
+        if (IPermission.test(sender, "obelouix.commands.ping.others") && args.length == 1) {
             for (final Player player : Bukkit.getOnlinePlayers()) {
                 if (!player.getName().equals(sender.getName())) {
                     completion.add(player.getName());

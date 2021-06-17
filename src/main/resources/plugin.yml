@@ -101,35 +101,49 @@ permissions:
       obelouix.time.*: true
       obelouix.enderchest.*: true
       obelouix.openinv.*: true
-  obelouix.gamemode:
+  obelouix.commands.clearchat:
     default: op
   obelouix.commands.eco:
     default: op
-  obelouix.enderchest:
+  obelouix.commands.effect:
     default: op
     children:
-      - obelouix.enderchest.others
+      - obelouix.commands.effect.others
+  obelouix.commands.enderchest:
+    default: op
+    children:
+      - obelouix.commands.enderchest.others
   obelouix.commands.fly:
     default: op
     children:
       - obelouix.commands.fly.others
-  obelouix.freeze:
+  obelouix.commands.freeze:
     default: op
     children:
       - obelouix.freeze.exempt
-  obelouix.inventory:
+  obelouix.commands.gamemode:
     default: op
     children:
-      - obelouix.openinv.others
-  obelouix.time.*:
+      - obelouix.gamemmode.notify
+  obelouix.commands.openinv:
     default: op
     children:
-      - obelouix.time.day
-      - obelouix.time.morning
-      - obelouix.time.midday
-      - obelouix.time.noon
-      - obelouix.time.midnight
-  obelouix.vanish:
+      - obelouix.commands.openinv.others
+  obelouix.commands.ping.others:
+    default: op
+  obelouix.commands.time.*:
+    default: op
+    children:
+      - obelouix.commands.time.day
+      - obelouix.commands.time.morning
+      - obelouix.commands.time.midday
+      - obelouix.commands.time.noon
+      - obelouix.commands.time.midnight
+  obelouix.commands.vanish:
     default: op
     children:
       - obelouix.vanish.seevanished
+  obelouix.commands.tpsbar:
+    default: op
+  obelouix.commands.workbench:
+    default: op

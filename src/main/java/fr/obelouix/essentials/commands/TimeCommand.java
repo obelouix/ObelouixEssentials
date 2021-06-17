@@ -29,7 +29,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (IPermission.test(sender, "obelouix.time")) {
+        if (IPermission.test(sender, "obelouix.commands.time")) {
 
             if (args.length == 0) {
                 if (sender instanceof Player player) {
@@ -60,32 +60,32 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
             } else if (args.length == 1) {
                 final Player player = (Player) sender;
                 if (args[0].equalsIgnoreCase("day")) {
-                    if (IPermission.test(player, "obelouix.time.day")) {
+                    if (IPermission.test(player, "obelouix.commands.time.day")) {
                         player.getWorld().setTime(0);
                         sendPlayerTimeMessage(player, 0);
                     }
                 } else if (args[0].equalsIgnoreCase("morning")) {
-                    if (IPermission.test(player, "obelouix.time.morning")) {
+                    if (IPermission.test(player, "obelouix.commands.time.morning")) {
                         player.getWorld().setTime(2000);
                         sendPlayerTimeMessage(player, 2000);
                     }
                 } else if (args[0].equalsIgnoreCase("midday")) {
-                    if (IPermission.test(player, "obelouix.time.midday")) {
+                    if (IPermission.test(player, "obelouix.commands.time.midday")) {
                         player.getWorld().setTime(6000);
                         sendPlayerTimeMessage(player, 6000);
                     }
                 } else if (args[0].equalsIgnoreCase("noon")) {
-                    if (IPermission.test(player, "obelouix.time.noon")) {
+                    if (IPermission.test(player, "obelouix.commands.time.noon")) {
                         player.getWorld().setTime(9000);
                         sendPlayerTimeMessage(player, 9000);
                     }
                 } else if (args[0].equalsIgnoreCase("night")) {
-                    if (IPermission.test(player, "obelouix.time.night")) {
+                    if (IPermission.test(player, "obelouix.commands.time.night")) {
                         player.getWorld().setTime(13188);
                         sendPlayerTimeMessage(player, 13188);
                     }
                 } else if (args[0].equalsIgnoreCase("midnight")) {
-                    if (IPermission.test(player, "obelouix.time.midnight")) {
+                    if (IPermission.test(player, "obelouix.commands.time.midnight")) {
                         player.getWorld().setTime(18000);
                         sendPlayerTimeMessage(player, 18000);
                     }
@@ -117,7 +117,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
         final List<String> completion = new ArrayList<>();
         if (args.length == 1) {
             for (final String time : times) {
-                if (sender.hasPermission("obelouix.time." + time)) {
+                if (sender.hasPermission("obelouix.commands.time." + time)) {
                     completion.add(time);
                 }
             }

@@ -21,11 +21,11 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player player){
             if(args.length == 0){
-                if (IPermission.test(player, "obelouix.openinv")) {
+                if (IPermission.test(player, "obelouix.commands.openinv")) {
                     player.openInventory(player.getInventory());
                 }
             } else if(args.length == 1){
-                if (IPermission.test(player, "obelouix.openinv.others")) {
+                if (IPermission.test(player, "obelouix.commands.openinv.others")) {
                     final Player target = Essentials.getInstance().getServer().getPlayer(args[0]);
                     if (target != null) {
                         player.openInventory(target.getInventory());
@@ -44,9 +44,9 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         final List<String> completion = new ArrayList<>();
         if(args.length == 1){
-            if(sender.hasPermission("obelouix.openinv.others")){
-                for (final Player p: Bukkit.getOnlinePlayers()) {
-                    if(!p.getName().equals(sender.getName())){
+            if (sender.hasPermission("obelouix.commands.openinv.others")) {
+                for (final Player p : Bukkit.getOnlinePlayers()) {
+                    if (!p.getName().equals(sender.getName())) {
                         completion.add(p.getName());
                     }
                 }

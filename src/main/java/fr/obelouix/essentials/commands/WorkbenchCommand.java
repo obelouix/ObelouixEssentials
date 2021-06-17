@@ -16,7 +16,7 @@ public class WorkbenchCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (IPermission.test(player, "obelouix.command.workbench")) {
+            if (IPermission.test(player, "obelouix.commands.workbench")) {
                 player.openWorkbench(player.getLocation(), true);
             }
         } else {
