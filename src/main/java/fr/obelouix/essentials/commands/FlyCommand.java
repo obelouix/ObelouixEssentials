@@ -1,5 +1,6 @@
 package fr.obelouix.essentials.commands;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
 import fr.obelouix.essentials.utils.IPlayer;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +23,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            if (IPermission.test(sender, "obelouix.commands.fly")) {
+            if (IPermission.test(sender, "obelouix.commands.fly.others")) {
                 final String target = args[0];
                 if (IPlayer.isOnline(target, sender)) {
                     final boolean allowFlight = Objects.requireNonNull(Bukkit.getPlayer(target)).getAllowFlight();
@@ -29,13 +31,14 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
                 }
             }
-        } else if (args.length == 0) {
-            if (sender instanceof Player player) {
+        } else if (args.length == 0 && sender instanceof Player player) {
+            if (IPermission.test(sender, "obelouix.commands.fly")) {
                 final boolean allowFlight = player.getAllowFlight();
                 player.setAllowFlight(!allowFlight);
                 sendFlyMessage(sender, !allowFlight);
             }
         } else {
+            Essentials.getInstance().getLOGGER().info("You can't do that as console !");
             CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
@@ -49,9 +52,13 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "obelouix.commands.fly.disabled"));
         } else {
             if (allowFlight)
-                sender.sendMessage(I18n.getInstance().sendTranslatedMessage(sender, "obelouix.commands.fly.target.enabled"));
+                sender.sendMessage(ChatColor.GREEN + MessageFormat.format(
+                        I18n.getInstance().sendTranslatedMessage(
+                                sender, "obelouix.commands.fly.target.enabled"), ChatColor.AQUA + player[0]));
             else
-                sender.sendMessage(I18n.getInstance().sendTranslatedMessage(sender, "obelouix.commands.fly.target.disabled"));
+                sender.sendMessage(ChatColor.DARK_RED + MessageFormat.format(
+                        I18n.getInstance().sendTranslatedMessage(
+                                sender, "obelouix.commands.fly.target.disabled"), ChatColor.AQUA + player[0]));
         }
     }
 

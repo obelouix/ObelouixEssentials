@@ -114,6 +114,10 @@ permissions:
     default: op
     children:
       - obelouix.enderchest.others
+  obelouix.commands.fly:
+    default: op
+    children:
+      - obelouix.commands.fly.others
   obelouix.inventory:
     default: op
     children:
