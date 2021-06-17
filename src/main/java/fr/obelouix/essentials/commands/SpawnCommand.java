@@ -24,7 +24,7 @@ public class SpawnCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        World overworld = Bukkit.getWorlds().get(0);
+        final World overworld = Bukkit.getWorlds().get(0);
         if (args.length < 2) {
             if (args.length == 0) {
                 if (IPermission.test(sender, "obelouix.commands.spawn")) {
@@ -40,12 +40,12 @@ public class SpawnCommand implements TabExecutor {
                 if (IPermission.test(sender, "obelouix.commands.spawn.others")) {
                     if (IPlayer.isOnline(args[0], sender)) {
                         if (args[0].contains("*")) {
-                            for (Player player : Bukkit.getOnlinePlayers()) {
+                            for (final Player player : Bukkit.getOnlinePlayers()) {
                                 player.teleport(overworld.getSpawnLocation());
                                 plugin.getLOGGER().info(sender.getName() + " teleported " + player.getName() + " to spawn");
                             }
                         } else {
-                            Player target = Bukkit.getPlayer(args[0]);
+                            final Player target = Bukkit.getPlayer(args[0]);
                             Objects.requireNonNull(target).teleport(overworld.getSpawnLocation());
                         }
                     }
@@ -63,7 +63,7 @@ public class SpawnCommand implements TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (sender.hasPermission("obelouix.commands.spawn.other") && args.length == 1) {
-            List<String> playerCollection = new ArrayList<>();
+            final List<String> playerCollection = new ArrayList<>();
             playerCollection.add("*");
             for (Player player : Bukkit.getOnlinePlayers()) {
                 playerCollection.add(player.getName());

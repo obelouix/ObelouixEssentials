@@ -14,12 +14,10 @@ import java.util.List;
 public class NightCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player player){
-            if (IPermission.test(player, "obelouix.commands.time.night")) {
-                player.getWorld().setTime(13188);
-                final TimeCommand timeCommand = new TimeCommand();
-                timeCommand.sendPlayerTimeMessage(player, 13188);
-            }
+        if (sender instanceof Player player && IPermission.test(player, "obelouix.commands.time.night")) {
+            player.getWorld().setTime(13188);
+            final TimeCommand timeCommand = new TimeCommand();
+            timeCommand.sendPlayerTimeMessage(player, 13188);
         }
         return true;
     }

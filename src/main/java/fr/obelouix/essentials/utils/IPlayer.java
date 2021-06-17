@@ -10,12 +10,10 @@ import org.jetbrains.annotations.NotNull;
 public interface IPlayer {
 
     static boolean isOnline(String playerName, CommandSender sender) {
-        if (Bukkit.getPlayer(playerName) == null) {
-            if (!playerName.equals("*")) {
-                sender.sendMessage(ChatColor.GOLD + playerName + " "
-                        + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "player_not_online"));
-                return false;
-            }
+        if (Bukkit.getPlayer(playerName) == null && !playerName.equals("*")) {
+            sender.sendMessage(ChatColor.GOLD + playerName + " "
+                    + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "player_not_online"));
+            return false;
         }
         return true;
     }
