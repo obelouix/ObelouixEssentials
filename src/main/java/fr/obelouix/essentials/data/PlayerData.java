@@ -20,6 +20,7 @@ public class PlayerData implements Listener {
                 playerLocale = IPlayer.getPlayerLocaleString(event.getPlayer());
             }
         };
+        //execute the task 10 ticks ( = 500 ms) after player logged in
         bukkitRunnable.runTaskLater(Essentials.getInstance(), 10L);
     }
 
@@ -31,6 +32,7 @@ public class PlayerData implements Listener {
                 playerLocale = IPlayer.getPlayerLocaleString(event.getPlayer());
             }
         };
+        //execute the task 10 ticks ( = 500 ms) after player logged in
         bukkitRunnable.runTaskLater(Essentials.getInstance(), 10L);
     }
 
