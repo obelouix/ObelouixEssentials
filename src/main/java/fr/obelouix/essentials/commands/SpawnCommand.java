@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class SpawnCommand implements TabExecutor {
 
     private final Essentials plugin = Essentials.getInstance();
-
+    private final I18n i18n = I18n.getInstance();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         final World overworld = Bukkit.getWorlds().get(0);
@@ -30,6 +31,7 @@ public class SpawnCommand implements TabExecutor {
                 if (IPermission.test(sender, "obelouix.commands.spawn")) {
                     if (sender instanceof Player player) {
                         player.teleport(overworld.getSpawnLocation());
+                        player.sendMessage(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn"));
                     } else {
                         plugin.getLOGGER().info("You must be a player to teleport yourself to spawn !");
                         CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
@@ -42,11 +44,19 @@ public class SpawnCommand implements TabExecutor {
                         if (args[0].contains("*")) {
                             for (final Player player : Bukkit.getOnlinePlayers()) {
                                 player.teleport(overworld.getSpawnLocation());
+                                if (sender instanceof Player player1) {
+                                    player1.sendMessage(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn.everyone"));
+                                }
                                 plugin.getLOGGER().info(sender.getName() + " teleported " + player.getName() + " to spawn");
                             }
                         } else {
                             final Player target = Bukkit.getPlayer(args[0]);
                             Objects.requireNonNull(target).teleport(overworld.getSpawnLocation());
+                            if (sender instanceof Player player) {
+                                player.sendMessage(MessageFormat.format(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn.others"),
+                                        ChatColor.RED + target.getName() + ChatColor.GOLD));
+                            }
+                            plugin.getLOGGER().info(sender.getName() + " teleported " + target.getName() + " to spawn");
                         }
                     }
                 }
@@ -65,7 +75,7 @@ public class SpawnCommand implements TabExecutor {
         if (sender.hasPermission("obelouix.commands.spawn.other") && args.length == 1) {
             final List<String> playerCollection = new ArrayList<>();
             playerCollection.add("*");
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
                 playerCollection.add(player.getName());
             }
             return playerCollection;

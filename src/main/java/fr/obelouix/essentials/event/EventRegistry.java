@@ -6,6 +6,7 @@ import fr.obelouix.essentials.commands.TPSBarCommand;
 import fr.obelouix.essentials.commands.VanishCommand;
 import fr.obelouix.essentials.data.PlayerData;
 import fr.obelouix.essentials.features.NightSkip;
+import fr.obelouix.essentials.security.ChatSecurity;
 import org.bukkit.event.Listener;
 
 public class EventRegistry {
@@ -30,6 +31,7 @@ public class EventRegistry {
         if (Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")) {
             registerEvent(new NightSkip());
         }
+        registerEvent(new ChatSecurity());
         registerEvent(new MessageEvent());
         registerEvent(new VanishCommand());
         if (!Essentials.getInstance().SERVER_VERSION.contains("Purpur")) {

@@ -25,4 +25,6 @@ public class Config {
      */
     public static final String economySymbol = pluginConfig.getString("economy.symbol");
 
+    public static final boolean allowHTTPURL = pluginConfig.getBoolean("allow-insecure-url");
+
 }
