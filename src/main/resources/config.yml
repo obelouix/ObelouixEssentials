@@ -28,7 +28,7 @@ mysql-password: ""
 # if set, this will color the name of opped players in the chat.
 # use HEX color code here , default is : "#e60000" -> red
 op-color: "#e60000"
-# If enabled this will allow players to send http links in the chat
+# If enabled, this will allow players to send http links in the chat
 allow-insecure-url: false
 # +------------------------------------------------------+ #
 # |                       Features                       | #
