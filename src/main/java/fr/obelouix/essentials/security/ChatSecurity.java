@@ -1,9 +1,13 @@
 package fr.obelouix.essentials.security;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.i18n.I18n;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +19,9 @@ import java.util.regex.Pattern;
 
 public class ChatSecurity implements Listener {
 
+    private static String lastMessage = "";
     private final I18n i18n = I18n.getInstance();
+    private int identicalLastMessage = 0;
 
     @EventHandler
     public void onPlayerSendLink(AsyncChatEvent event) {
@@ -23,12 +29,27 @@ public class ChatSecurity implements Listener {
             final Player player = event.getPlayer();
             //force the message tp lowercase and remove all spaces so the player can't bypass url checking
             String chatMessage = PlainComponentSerializer.plain().serialize(event.message()).replace(" ", "").toLowerCase(Locale.ROOT);
-            final Predicate<String> matches = Pattern.compile("^(([a-zA-Z0-9]+)|(http://|ftp://|)(www.|)[a-zA-Z0-9]+(\\.[a-zA-Z]+)+.*)$").asMatchPredicate();
+            final Predicate<String> matches = Pattern.compile("^((http://|ftp://|)(www.|)[a-zA-Z0-9]+(\\.[a-zA-Z]+)+.*)$").asMatchPredicate();
             if (matches.test(chatMessage)) {
                 player.sendMessage(ChatColor.DARK_RED + i18n.sendTranslatedMessage(player, "chat.security.http.forbidden"));
                 event.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler
+    public void kickOnSpam(AsyncChatEvent event) {
+        String chatMessage = PlainComponentSerializer.plain().serialize(event.message());
+        if (lastMessage.equalsIgnoreCase(chatMessage.replace(" ", ""))) {
+            identicalLastMessage += 1;
+            System.out.println(identicalLastMessage);
+            if (identicalLastMessage >= 3) {
+                Bukkit.getScheduler().runTask(Essentials.getInstance(),
+                        () -> event.getPlayer().kick(Component.text(i18n.sendTranslatedMessage(event.getPlayer(), "kick.spam")).color(TextColor.color(139, 0, 0))));
+            }
+        }
+        lastMessage = chatMessage;
+        System.out.println(lastMessage);
     }
 
 }
