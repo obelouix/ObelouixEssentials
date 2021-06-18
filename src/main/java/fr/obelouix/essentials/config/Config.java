@@ -25,6 +25,15 @@ public class Config {
      */
     public static final String economySymbol = pluginConfig.getString("economy.symbol");
 
+    /**
+     * Enabling this allow players to send any URLs that are not <b>HTTPS</b>
+     */
     public static final boolean allowHTTPURL = pluginConfig.getBoolean("allow-insecure-url");
+
+    /**
+     * Threshold for kicking the player
+     * Eg: if someone spam 3 times the same message, he will be kicked
+     */
+    public static final int spamThreshold = pluginConfig.getInt("spam-kick-threshold");
 
 }

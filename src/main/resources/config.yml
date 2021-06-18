@@ -30,6 +30,11 @@ mysql-password: ""
 op-color: "#e60000"
 # If enabled, this will allow players to send http links in the chat
 allow-insecure-url: false
+
+# The number of same messages the player has to send before getting kicked
+# If he relog, the count will not be reset and he'll get insta kicked
+spam-kick-threshold: 3
+
 # +------------------------------------------------------+ #
 # |                       Features                       | #
 # +------------------------------------------------------+ #

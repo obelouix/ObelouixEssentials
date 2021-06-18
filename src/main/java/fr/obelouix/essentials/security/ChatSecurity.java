@@ -43,7 +43,7 @@ public class ChatSecurity implements Listener {
         if (lastMessage.equalsIgnoreCase(chatMessage.replace(" ", ""))) {
             identicalLastMessage += 1;
             //this will allow to kick the player if he continue to spam after relogging
-            if (identicalLastMessage >= 3) {
+            if (identicalLastMessage >= Config.spamThreshold - 1) {
                 Bukkit.getScheduler().runTask(Essentials.getInstance(),
                         () -> event.getPlayer().kick(Component.text(i18n.sendTranslatedMessage(event.getPlayer(), "kick.spam")).color(TextColor.color(139, 0, 0))));
             }
