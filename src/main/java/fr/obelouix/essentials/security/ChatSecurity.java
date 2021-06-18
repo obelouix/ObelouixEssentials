@@ -28,7 +28,7 @@ public class ChatSecurity implements Listener {
         if (!Config.allowHTTPURL) {
             final Player player = event.getPlayer();
             //force the message tp lowercase and remove all spaces so the player can't bypass url checking
-            String chatMessage = PlainComponentSerializer.plain().serialize(event.message()).replace(" ", "").toLowerCase(Locale.ROOT);
+            final String chatMessage = PlainComponentSerializer.plain().serialize(event.message()).replace(" ", "").toLowerCase(Locale.ROOT);
             final Predicate<String> matches = Pattern.compile("^((http://|ftp://|)(www.|)[a-zA-Z0-9]+(\\.[a-zA-Z]+)+.*)$").asMatchPredicate();
             if (matches.test(chatMessage)) {
                 player.sendMessage(ChatColor.DARK_RED + i18n.sendTranslatedMessage(player, "chat.security.http.forbidden"));
@@ -39,17 +39,16 @@ public class ChatSecurity implements Listener {
 
     @EventHandler
     public void kickOnSpam(AsyncChatEvent event) {
-        String chatMessage = PlainComponentSerializer.plain().serialize(event.message());
+        final String chatMessage = PlainComponentSerializer.plain().serialize(event.message());
         if (lastMessage.equalsIgnoreCase(chatMessage.replace(" ", ""))) {
             identicalLastMessage += 1;
-            System.out.println(identicalLastMessage);
+            //this will allow to kick the player if he continue to spam after relogging
             if (identicalLastMessage >= 3) {
                 Bukkit.getScheduler().runTask(Essentials.getInstance(),
                         () -> event.getPlayer().kick(Component.text(i18n.sendTranslatedMessage(event.getPlayer(), "kick.spam")).color(TextColor.color(139, 0, 0))));
             }
         }
         lastMessage = chatMessage;
-        System.out.println(lastMessage);
     }
 
 }
