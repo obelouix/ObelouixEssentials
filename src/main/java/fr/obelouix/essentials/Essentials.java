@@ -60,11 +60,11 @@ public final class Essentials extends JavaPlugin {
 
         instance = null;
 
-        try {
+        /*try {
             ObelouixEssentialsDB.getInstance().closeOnServerReload();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
+        }*/
     }
 
     public Logger getLOGGER() {
