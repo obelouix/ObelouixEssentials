@@ -44,7 +44,7 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
     implementation 'io.papermc:paperlib:1.0.6'
     compileOnly 'net.luckperms:api:5.3'
-    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0-SNAPSHOT'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
     implementation 'org.spongepowered:configurate-core:4.1.1"'
     implementation 'org.spongepowered:configurate-yaml:4.1.1'
 
