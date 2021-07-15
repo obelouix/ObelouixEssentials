@@ -28,13 +28,17 @@ repositories {
         url = 'https://jitpack.io'
     }
     maven {
-        name ='ProtocolLib'
+        name = 'ProtocolLib'
         url = 'https://repo.dmulloy2.net/repository/public/'
     }
 
     maven {
         name = 'sponge'
         url = 'https://repo.spongepowered.org/maven/'
+    }
+    maven {
+        name = 'Minecraft'
+        url = 'https://libraries.minecraft.net/'
     }
 
 }
@@ -47,6 +51,7 @@ dependencies {
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
     implementation 'org.spongepowered:configurate-core:4.1.1"'
     implementation 'org.spongepowered:configurate-yaml:4.1.1'
+    implementation 'me.lucko:commodore:1.9'
 
     //test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
@@ -66,19 +71,25 @@ tasks {
     }
 }
 
-shadowJar{
+shadowJar {
     mergeServiceFiles()
     relocate "io.papermc.lib", "fr.obelouix.paperlib"
     relocate "org.spongepowered", "fr.obelouix.spongepowered"
     relocate "org.yaml.snakeyaml", "fr.obelouix.snakeyaml"
     relocate "io.leangen.geantyref", "fr.obelouix.geantyref"
+
+    dependencies {
+        exclude(dependency('com.mojang:brigadier'))
+    }
+
+    relocate 'me.lucko.commodore', 'fr.obelouix.commodore'
 }
 
-jar{
+jar {
     enabled(false)
 }
 
-processResources{
+processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from(sourceSets.main.resources.srcDirs) {
         filter(ReplaceTokens, tokens: ['version': project.version])
