@@ -1,0 +1,107 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    java
+    id("xyz.jpenilla.run-paper") version "1.0.3"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+}
+
+group = "fr.obelouix"
+version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+}
+
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = "papermc-repo"
+        setUrl("https://papermc.io/repo/repository/maven-public/")
+    }
+    maven {
+        name = "sonatype"
+        setUrl("https://oss.sonatype.org/content/groups/public/")
+    }
+    maven {
+        name = "JitPack"
+        setUrl("https://jitpack.io")
+    }
+    maven {
+        name = "ProtocolLib"
+        setUrl("https://repo.dmulloy2.net/repository/public/")
+    }
+
+    maven {
+        name = "Sponge"
+        setUrl("https://repo.spongepowered.org/maven/")
+    }
+    maven {
+        name = "Minecraft"
+        setUrl("https://libraries.minecraft.net/")
+    }
+
+}
+
+dependencies {
+
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    implementation("io.papermc:paperlib:1.0.6")
+    compileOnly("net.luckperms:api:5.3")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
+    implementation("org.spongepowered:configurate-core:4.1.1")
+    implementation("org.spongepowered:configurate-yaml:4.1.1")
+    implementation("me.lucko:commodore:1.9")
+
+    //test dependencies
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks {
+    runServer {
+        // Configure the Minecraft version for our task.
+        // This is the only required configuration besides applying the plugin.
+        // Your plugin's jar (or shadowJar if present) will be used automatically.
+        minecraftVersion("1.17.1")
+    }
+}
+
+tasks.shadowJar {
+    dependsOn(tasks.processResources)
+    mergeServiceFiles()
+    relocate("io.papermc.lib", "fr.obelouix.paperlib")
+    relocate("org.spongepowered", "fr.obelouix.spongepowered")
+    relocate("org.yaml.snakeyaml", "fr.obelouix.snakeyaml")
+    relocate("io.leangen.geantyref", "fr.obelouix.geantyref")
+
+    dependencies {
+        exclude(dependency("com.mojang:brigadier"))
+    }
+
+    relocate("me.lucko.commodore", "fr.obelouix.commodore")
+}
+
+tasks.jar {
+    enabled = false
+}
+
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    from("src/main/resources") {
+        include("**/plugin.yml")
+        filter<ReplaceTokens>("tokens" to mapOf("version" to project.version))
+    }
+}
+
+tasks.assemble {
+    dependsOn(tasks.shadowJar)
+}
