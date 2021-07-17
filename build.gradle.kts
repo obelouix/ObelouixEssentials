@@ -1,3 +1,5 @@
+// Configure Auto Relocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
@@ -17,7 +19,6 @@ java {
 
 repositories {
     mavenCentral()
-
     maven {
         name = "papermc-repo"
         setUrl("https://papermc.io/repo/repository/maven-public/")
@@ -72,21 +73,22 @@ tasks {
         // Your plugin's jar (or shadowJar if present) will be used automatically.
         minecraftVersion("1.17.1")
     }
+
+}
+//automatic relocation of dependencies
+tasks.create<ConfigureShadowRelocation>("relocateShadowJar") {
+    target = tasks["shadowJar"] as com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+    prefix = "fr.obelouix.libs"
 }
 
 tasks.shadowJar {
     dependsOn(tasks.processResources)
-    mergeServiceFiles()
-    relocate("io.papermc.lib", "fr.obelouix.paperlib")
-    relocate("org.spongepowered", "fr.obelouix.spongepowered")
-    relocate("org.yaml.snakeyaml", "fr.obelouix.snakeyaml")
-    relocate("io.leangen.geantyref", "fr.obelouix.geantyref")
-
+    dependsOn(tasks["relocateShadowJar"])
+    //exclude dependencies as they are included in the server jar
     dependencies {
         exclude(dependency("com.mojang:brigadier"))
+        exclude(dependency("org.yaml:snakeyaml"))
     }
-
-    relocate("me.lucko.commodore", "fr.obelouix.commodore")
 }
 
 tasks.jar {
