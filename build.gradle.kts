@@ -20,31 +20,33 @@ java {
 repositories {
     mavenCentral()
     maven {
-        name = "papermc-repo"
         setUrl("https://papermc.io/repo/repository/maven-public/")
     }
     maven {
-        name = "sonatype"
         setUrl("https://oss.sonatype.org/content/groups/public/")
     }
     maven {
-        name = "JitPack"
         setUrl("https://jitpack.io")
     }
     maven {
-        name = "ProtocolLib"
         setUrl("https://repo.dmulloy2.net/repository/public/")
     }
 
     maven {
-        name = "Sponge"
         setUrl("https://repo.spongepowered.org/maven/")
     }
     maven {
-        name = "Minecraft"
         setUrl("https://libraries.minecraft.net/")
     }
-
+    maven {
+        setUrl("https://repo.codemc.org/repository/maven-public/")
+    }
+    maven {
+        setUrl("https://repo.aikar.co/content/groups/aikar/")
+    }
+    maven {
+        setUrl("https://maven.enginehub.org/repo/")
+    }
 }
 
 dependencies {
@@ -53,6 +55,7 @@ dependencies {
     implementation("io.papermc:paperlib:1.0.6")
     compileOnly("net.luckperms:api:5.3")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
+    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT")
     implementation("org.spongepowered:configurate-core:4.1.1")
     implementation("org.spongepowered:configurate-yaml:4.1.1")
     implementation("me.lucko:commodore:1.10")
