@@ -14,7 +14,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.logging.Logger;
+
 public class BlockEvents implements Listener {
+
+    private final Logger PLUGIN_LOGGER = Essentials.getInstance().getLOGGER();
 
     /**
      * This event will fire when a player will try to break a block and cancel the block breaking if he hasn't
@@ -31,7 +35,10 @@ public class BlockEvents implements Listener {
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
-            Essentials.getInstance().getLOGGER().warning(player.getName() + " tried to break " + PlainTextComponentSerializer.plainText().serialize(blockComponent));
+            PLUGIN_LOGGER.warning(player.getName() + " tried to break " + PlainTextComponentSerializer.plainText().serialize(blockComponent)
+                    + " in " + event.getPlayer().getWorld().getName() + " at X:" + event.getBlock().getLocation().getBlockX()
+                    + " Y:" + event.getBlock().getLocation().getBlockY()
+                    + " Z:" + event.getBlock().getLocation().getBlockZ());
             event.setCancelled(true);
         }
     }
@@ -51,7 +58,10 @@ public class BlockEvents implements Listener {
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
-            Essentials.getInstance().getLOGGER().warning(player.getName() + " tried to place " + PlainTextComponentSerializer.plainText().serialize(blockComponent));
+            PLUGIN_LOGGER.warning(player.getName() + " tried to place " + PlainTextComponentSerializer.plainText().serialize(blockComponent)
+                    + " in " + event.getPlayer().getWorld().getName() + " at X:" + event.getBlock().getLocation().getBlockX()
+                    + " Y:" + event.getBlock().getLocation().getBlockY()
+                    + " Z:" + event.getBlock().getLocation().getBlockZ());
             event.setCancelled(true);
         }
     }
