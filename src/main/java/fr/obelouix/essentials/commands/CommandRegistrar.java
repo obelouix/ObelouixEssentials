@@ -51,13 +51,14 @@ public class CommandRegistrar {
         registerCommand("eco", new EconomyCommand());
         registerCommand("fly", new FlyCommand());
         registerCommand("spawn", new SpawnCommand());
+        registerCommand("world", new WorldCommand());
 
         //add the Pupur TPS bar if not using Pupur
-        if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {
+/*        if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {
             registerCommand("tpsbar", TPSBarCommand.class);
-        }
-        registerCommand("workbench", new WorkbenchCommand());
-        registerCommand("ping", new PingCommand());
+        }*/
+/*        registerCommand("workbench", new WorkbenchCommand());
+        registerCommand("ping", new PingCommand());*/
     }
 
     /**

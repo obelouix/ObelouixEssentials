@@ -41,4 +41,9 @@ public interface IPermission {
         }
         return true;
     }
+
+    static boolean canBreak(Player player, String permission) {
+        return player.hasPermission(permission);
+    }
+
 }

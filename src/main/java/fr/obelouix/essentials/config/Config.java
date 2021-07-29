@@ -36,4 +36,6 @@ public class Config {
      */
     public static final int spamThreshold = pluginConfig.getInt("spam-kick-threshold");
 
+    public static final boolean isLandProtectionModuleEnabled = pluginConfig.getBoolean("enable-land-protection-module");
+
 }

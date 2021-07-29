@@ -88,3 +88,19 @@ economy:
 # log every player's transactions
 log-transactions: true
 enable-jobs: true
+
+# +------------------------------------------------------+ #
+# |                Land Protection Module                | #
+# +------------------------------------------------------+ #
+
+# This allow to enable or disable the land protection system
+# Even if it's enabled you need to have WorldGuard installed
+# or it will not not work
+enable-land-protection-module: true
+
+# set the name of the area claimed by a player in WorldGuard
+# you can use:
+# - {player} to add the player name
+# - {world} to add the world where the player is
+# - {chunk} to add the chunk coordinates
+claim-name: "{player}{world}_{chunk}"

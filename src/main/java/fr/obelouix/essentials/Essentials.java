@@ -1,11 +1,13 @@
 package fr.obelouix.essentials;
 
 import fr.obelouix.essentials.commands.CommandRegistrar;
+import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -20,6 +22,8 @@ public final class Essentials extends JavaPlugin {
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
 
     private boolean isReloading = false;
+    private final boolean isCommodoreSupported = false;
+    private boolean isWorldGuardEnabled = false;
 
     /**
      * @return instance of {@link Essentials} class
@@ -31,11 +35,22 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        if (!Bukkit.getServer().getOnlineMode()) {
-            LOGGER.severe("The server is in INSECURE MODE. Don't ask for support if you have any problem");
-        }
-
         this.saveDefaultConfig();
+        if (isClassFound("com.sk89q.worldguard.bukkit.WorldGuardPlugin")) {
+            LOGGER.info("Found WorldGuard");
+
+            if (this.getServer().getPluginManager().isPluginEnabled("WorldGuard")) isWorldGuardEnabled = true;
+        } else {
+            if (Config.isLandProtectionModuleEnabled) {
+                LOGGER.warning("Land Protection Module is enabled but WorldGuard was not found. Disabling this module...");
+                this.getConfig().set("enable-land-protection-module", false);
+                try {
+                    this.getConfig().save(this.getConfig().getCurrentPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
 
@@ -77,5 +92,27 @@ public final class Essentials extends JavaPlugin {
 
     public void setReloading(boolean reloading) {
         isReloading = reloading;
+    }
+
+    /**
+     * cjeck if the given class is present in the classpath
+     *
+     * @param classPath
+     * @return
+     */
+    private boolean isClassFound(String classPath) {
+        try {
+            if (Class.forName(classPath) != null) return true;
+        } catch (ClassNotFoundException ignored) {
+        }
+        return false;
+    }
+
+    public boolean isCommodoreSupported() {
+        return isCommodoreSupported;
+    }
+
+    public boolean isWorldGuardEnabled() {
+        return isWorldGuardEnabled;
     }
 }
