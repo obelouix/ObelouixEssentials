@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockEvents implements Listener {
@@ -22,6 +23,17 @@ public class BlockEvents implements Listener {
             player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "obelouix.break.disallowed"));
             @NotNull TranslatableComponent blockComponent = Component.translatable("").key(event.getBlock().getTranslationKey());
             Essentials.getInstance().getLOGGER().info(player.getName() + " tried to break " + PlainTextComponentSerializer.plainText().serialize(blockComponent));
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerPlaceBlock(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        if (!IPermission.canBreak(player, "obelouix.place." + event.getBlock().getTranslationKey())) {
+            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "obelouix.break.disallowed"));
+            @NotNull TranslatableComponent blockComponent = Component.translatable("").key(event.getBlock().getTranslationKey());
+            Essentials.getInstance().getLOGGER().info(player.getName() + " tried to place " + PlainTextComponentSerializer.plainText().serialize(blockComponent));
             event.setCancelled(true);
         }
     }
