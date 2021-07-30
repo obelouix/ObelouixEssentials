@@ -102,9 +102,9 @@ public class BlockEvents implements Listener {
                 if (Objects.requireNonNull(event.getClickedBlock()).getType() == material) {
                     for (Material hand : signTypes) {
                         if (player.getInventory().getItemInMainHand().getType() == hand) {
-                            Block block = event.getClickedBlock();
-                            BlockState blockState = block.getState();
-                            Sign sign = (Sign) blockState;
+                            final Block block = event.getClickedBlock();
+                            final BlockState blockState = block.getState();
+                            final Sign sign = (Sign) blockState;
                             if (MaterialTags.SIGNS.isTagged(block)) player.openSign(sign);
                         }
                     }
