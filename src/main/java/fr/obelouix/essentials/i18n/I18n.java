@@ -24,7 +24,7 @@ public class I18n {
     /**
      * Method for sending a message based on player's Locale
      *
-     * @param commandSender the player that will receive the message
+     * @param commandSender the player that will receive the message - required to send th message in the right language
      * @param message       a {@link String} ID of the message
      * @return the @param message
      */

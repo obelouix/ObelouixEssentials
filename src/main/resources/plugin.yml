@@ -975,6 +975,9 @@ permissions:
       obelouix.break.block.minecraft.magenta_banner: true
       obelouix.break.block.minecraft.orange_banner: true
       obelouix.break.block.minecraft.white_banner: true
+  obelouix.editsign:
+    default: op
+    description: allow to edit any signs while having a sign in main hand
   obelouix.place.*:
     default: not op
     description: control what block player is allowed to place
