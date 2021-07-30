@@ -12,13 +12,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 
 import java.util.logging.Logger;
 
 public class BlockEvents implements Listener {
 
     private final Logger PLUGIN_LOGGER = Essentials.getInstance().getLOGGER();
+    private final I18n i18n = I18n.getInstance();
 
     /**
      * This event will fire when a player will try to break a block and cancel the block breaking if he hasn't
@@ -29,9 +30,9 @@ public class BlockEvents implements Listener {
     @EventHandler
     public void onPlayerBreakBlock(BlockBreakEvent event) {
         final Player player = event.getPlayer();
-        if (!IPermission.canBreak(player, "obelouix.break." + event.getBlock().getTranslationKey())) {
+        if (!IPermission.simpleTest(player, "obelouix.break." + event.getBlock().getTranslationKey())) {
             final TranslatableComponent blockComponent = Component.translatable(event.getBlock().getTranslationKey());
-            final Component component = Component.text(I18n.getInstance().sendTranslatedMessage(player, "obelouix.break.disallowed"))
+            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.break.disallowed"))
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
@@ -52,9 +53,9 @@ public class BlockEvents implements Listener {
     @EventHandler
     public void onPlayerPlaceBlock(BlockPlaceEvent event) {
         final Player player = event.getPlayer();
-        if (!IPermission.canBreak(player, "obelouix.place." + event.getBlock().getTranslationKey())) {
+        if (!IPermission.simpleTest(player, "obelouix.place." + event.getBlock().getTranslationKey())) {
             final TranslatableComponent blockComponent = Component.translatable(event.getBlock().getTranslationKey());
-            final Component component = Component.text(I18n.getInstance().sendTranslatedMessage(player, "obelouix.place.disallowed"))
+            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.place.disallowed"))
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
@@ -67,7 +68,30 @@ public class BlockEvents implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    public void onPlayerEnterBed(PlayerBedEnterEvent event) {
+        final Player player = event.getPlayer();
+        if (!IPermission.simpleTest(player, "obelouix.sleep")) {
+            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.not_allowed_to_sleep"))
+                    .color(TextColor.color(183, 0, 0));
+            player.sendMessage(component);
+            event.setCancelled(true);
+        }
     }
+
+/*
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        final Player player = event.getPlayer();
+        final Action action = event.getAction();
+        if ((action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.PHYSICAL)) &&
+                !IPermission.simpleTest(player, "obelouix.interact." + Objects.requireNonNull(event.getClickedBlock()).getTranslationKey())) {
+            for (Material material : interactiveBlocks) {
+                if (event.getClickedBlock().getType() == material) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+*/
 
 }

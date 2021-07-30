@@ -90,6 +90,7 @@ permissions:
       obelouix.openinv.*: true
   obelouix.break.*:
     default: not op
+    description: control what block player is allowed to break
     children:
       obelouix.break.block.minecraft.barrier: false
       obelouix.break.block.minecraft.light: false
@@ -976,6 +977,7 @@ permissions:
       obelouix.break.block.minecraft.white_banner: true
   obelouix.place.*:
     default: not op
+    description: control what block player is allowed to place
     children:
       obelouix.place.block.minecraft.barrier: false
       obelouix.place.block.minecraft.light: false
@@ -1860,6 +1862,9 @@ permissions:
       obelouix.place.block.minecraft.magenta_banner: true
       obelouix.place.block.minecraft.orange_banner: true
       obelouix.place.block.minecraft.white_banner: true
+  obelouix.sleep:
+    default: not op
+    description: control if a player is allowed to sleep in a bed
   obelouix.commands.clearchat:
     default: op
   obelouix.commands.eco:
