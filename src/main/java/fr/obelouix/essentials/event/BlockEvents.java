@@ -41,7 +41,6 @@ public class BlockEvents implements Listener {
      * This event will fire when a player will try to break a block and cancel the block breaking if he hasn't
      * the permission for the given block
      *
-     * @param event
      */
     @EventHandler
     public void onPlayerBreakBlock(BlockBreakEvent event) {
@@ -64,7 +63,6 @@ public class BlockEvents implements Listener {
      * This event will fire when a player will try to place a block and cancel the block placing if he hasn't
      * the permission for the given block
      *
-     * @param event
      */
     @EventHandler
     public void onPlayerPlaceBlock(BlockPlaceEvent event) {
@@ -98,9 +96,9 @@ public class BlockEvents implements Listener {
     public void onPlayerRightClickSign(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         if (IPermission.simpleTest(player, "obelouix.editsign") && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            for (Material material : signTypes) {
+            for (final Material material : signTypes) {
                 if (Objects.requireNonNull(event.getClickedBlock()).getType() == material) {
-                    for (Material hand : signTypes) {
+                    for (final Material hand : signTypes) {
                         if (player.getInventory().getItemInMainHand().getType() == hand) {
                             final Block block = event.getClickedBlock();
                             final BlockState blockState = block.getState();
