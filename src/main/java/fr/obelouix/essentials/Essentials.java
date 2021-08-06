@@ -24,6 +24,7 @@ public final class Essentials extends JavaPlugin {
     private boolean isReloading = false;
     private final boolean isCommodoreSupported = false;
     private boolean isWorldGuardEnabled = false;
+    private boolean isProtocolLibEnabled = false;
 
     /**
      * @return instance of {@link Essentials} class
@@ -36,6 +37,12 @@ public final class Essentials extends JavaPlugin {
     public void onEnable() {
         instance = this;
         this.saveDefaultConfig();
+
+        if (isClassFound("com.comphenix.protocol.ProtocolLib")) {
+            LOGGER.info("Found ProtocolLib");
+            if (this.getServer().getPluginManager().isPluginEnabled("ProtocolLib")) isProtocolLibEnabled = true;
+        }
+
         if (isClassFound("com.sk89q.worldguard.bukkit.WorldGuardPlugin")) {
             LOGGER.info("Found WorldGuard");
 
@@ -95,7 +102,7 @@ public final class Essentials extends JavaPlugin {
     }
 
     /**
-     * cjeck if the given class is present in the classpath
+     * check if the given class is present in the classpath
      *
      * @param classPath
      * @return
@@ -114,5 +121,9 @@ public final class Essentials extends JavaPlugin {
 
     public boolean isWorldGuardEnabled() {
         return isWorldGuardEnabled;
+    }
+
+    public boolean isProtocolLibEnabled() {
+        return isProtocolLibEnabled;
     }
 }
