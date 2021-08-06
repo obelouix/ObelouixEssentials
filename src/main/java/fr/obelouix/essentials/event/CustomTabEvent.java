@@ -16,7 +16,7 @@ public class CustomTabEvent implements Listener {
 
     @EventHandler
     public void setupTabOnPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         runnable = new BukkitRunnable() {
             @Override
             public void run() {

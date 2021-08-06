@@ -47,6 +47,9 @@ repositories {
     maven {
         setUrl("https://maven.enginehub.org/repo/")
     }
+    maven {
+        setUrl("https://hub.spigotmc.org/nexus/content/groups/public/")
+    }
 }
 
 dependencies {
@@ -59,6 +62,7 @@ dependencies {
     implementation("org.spongepowered:configurate-core:4.1.1")
     implementation("org.spongepowered:configurate-yaml:4.1.1")
     implementation("me.lucko:commodore:1.10")
+    implementation("co.aikar:minecraft-timings:1.0.4")
 
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
