@@ -1,5 +1,6 @@
 package fr.obelouix.essentials;
 
+import co.aikar.timings.lib.TimingManager;
 import fr.obelouix.essentials.commands.CommandRegistrar;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
@@ -20,6 +21,7 @@ public final class Essentials extends JavaPlugin {
     private static Essentials instance;
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
+    private static TimingManager timingManager;
 
     private boolean isReloading = false;
     private final boolean isCommodoreSupported = false;
@@ -36,6 +38,7 @@ public final class Essentials extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        timingManager = TimingManager.of(this);
         this.saveDefaultConfig();
 
         if (isClassFound("com.comphenix.protocol.ProtocolLib")) {
