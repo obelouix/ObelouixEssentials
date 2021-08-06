@@ -26,6 +26,7 @@ public class EventRegistry {
     public void init() {
         registerEvent(new BlockEvents());
         registerEvent(new CommandPreprocessorEvent());
+        registerEvent(new CustomTabEvent());
         registerEvent(new PlayerJoin());
         registerEvent(new PlayerData());
         registerEvent(new FreezeCommand());
