@@ -50,6 +50,10 @@ repositories {
     maven {
         setUrl("https://hub.spigotmc.org/nexus/content/groups/public/")
     }
+    maven {
+        setUrl("https://repo.mikeprimm.com")
+    }
+
 }
 
 dependencies {
@@ -63,6 +67,7 @@ dependencies {
     implementation("org.spongepowered:configurate-yaml:4.1.1")
     implementation("me.lucko:commodore:1.10")
     implementation("co.aikar:minecraft-timings:1.0.4")
+    compileOnly("us.dynmap:dynmap-api:3.2-beta-1")
 
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
