@@ -52,6 +52,7 @@ public class CommandRegistrar {
         registerCommand("fly", new FlyCommand());
         registerCommand("spawn", new SpawnCommand());
         registerCommand("world", new WorldCommand());
+        registerCommand("pvp", new PvpCommand());
 
         //add the Pupur TPS bar if not using Pupur
 /*        if (!PluginInstance.SERVER_VERSION.contains("Purpur")) {

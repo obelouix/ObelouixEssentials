@@ -62,6 +62,9 @@ commands:
   ping:
     description: get your ping
     usage: /ping [player]
+  pvp:
+    description: enabled/disable your pvp
+    usage: /pvp
   spawn:
     description: teleport yourself or another player to the world spawn
     usage: /spawn [player]

@@ -2,6 +2,7 @@ package fr.obelouix.essentials.event;
 
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.commands.FreezeCommand;
+import fr.obelouix.essentials.commands.PvpCommand;
 import fr.obelouix.essentials.commands.TPSBarCommand;
 import fr.obelouix.essentials.commands.VanishCommand;
 import fr.obelouix.essentials.data.PlayerData;
@@ -39,6 +40,9 @@ public class EventRegistry {
         if (!Essentials.getInstance().SERVER_VERSION.contains("Purpur")) {
             registerEvent(new TPSBarCommand("tpsbar"));
         }
+
+        registerEvent(new PvpCommand());
+
     }
 
     private void registerEvent(Listener listener){
