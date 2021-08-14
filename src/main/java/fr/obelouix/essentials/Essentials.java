@@ -5,6 +5,7 @@ import co.aikar.timings.lib.TimingManager;
 import fr.obelouix.essentials.commands.CommandManager;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
+import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -90,7 +91,7 @@ public final class Essentials extends JavaPlugin {
             e.printStackTrace();
         }
 
-        //EventRegistry.getInstance().init();
+        EventRegistry.getInstance().init();
 
         try {
             dbInstance.connect();
