@@ -39,7 +39,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             }
         } else {
             Essentials.getInstance().getLOGGER().info("You can't do that as console !");
-            CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+            //CommandManager.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
     }

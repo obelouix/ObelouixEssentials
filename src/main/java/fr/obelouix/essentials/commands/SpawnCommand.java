@@ -34,7 +34,7 @@ public class SpawnCommand implements TabExecutor {
                         player.sendMessage(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn"));
                     } else {
                         plugin.getLOGGER().info("You must be a player to teleport yourself to spawn !");
-                        CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+                        //CommandManager.getInstance().wrongCommandUsage(sender, command);
                     }
                 }
             }
@@ -63,7 +63,7 @@ public class SpawnCommand implements TabExecutor {
             }
         } else {
             if (sender.hasPermission("obelouix.commands.spawn") || sender.hasPermission("obelouix.commands.spawn.others")) {
-                CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+                //CommandManager.getInstance().wrongCommandUsage(sender, command);
             } else
                 sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "no_permission"));
         }

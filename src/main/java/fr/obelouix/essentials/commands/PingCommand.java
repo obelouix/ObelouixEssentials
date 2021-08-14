@@ -34,7 +34,7 @@ public class PingCommand implements CommandExecutor, TabExecutor {
                         ChatColor.AQUA + target.getName() + ChatColor.GRAY, formatPingColorString(target) + ChatColor.GRAY));
             }
         } else {
-            CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+            //CommandManager.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
     }

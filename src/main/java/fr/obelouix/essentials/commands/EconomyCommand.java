@@ -42,12 +42,12 @@ public class EconomyCommand implements TabExecutor {
                         case "give" -> modifyPlayerAccount(target, "give", amount);
                         case "set" -> modifyPlayerAccount(target, "set", amount);
                         case "remove" -> modifyPlayerAccount(target, "remove", amount);
-                        default -> CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+                        //default -> CommandManager.getInstance().wrongCommandUsage(sender, command);
                     }
                 }
 
             } else {
-                CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+                //CommandManager.getInstance().wrongCommandUsage(sender, command);
             }
         }
         return true;

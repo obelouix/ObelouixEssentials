@@ -63,11 +63,11 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                     updateOtherGameMode(sender, target, args[1]);
                 }
             } else {
-                CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+                //CommandManager.getInstance().wrongCommandUsage(sender, command);
             }
             return true;
         } else {
-            CommandRegistrar.getInstance().wrongCommandUsage(sender, command);
+            //CommandManager.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
     }
@@ -106,7 +106,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                         ChatColor.GREEN + args));
             }
         } else {
-            CommandRegistrar.getInstance().wrongCommandUsage(sender, Objects.requireNonNull(getServer().getPluginCommand("gamemode")));
+            // CommandManager.getInstance().wrongCommandUsage(sender, Objects.requireNonNull(getServer().getPluginCommand("gamemode")));
         }
     }
 

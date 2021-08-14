@@ -12,9 +12,6 @@ softdepend:
 commands:
   clearchat:
     description: clear the chat history
-  day:
-    description: set the day in a world
-    usage: /day
   eco:
     description: manage the money of a player
     usage: /eco <give|set|remove>

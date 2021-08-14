@@ -73,6 +73,7 @@ dependencies {
     compileOnly("us.dynmap:dynmap-api:3.2-beta-1")
     implementation("cloud.commandframework:cloud-paper:1.5.0")
     implementation("cloud.commandframework:cloud-minecraft-extras:1.5.0")
+    implementation("cloud.commandframework:cloud-annotations:1.5.0")
 
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")

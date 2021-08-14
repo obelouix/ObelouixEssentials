@@ -90,7 +90,7 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
                         sendPlayerTimeMessage(player, 18000);
                     }
                 } else {
-                    CommandRegistrar.getInstance().wrongCommandUsage(player, command);
+                    //CommandManager.getInstance().wrongCommandUsage(player, command);
                 }
             }
         }
