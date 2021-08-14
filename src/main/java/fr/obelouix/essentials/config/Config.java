@@ -38,4 +38,6 @@ public class Config {
 
     public static final boolean isLandProtectionModuleEnabled = pluginConfig.getBoolean("enable-land-protection-module");
 
+    public static int requiredSleepingPlayerPercentage = Essentials.getInstance().getConfig().getInt("player-sleep-percentage");
+
 }

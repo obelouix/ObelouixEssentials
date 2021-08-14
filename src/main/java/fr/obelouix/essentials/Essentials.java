@@ -1,15 +1,19 @@
 package fr.obelouix.essentials;
 
+import cloud.commandframework.bukkit.CloudBukkitCapabilities;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.paper.PaperCommandManager;
 import co.aikar.timings.lib.TimingManager;
-import fr.obelouix.essentials.commands.CommandRegistrar;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 /**
@@ -22,6 +26,7 @@ public final class Essentials extends JavaPlugin {
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
     private static TimingManager timingManager;
+    private static PaperCommandManager<CommandSender> paperCommandManager;
 
     private boolean isReloading = false;
     private final boolean isCommodoreSupported = false;
@@ -33,6 +38,27 @@ public final class Essentials extends JavaPlugin {
      */
     public static Essentials getInstance() {
         return instance;
+    }
+
+    public static PaperCommandManager<CommandSender> getPaperCommandManager() {
+        return paperCommandManager;
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+
+        if (isReloading) {
+            LOGGER.warning("Please restart if the plugin is broken after reloading");
+        }
+
+        instance = null;
+
+        /*try {
+            ObelouixEssentialsDB.getInstance().closeOnServerReload();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }*/
     }
 
     @Override
@@ -61,7 +87,17 @@ public final class Essentials extends JavaPlugin {
                 }
             }
         }
-        CommandRegistrar.getInstance().init();
+
+        try {
+            paperCommandManager = new PaperCommandManager<>(this,
+                    CommandExecutionCoordinator.simpleCoordinator(), Function.identity(), Function.identity());
+            if (paperCommandManager.queryCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION))
+                paperCommandManager.registerAsynchronousCompletions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //CommandRegistrar.getInstance().init();
         EventRegistry.getInstance().init();
 
         try {
@@ -73,23 +109,6 @@ public final class Essentials extends JavaPlugin {
             throwables.printStackTrace();
         }
 
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-
-        if (isReloading) {
-            LOGGER.warning("Please restart if the plugin is broken after reloading");
-        }
-
-        instance = null;
-
-        /*try {
-            ObelouixEssentialsDB.getInstance().closeOnServerReload();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }*/
     }
 
     public Logger getLOGGER() {

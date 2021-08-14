@@ -53,10 +53,13 @@ repositories {
     maven {
         setUrl("https://repo.mikeprimm.com")
     }
-
+    maven {
+        setUrl("https://repo.incendo.org/content/repositories/snapshots")
+    }
 }
 
 dependencies {
+
 
     compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.6")
@@ -68,6 +71,8 @@ dependencies {
     implementation("me.lucko:commodore:1.10")
     implementation("co.aikar:minecraft-timings:1.0.4")
     compileOnly("us.dynmap:dynmap-api:3.2-beta-1")
+    implementation("cloud.commandframework:cloud-paper:1.5.0")
+    implementation("cloud.commandframework:cloud-minecraft-extras:1.5.0")
 
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")

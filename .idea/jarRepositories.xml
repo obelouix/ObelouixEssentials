@@ -76,5 +76,10 @@
       <option name="name" value="maven11" />
       <option name="url" value="https://repo.mikeprimm.com" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven12" />
+      <option name="name" value="maven12" />
+      <option name="url" value="https://repo.incendo.org/content/repositories/snapshots" />
+    </remote-repository>
   </component>
 </project>
