@@ -1,101 +1,87 @@
 package fr.obelouix.essentials.commands;
 
+import cloud.commandframework.ArgumentDescription;
+import cloud.commandframework.arguments.standard.StringArgument;
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public class TimeCommand implements CommandExecutor, TabCompleter {
+public class TimeCommand extends BaseCommand {
 
+    private final I18n i18n = I18n.getInstance();
     private final List<String> times = Arrays.asList("morning", "midday", "noon", "midnight", "day", "night");
     private final DecimalFormat format = new DecimalFormat("00");
     private long worldHour;
     private long worldMinute;
 
+    public TimeCommand(@NotNull Essentials plugin, @NotNull CommandManager commandManager) {
+        super(plugin, commandManager);
+    }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (IPermission.test(sender, "obelouix.commands.time")) {
+    public void register() {
+        this.commandManager.command(
+                        this.commandManager.commandBuilder("time")
+                                .argument(StringArgument.optional("time"), ArgumentDescription.of("Time of day"))
+                                .handler(commandContext -> {
+                                    if (commandContext.getSender() instanceof Player player && IPermission.test(player, "obelouix.commands.time")) {
+                                        Optional<Object> time = commandContext.getOptional("time");
+                                        if (time.isEmpty()) {
 
-            if (args.length == 0) {
-                if (sender instanceof Player player) {
+                                            worldHour = player.getWorld().getTime() / 1000 + 6;
+                                            worldMinute = ((player.getWorld().getTime()) % 1000) * 60 / 1000;
 
-                    worldHour = player.getWorld().getTime() / 1000 + 6;
-                    worldMinute = ((player.getWorld().getTime()) % 1000) * 60 / 1000;
+                                            if (worldHour > 23) {
+                                                worldHour = worldHour - 24;
+                                            }
 
-                    if (worldHour > 23) {
-                        worldHour = worldHour - 24;
-                    }
-
-                    player.sendMessage(MessageFormat.format(ChatColor.GOLD + I18n.getInstance().sendTranslatedMessage(player, "current_world_time"),
-                            ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD,
-                            ChatColor.RED + ((Player) sender).getWorld().getName() + ChatColor.GOLD));
-                } else {
-                    for (final World world : Bukkit.getWorlds()) {
-                        worldHour = world.getTime() / 1000 + 6;
-                        worldMinute = ((world.getTime()) % 1000) * 60 / 1000;
-
-                        if (worldHour > 23) {
-                            worldHour = worldHour - 24;
-                        }
-
-                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "current_world_time"),
-                                format.format(worldHour) + "h" + format.format(worldMinute), world.getName()));
-                    }
-                }
-            } else if (args.length == 1) {
-                final Player player = (Player) sender;
-                if (args[0].equalsIgnoreCase("day")) {
-                    if (IPermission.test(player, "obelouix.commands.time.day")) {
-                        player.getWorld().setTime(0);
-                        sendPlayerTimeMessage(player, 0);
-                    }
-                } else if (args[0].equalsIgnoreCase("morning")) {
-                    if (IPermission.test(player, "obelouix.commands.time.morning")) {
-                        player.getWorld().setTime(2000);
-                        sendPlayerTimeMessage(player, 2000);
-                    }
-                } else if (args[0].equalsIgnoreCase("midday")) {
-                    if (IPermission.test(player, "obelouix.commands.time.midday")) {
-                        player.getWorld().setTime(6000);
-                        sendPlayerTimeMessage(player, 6000);
-                    }
-                } else if (args[0].equalsIgnoreCase("noon")) {
-                    if (IPermission.test(player, "obelouix.commands.time.noon")) {
-                        player.getWorld().setTime(9000);
-                        sendPlayerTimeMessage(player, 9000);
-                    }
-                } else if (args[0].equalsIgnoreCase("night")) {
-                    if (IPermission.test(player, "obelouix.commands.time.night")) {
-                        player.getWorld().setTime(13188);
-                        sendPlayerTimeMessage(player, 13188);
-                    }
-                } else if (args[0].equalsIgnoreCase("midnight")) {
-                    if (IPermission.test(player, "obelouix.commands.time.midnight")) {
-                        player.getWorld().setTime(18000);
-                        sendPlayerTimeMessage(player, 18000);
-                    }
-                } else {
-                    //CommandManager.getInstance().wrongCommandUsage(player, command);
-                }
-            }
-        }
-        return true;
+                                            player.sendMessage(MessageFormat.format(ChatColor.GOLD + i18n.sendTranslatedMessage(player, "current_world_time"),
+                                                    ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD,
+                                                    ChatColor.RED + ((Player) commandContext.getSender()).getWorld().getName() + ChatColor.GOLD));
+                                        } else {
+                                            switch (time.get().toString()) {
+                                                case "day" -> {
+                                                    player.getWorld().setTime(0);
+                                                    sendPlayerTimeMessage(player, 0);
+                                                }
+                                                case "morning" -> {
+                                                    player.getWorld().setTime(2000);
+                                                    sendPlayerTimeMessage(player, 2000);
+                                                }
+                                                case "midday" -> {
+                                                    player.getWorld().setTime(6000);
+                                                    sendPlayerTimeMessage(player, 6000);
+                                                }
+                                                case "noon" -> {
+                                                    player.getWorld().setTime(9000);
+                                                    sendPlayerTimeMessage(player, 9000);
+                                                }
+                                                case "night" -> {
+                                                    player.getWorld().setTime(13188);
+                                                    sendPlayerTimeMessage(player, 13188);
+                                                }
+                                                case "midnight" -> {
+                                                    player.getWorld().setTime(18000);
+                                                    sendPlayerTimeMessage(player, 18000);
+                                                }
+                                                default -> player.sendMessage(i18n.sendTranslatedMessage(player, "obelouix.commands.time.incorrect_argument"));
+                                            }
+                                        }
+                                    }
+                                }))
+                .setCommandSuggestionProcessor((preprocessingContext, strings) ->
+                        Objects.requireNonNull(onTabComplete(preprocessingContext.getCommandContext().getSender())));
     }
+
 
     protected void sendPlayerTimeMessage(CommandSender sender, int time) {
         final Player player = (Player) sender;
@@ -106,20 +92,17 @@ public class TimeCommand implements CommandExecutor, TabCompleter {
             worldHour = worldHour - 24;
         }
 
-        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(I18n.getInstance().sendTranslatedMessage(player, "command.time.set"),
+        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(i18n.sendTranslatedMessage(player, "command.time.set"),
                 ChatColor.RED + player.getWorld().getName() + ChatColor.GOLD,
                 ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD
         ));
     }
 
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender) {
         final List<String> completion = new ArrayList<>();
-        if (args.length == 1) {
-            for (final String time : times) {
-                if (sender.hasPermission("obelouix.commands.time." + time)) {
-                    completion.add(time);
-                }
+        for (final String time : times) {
+            if (sender.hasPermission("obelouix.commands.time." + time)) {
+                completion.add(time);
             }
         }
         return completion;

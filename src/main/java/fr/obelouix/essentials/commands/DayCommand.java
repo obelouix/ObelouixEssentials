@@ -17,7 +17,7 @@ public class DayCommand extends BaseCommand {
                 this.commandManager.commandBuilder("day").handler(context -> {
                     if (context.getSender() instanceof Player player && IPermission.test(player, "obelouix.commands.time.day")) {
                         player.getWorld().setTime(0);
-                        final TimeCommand timeCommand = new TimeCommand();
+                        final TimeCommand timeCommand = new TimeCommand(Essentials.getInstance(), (CommandManager) Essentials.getPaperCommandManager());
                         timeCommand.sendPlayerTimeMessage(player, 0);
                     }
                 })

@@ -65,9 +65,6 @@ commands:
   spawn:
     description: teleport yourself or another player to the world spawn
     usage: /spawn [player]
-  time:
-    description: get or set the time of a world
-    usage: /time
   vanish:
     description: hide yourself from other players
   workbench:
