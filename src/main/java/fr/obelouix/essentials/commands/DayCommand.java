@@ -1,30 +1,30 @@
 package fr.obelouix.essentials.commands;
 
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.permissions.IPermission;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class DayCommand extends BaseCommand {
+public class DayCommand extends BukkitCommand {
 
-    public DayCommand(@NotNull Essentials plugin, @NotNull CommandManager commandManager) {
-        super(plugin, commandManager);
+    protected DayCommand(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public void register() {
-        this.commandManager.command(
-                this.commandManager.commandBuilder("day").handler(context -> {
-                    if (context.getSender() instanceof Player player && IPermission.test(player, "obelouix.commands.time.day")) {
-                        player.getWorld().setTime(0);
-                        final TimeCommand timeCommand = new TimeCommand(Essentials.getInstance(), (CommandManager) Essentials.getPaperCommandManager());
-                        timeCommand.sendPlayerTimeMessage(player, 0);
-                    }
-                })
-        );
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+        if (sender instanceof Player player && IPermission.test(player, "obelouix.commands.day")) {
+            player.getWorld().setTime(0);
+            final TimeCommand timeCommand = new TimeCommand();
+            timeCommand.sendPlayerTimeMessage(player, 0);
+        }
+        return true;
     }
 
-/*
+
+
+  /*
     @Override
     public void execute(@NonNull CommandContext<CommandSender> commandContext) {
         paperCommandManager.command(
@@ -54,4 +54,5 @@ public class DayCommand extends BaseCommand {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         return null;
     }*/
+
 }

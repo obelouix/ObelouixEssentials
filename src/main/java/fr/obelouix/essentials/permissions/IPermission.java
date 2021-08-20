@@ -2,6 +2,8 @@ package fr.obelouix.essentials.permissions;
 
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,7 +21,8 @@ public interface IPermission {
      */
     static boolean test(Player player, String permission) {
         if (!player.hasPermission(permission)) {
-            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "no_permission"));
+            Component message = Component.text(I18n.getInstance().sendTranslatedMessage(player, "no_permission")).color(TextColor.color(183, 0, 0));
+            player.sendMessage(message);
             Essentials.getInstance().getLOGGER().info("Refused command to " + player.getName());
             return false;
         }

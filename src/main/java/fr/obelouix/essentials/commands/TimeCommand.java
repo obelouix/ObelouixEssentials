@@ -1,21 +1,19 @@
 package fr.obelouix.essentials.commands;
 
-import cloud.commandframework.ArgumentDescription;
-import cloud.commandframework.arguments.standard.StringArgument;
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
-import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-public class TimeCommand extends BaseCommand {
+public class TimeCommand implements CommandExecutor {
 
     private final I18n i18n = I18n.getInstance();
     private final List<String> times = Arrays.asList("morning", "midday", "noon", "midnight", "day", "night");
@@ -23,8 +21,30 @@ public class TimeCommand extends BaseCommand {
     private long worldHour;
     private long worldMinute;
 
-    public TimeCommand(@NotNull Essentials plugin, @NotNull CommandManager commandManager) {
-        super(plugin, commandManager);
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return false;
+    }
+
+    protected void sendPlayerTimeMessage(CommandSender sender, int time) {
+        final Player player = (Player) sender;
+        worldHour = time / 1000 + 6;
+        worldMinute = (time % 1000) * 60 / 1000;
+
+        if (worldHour > 23) {
+            worldHour = worldHour - 24;
+        }
+        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(i18n.sendTranslatedMessage(player, "command.time.set"),
+                ChatColor.RED + player.getWorld().getName() + ChatColor.GOLD,
+                ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD
+        ));
+    }
+
+/*
+
+    @Contract(pure = true)
+    public static @NotNull String getCommandName() {
+        return "time";
     }
 
     @Override
@@ -79,7 +99,7 @@ public class TimeCommand extends BaseCommand {
                                     }
                                 }))
                 .setCommandSuggestionProcessor((preprocessingContext, strings) ->
-                        Objects.requireNonNull(onTabComplete(preprocessingContext.getCommandContext().getSender())));
+                        Objects.requireNonNull(onTabComplete(preprocessingContext.getCommandContext().getSender()), (Supplier<String>) strings));
     }
 
 
@@ -107,4 +127,20 @@ public class TimeCommand extends BaseCommand {
         }
         return completion;
     }
+*/
+
+/*    public @NonNull List<@NonNull String> suggestions(
+            final @NonNull CommandPreprocessingContext<CommandSender> commandContext,
+            final @NonNull List<String> input
+    ) {
+        final List<String> completion = new ArrayList<>();
+        for (final String time : times) {
+            CommandSender sender = (CommandSender) commandContext.getSender();
+            if (sender.hasPermission("obelouix.commands.time." + time)) {
+                completion.add(time);
+            }
+        }
+        return completion;
+    }*/
+
 }
