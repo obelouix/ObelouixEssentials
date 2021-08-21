@@ -10,6 +10,7 @@ public class DayCommand extends BukkitCommand {
 
     protected DayCommand(@NotNull String name) {
         super(name);
+        this.setDescription("set the day in you current world");
     }
 
     @Override

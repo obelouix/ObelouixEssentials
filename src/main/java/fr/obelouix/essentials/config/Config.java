@@ -91,6 +91,14 @@ public class Config {
         }
     }
 
+    public static void save(CommentedConfigurationNode node) {
+        try {
+            configLoader.save(node);
+        } catch (ConfigurateException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static @NotNull ImmutableList<String> getCommandList() {
         return commandList;
     }
