@@ -31,7 +31,6 @@ public class SettingsCommand extends BukkitCommand {
         this.setUsage("/settings <commandname> <on|off>");
     }
 
-
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (IPermission.test(sender, "obelouix.commands.settings")) {
@@ -44,9 +43,13 @@ public class SettingsCommand extends BukkitCommand {
                     switch (args[1]) {
                         case "on" -> {
                             if (!CommandManager.getCommandStates().get(args[0])) {
+
                                 Config.getRoot().node("commands", args[0]).raw(true);
                                 Config.save(Config.getRoot());
+
+                                CommandManager.getCommandStates().computeIfPresent(args[0], (k, v) -> true);
                                 sender.sendMessage(message(args[0], sender, true));
+
                             } else {
                                 commandAlready = commandAlready.append(
                                         Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.enabled"))
@@ -57,9 +60,13 @@ public class SettingsCommand extends BukkitCommand {
                         }
                         case "off" -> {
                             if (CommandManager.getCommandStates().get(args[0])) {
+
                                 Config.getRoot().node("commands", args[0]).raw(false);
                                 Config.save(Config.getRoot());
+
+                                CommandManager.getCommandStates().computeIfPresent(args[0], (k, v) -> false);
                                 sender.sendMessage(message(args[0], sender, false));
+
                             } else {
                                 commandAlready = commandAlready.append(
                                         Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.disabled"))
@@ -98,7 +105,7 @@ public class SettingsCommand extends BukkitCommand {
                     .color(TextColor.color(255, 54, 30)));
 
         return baseMessage.append(Component.text("\n" + i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.effective_next_restart"))
-                        .color(TextColor.color(255, 54, 30)))
+                        .color(TextColor.color(35, 255, 5)))
                 .append(Component.text(" (" + i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.no_reload") + ")")
                         .color(TextColor.color(255, 54, 30)).decorate(TextDecoration.BOLD));
     }

@@ -38,11 +38,11 @@ public final class CommandManager {
     private void registerCommand(Command command, Essentials plugin)
             throws ReflectiveOperationException {
         //Getting command map from CraftServer
-        Method commandMap = plugin.getServer().getClass().getMethod("getCommandMap", (Class<?>[]) null);
+        final Method commandMap = plugin.getServer().getClass().getMethod("getCommandMap", (Class<?>[]) null);
         //Invoking the method and getting the returned object (SimpleCommandMap)
-        Object cmdMap = commandMap.invoke(plugin.getServer(), (Object[]) null);
+        final Object cmdMap = commandMap.invoke(plugin.getServer(), (Object[]) null);
         //getting register method with parameters String and Command from SimpleCommandMap
-        Method register = cmdMap.getClass().getMethod("register", String.class, Command.class);
+        final Method register = cmdMap.getClass().getMethod("register", String.class, Command.class);
         //Registering the command provided above
         register.invoke(cmdMap, "obelouix", command);
         //All the exceptions thrown above are due to reflection, They will be thrown if any of the above methods
