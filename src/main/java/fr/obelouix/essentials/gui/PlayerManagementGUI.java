@@ -49,7 +49,7 @@ public class PlayerManagementGUI extends BaseGUI {
     @Override
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
         if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management")))) {
             event.setCancelled(true);
         }
@@ -61,13 +61,11 @@ public class PlayerManagementGUI extends BaseGUI {
 
         if (event.getSlot() == 49) new AdminGUI().showInventory((Player) event.getWhoClicked());
         if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(event.getWhoClicked(), "obelouix.gui.admin_center.player_management")))) {
-            if (event.getSlot() >= 0 && event.getSlot() <= 44) {
-                if (Objects.requireNonNull(event.getCurrentItem()).hasItemMeta()) {
-                    PlayerManagementBook managementBook = new PlayerManagementBook();
-                    managementBook.setManagedPlayerName(PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())));
-                    if (PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals(managementBook.getManagedPlayerName())) {
-                        event.getWhoClicked().openBook(managementBook.book((Player) event.getWhoClicked()));
-                    }
+            if (event.getSlot() >= 0 && event.getSlot() <= 44 && Objects.requireNonNull(event.getCurrentItem()).hasItemMeta()) {
+                final PlayerManagementBook managementBook = new PlayerManagementBook();
+                managementBook.setManagedPlayerName(PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())));
+                if (PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals(managementBook.getManagedPlayerName())) {
+                    event.getWhoClicked().openBook(managementBook.book((Player) event.getWhoClicked()));
                 }
             }
         }

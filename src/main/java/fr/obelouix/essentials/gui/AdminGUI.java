@@ -60,11 +60,9 @@ public class AdminGUI extends BaseGUI {
                 if (event.getSlot() == 0) {
                     new PlayerManagementGUI().showInventory(player);
                 }
-                if (event.getSlot() == 49) {
-                    if (clickedItem.displayName().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
-                            .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false))) {
-                        new AdminGUI().showInventory(player);
-                    }
+                if (event.getSlot() == 49 && clickedItem.displayName().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                        .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false))) {
+                    new AdminGUI().showInventory(player);
                 }
             }
         }
