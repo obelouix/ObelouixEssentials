@@ -2,6 +2,9 @@ package fr.obelouix.essentials.event;
 
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.files.PlayerConfig;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class PlayerJoin implements Listener {
 
@@ -58,6 +62,30 @@ public class PlayerJoin implements Listener {
 */
         PlayerConfig.get().set("vanished", false);
         PlayerConfig.save();
+    }
+
+    @EventHandler
+    public void changeJoinMessage(PlayerJoinEvent event) {
+
+        final Component IPComponent = Component.text(
+                        "IP: ")
+                .color(TextColor.color(255, 186, 6))
+                .append(Component.text(Objects.requireNonNull(event.getPlayer().getAddress()).getHostName() + "\n")
+                        .color(TextColor.color(255, 255, 255)));
+
+        final Component WorldComponent = Component.text("World: ")
+                .append(Component.text(event.getPlayer().getWorld().getName() + "\n"));
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.hasPermission("obelouix.join_message.admin")) {
+                event.joinMessage(Component.text(event.getPlayer().getName() + " joined the server")
+                        .color(TextColor.color(255, 239, 23))
+                        .hoverEvent(IPComponent.append(WorldComponent)));
+            } else {
+                event.joinMessage(Component.text(event.getPlayer().getName() + " joined the server")
+                        .color(TextColor.color(255, 239, 23)));
+            }
+        }
+
     }
 
 }

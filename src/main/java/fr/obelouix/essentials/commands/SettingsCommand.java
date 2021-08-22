@@ -1,7 +1,6 @@
 package fr.obelouix.essentials.commands;
 
 import com.google.common.collect.ImmutableList;
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
@@ -10,7 +9,6 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
-import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.jetbrains.annotations.NotNull;
@@ -22,9 +20,7 @@ import java.util.regex.Pattern;
 
 public class SettingsCommand extends BukkitCommand {
 
-    private final Essentials plugin = Essentials.getInstance();
     private final I18n i18n = I18n.getInstance();
-    private final CommandMap commandMap = plugin.getServer().getCommandMap();
 
     protected SettingsCommand(@NotNull String name) {
         super(name);

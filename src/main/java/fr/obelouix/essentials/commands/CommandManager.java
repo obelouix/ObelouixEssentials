@@ -25,6 +25,8 @@ public final class CommandManager {
 
         if (commandStates.get("day")) registerCommand(new DayCommand("day"), plugin);
         registerCommand(new SettingsCommand("settings"), plugin);
+        registerCommand(new HelpCommand("help"), plugin);
+        registerCommand(new AdminCommand("admin"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {

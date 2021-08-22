@@ -22,38 +22,4 @@ public class DayCommand extends BukkitCommand {
         }
         return true;
     }
-
-
-
-  /*
-    @Override
-    public void execute(@NonNull CommandContext<CommandSender> commandContext) {
-        paperCommandManager.command(
-                paperCommandManager.commandBuilder("day", ArgumentDescription.of("set the day to your current world"))
-                        .handler(context -> {
-                            if(commandContext.getSender() instanceof Player player && IPermission.test(player, "obelouix.commands.time.day")){
-                                player.getWorld().setTime(0);
-                                final TimeCommand timeCommand = new TimeCommand();
-                                timeCommand.sendPlayerTimeMessage(player, 0);
-                            }
-                        }).build()
-        );
-    }
-*/
-
-   /* @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player player && IPermission.test(player, "obelouix.commands.time.day")) {
-            player.getWorld().setTime(0);
-            final TimeCommand timeCommand = new TimeCommand();
-            timeCommand.sendPlayerTimeMessage(player, 0);
-        }
-        return true;
-    }
-
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        return null;
-    }*/
-
 }

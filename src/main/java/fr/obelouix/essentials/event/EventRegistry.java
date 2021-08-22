@@ -1,12 +1,11 @@
 package fr.obelouix.essentials.event;
 
 import fr.obelouix.essentials.Essentials;
-import fr.obelouix.essentials.commands.FreezeCommand;
-import fr.obelouix.essentials.commands.PvpCommand;
-import fr.obelouix.essentials.commands.TPSBarCommand;
-import fr.obelouix.essentials.commands.VanishCommand;
+import fr.obelouix.essentials.commands.*;
 import fr.obelouix.essentials.data.PlayerData;
 import fr.obelouix.essentials.features.NightSkip;
+import fr.obelouix.essentials.gui.AdminGUI;
+import fr.obelouix.essentials.gui.PlayerManagementGUI;
 import fr.obelouix.essentials.security.ChatSecurity;
 import org.bukkit.event.Listener;
 
@@ -42,6 +41,9 @@ public class EventRegistry {
         }
 
         registerEvent(new PvpCommand());
+        registerEvent(new AdminCommand("admin"));
+        registerEvent(new AdminGUI());
+        registerEvent(new PlayerManagementGUI());
 
     }
 
