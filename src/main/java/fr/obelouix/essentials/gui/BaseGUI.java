@@ -29,17 +29,17 @@ public abstract class BaseGUI implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public abstract void onInventoryClickEvent(InventoryClickEvent event);
 
-    public void addBottomNavigationBar(@NotNull Inventory inventory) {
+    public void addBottomNavigationBar(@NotNull Inventory inventory, Player player) {
         //previous arrow
-        inventory.setItem(48, HeadSkinFetcher.getOfflineSkull("Previous",
+        inventory.setItem(48, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.previous_page"),
                 Heads.LEFT_ARROW.toString()));
 
         //home
-        inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text("Home")
+        inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
                 .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
         //next arrow
-        inventory.setItem(50, HeadSkinFetcher.getOfflineSkull("Next",
+        inventory.setItem(50, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.next_page"),
                 Heads.RIGHT_ARROW.toString()));
     }
 
