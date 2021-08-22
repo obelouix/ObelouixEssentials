@@ -32,10 +32,18 @@ public class PlayerManagementBook extends BaseBookGUI {
         final Component indexPage = Component.text(indexPageTitle + " " + managedPlayerName + "\n\n")
                 .decoration(TextDecoration.UNDERLINED, true)
                 .color(TextColor.color(35, 219, 240))
-                .append(Component.text(">" + i18n.sendTranslatedMessage(player, "obelouix.inventory"))
-                        .color(TextColor.color(0, 0, 0)).clickEvent(openTargetInventory()));
+                .append(Component.text(">" + i18n.sendTranslatedMessage(player, "obelouix.inventory") + "\n")
+                        .color(TextColor.color(0, 0, 0))
+                        .clickEvent(openTargetInventory()))
+                .append(Component.translatable("container.enderchest")
+                        .color(TextColor.color(0, 0, 0))
+                        .clickEvent(openTargetEnderChest()));
 
         return List.of(indexPage);
+    }
+
+    private ClickEvent openTargetEnderChest() {
+        return ClickEvent.runCommand("/enderchest " + managedPlayerName);
     }
 
     private ClickEvent openTargetInventory() {

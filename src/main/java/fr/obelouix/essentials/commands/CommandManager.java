@@ -28,6 +28,7 @@ public final class CommandManager {
         registerCommand(new HelpCommand("help"), plugin);
         registerCommand(new AdminCommand("admin"), plugin);
         registerCommand(new OpenInventoryCommand("openinv"), plugin);
+        registerCommand(new EnderchestCommand("enderchest"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {
