@@ -22,8 +22,8 @@ public class HeadSkinFetcher {
      * @return Player Skull with a skin
      */
     public static ItemStack getOnlineSkull(Player player) {
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
-        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta(); // Get the created item's ItemMeta and cast it to SkullMeta so we can access the skull properties
+        final ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
+        final SkullMeta skullMeta = (SkullMeta) skull.getItemMeta(); // Get the created item's ItemMeta and cast it to SkullMeta so we can access the skull properties
         skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())); // Set the skull's owner so it will adapt the skin of the provided username (case sensitive).
         skullMeta.displayName(Component.text(player.getName()).decoration(TextDecoration.ITALIC, false)
                 .color(TextColor.color(68, 255, 51)));
@@ -39,10 +39,10 @@ public class HeadSkinFetcher {
      * @return Player Head with custom skin and name
      */
     public static ItemStack getOfflineSkull(String skullName, String texture) {
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
-        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta(); // Get the created item's ItemMeta and cast it to SkullMeta so we can access the skull properties
+        final ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
+        final SkullMeta skullMeta = (SkullMeta) skull.getItemMeta(); // Get the created item's ItemMeta and cast it to SkullMeta so we can access the skull properties
 
-        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), null);
+        final PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), null);
         profile.setProperty(new ProfileProperty("textures", texture));
         skullMeta.setPlayerProfile(profile);
         skullMeta.displayName(Component.text(skullName).decoration(TextDecoration.ITALIC, false)
