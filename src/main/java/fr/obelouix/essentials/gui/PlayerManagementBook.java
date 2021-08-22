@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -29,17 +30,26 @@ public class PlayerManagementBook extends BaseBookGUI {
     @Override
     protected Collection<Component> bookPages(Player player) {
         final String indexPageTitle = i18n.sendTranslatedMessage(player, "obelouix.book.management");
+        final String punishmentTitle = i18n.sendTranslatedMessage(player, "obelouix.punishment");
+        //first page of the book
         final Component indexPage = Component.text(indexPageTitle + " " + managedPlayerName + "\n\n")
                 .decoration(TextDecoration.UNDERLINED, true)
                 .color(TextColor.color(35, 219, 240))
-                .append(Component.text(">" + i18n.sendTranslatedMessage(player, "obelouix.inventory") + "\n")
+                .append(Component.text("> " + i18n.sendTranslatedMessage(player, "obelouix.inventory") + "\n")
                         .color(TextColor.color(0, 0, 0))
                         .clickEvent(openTargetInventory()))
-                .append(Component.translatable("container.enderchest")
+                .append(Component.text("\n> ").append(Component.translatable("container.enderchest"))
                         .color(TextColor.color(0, 0, 0))
-                        .clickEvent(openTargetEnderChest()));
+                        .clickEvent(openTargetEnderChest()))
+                .append(Component.text("\n\n> " + punishmentTitle)
+                        .color(TextColor.color(0, 0, 0))
+                        .clickEvent(ClickEvent.changePage(2)));
 
-        return List.of(indexPage);
+        final Component punishmentPage = Component.text(StringUtils.capitalize(punishmentTitle))
+                .color(TextColor.color(255, 0, 0))
+                .decoration(TextDecoration.BOLD, true);
+
+        return List.of(indexPage, punishmentPage);
     }
 
     private ClickEvent openTargetEnderChest() {
