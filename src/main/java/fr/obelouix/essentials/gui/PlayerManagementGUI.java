@@ -47,7 +47,7 @@ public class PlayerManagementGUI extends BaseGUI {
     @Override
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
         if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management")))) {
             event.setCancelled(true);
         }

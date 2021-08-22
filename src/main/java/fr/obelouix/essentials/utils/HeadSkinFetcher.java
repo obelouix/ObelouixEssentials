@@ -26,9 +26,9 @@ public class HeadSkinFetcher {
     }
 
     /**
-     * @param skullName
+     * @param skullName name to show on the head
      * @param texture   get the texture ID from https://freshcoal.com/
-     * @return
+     * @return Player Head with custom skin and name
      */
     public static ItemStack getOfflineSkull(String skullName, String texture) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
