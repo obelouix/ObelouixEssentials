@@ -5,6 +5,7 @@ import fr.obelouix.essentials.utils.Heads;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,6 +14,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class PlayerManagementGUI extends BaseGUI {
     private int pageNumber = 0;
@@ -46,7 +49,7 @@ public class PlayerManagementGUI extends BaseGUI {
     @Override
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
-        final Player player = (Player) event.getWhoClicked();
+        Player player = (Player) event.getWhoClicked();
         if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management")))) {
             event.setCancelled(true);
         }
@@ -56,6 +59,18 @@ public class PlayerManagementGUI extends BaseGUI {
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {
 
+        if (event.getSlot() == 49) new AdminGUI().showInventory((Player) event.getWhoClicked());
+        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(event.getWhoClicked(), "obelouix.gui.admin_center.player_management")))) {
+            if (event.getSlot() >= 0 && event.getSlot() <= 44) {
+                if (Objects.requireNonNull(event.getCurrentItem()).hasItemMeta()) {
+                    PlayerManagementBook managementBook = new PlayerManagementBook();
+                    managementBook.setManagedPlayerName(PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())));
+                    if (PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals(managementBook.getManagedPlayerName())) {
+                        event.getWhoClicked().openBook(managementBook.book((Player) event.getWhoClicked()));
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -88,4 +103,5 @@ public class PlayerManagementGUI extends BaseGUI {
             } else super.addBottomNavigationBar(inventory, player);
         }
     }
+
 }

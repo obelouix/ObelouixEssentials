@@ -5,20 +5,22 @@ import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
+public class OpenInventoryCommand extends BukkitCommand {
+
+    public OpenInventoryCommand(String name) {
+        super(name);
+    }
+
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (sender instanceof Player player) {
             if (args.length == 0) {
                 if (IPermission.test(player, "obelouix.commands.openinv")) {
@@ -33,13 +35,13 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
                             + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "player_not_online"));
                 }
             }
-
         }
         return true;
     }
 
+
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         final List<String> completion = new ArrayList<>();
         if (args.length == 1 && sender.hasPermission("obelouix.commands.openinv.others")) {
             for (final Player p : Bukkit.getOnlinePlayers()) {
@@ -47,8 +49,8 @@ public class OpenInventoryCommand implements CommandExecutor, TabCompleter {
                     completion.add(p.getName());
                 }
             }
+            return completion;
         }
-
-        return completion;
+        return super.tabComplete(sender, alias, args);
     }
 }

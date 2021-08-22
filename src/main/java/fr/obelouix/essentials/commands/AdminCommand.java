@@ -14,7 +14,6 @@ public class AdminCommand extends BukkitCommand implements Listener {
         super(name);
     }
 
-
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (sender instanceof Player player && IPermission.test(player, "obelouix.commands.admin")) {

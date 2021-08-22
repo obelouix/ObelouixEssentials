@@ -27,6 +27,7 @@ public final class CommandManager {
         registerCommand(new SettingsCommand("settings"), plugin);
         registerCommand(new HelpCommand("help"), plugin);
         registerCommand(new AdminCommand("admin"), plugin);
+        registerCommand(new OpenInventoryCommand("openinv"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {
