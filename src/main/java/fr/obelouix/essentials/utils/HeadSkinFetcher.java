@@ -15,7 +15,13 @@ import java.util.UUID;
 
 public class HeadSkinFetcher {
 
-    public static ItemStack getSkull(Player player) {
+    /**
+     * Get a Skull with the skin of a player that is connected on the server
+     *
+     * @param player The Online player
+     * @return Player Skull with a skin
+     */
+    public static ItemStack getOnlineSkull(Player player) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD); // Create a new ItemStack of the Player Head type.
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta(); // Get the created item's ItemMeta and cast it to SkullMeta so we can access the skull properties
         skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())); // Set the skull's owner so it will adapt the skin of the provided username (case sensitive).
@@ -26,6 +32,8 @@ public class HeadSkinFetcher {
     }
 
     /**
+     * Get a player head with a custom texture ID
+     *
      * @param skullName name to show on the head
      * @param texture   get the texture ID from https://freshcoal.com/
      * @return Player Head with custom skin and name

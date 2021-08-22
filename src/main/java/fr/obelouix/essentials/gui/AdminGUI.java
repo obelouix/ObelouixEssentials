@@ -47,6 +47,7 @@ public class AdminGUI extends BaseGUI {
         }
     }
 
+
     @Override
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {

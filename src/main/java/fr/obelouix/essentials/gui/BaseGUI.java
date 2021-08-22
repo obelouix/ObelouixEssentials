@@ -1,6 +1,5 @@
 package fr.obelouix.essentials.gui;
 
-import fr.obelouix.essentials.commands.AdminCommand;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.utils.HeadSkinFetcher;
 import fr.obelouix.essentials.utils.Heads;
@@ -53,7 +52,7 @@ public abstract class BaseGUI implements Listener {
                 Heads.LEFT_ARROW.toString()));
 
         //home
-        inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
                 .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
         //next arrow

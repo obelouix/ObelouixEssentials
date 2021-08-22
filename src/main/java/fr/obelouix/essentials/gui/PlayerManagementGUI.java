@@ -1,6 +1,5 @@
 package fr.obelouix.essentials.gui;
 
-import fr.obelouix.essentials.commands.AdminCommand;
 import fr.obelouix.essentials.utils.HeadSkinFetcher;
 import fr.obelouix.essentials.utils.Heads;
 import net.kyori.adventure.text.Component;
@@ -25,7 +24,7 @@ public class PlayerManagementGUI extends BaseGUI {
 
         for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
             Player p = (Player) Bukkit.getOnlinePlayers().toArray()[i + (44 * pageNumber)];
-            inventory.setItem(slot, HeadSkinFetcher.getSkull(p));
+            inventory.setItem(slot, HeadSkinFetcher.getOnlineSkull(p));
             if (i == Bukkit.getOnlinePlayers().size()) {
                 break;
             }
@@ -64,13 +63,13 @@ public class PlayerManagementGUI extends BaseGUI {
 
         if (Bukkit.getOnlinePlayers().size() < 44) {
             //home
-            inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+            inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
                     .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
         } else {
             if (pageNumber == 0) {
 
                 //home
-                inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
                         .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
                 //next arrow
@@ -83,7 +82,7 @@ public class PlayerManagementGUI extends BaseGUI {
                         Heads.LEFT_ARROW.toString()));
 
                 //home
-                inventory.setItem(49, AdminCommand.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
                         .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
             } else super.addBottomNavigationBar(inventory, player);
