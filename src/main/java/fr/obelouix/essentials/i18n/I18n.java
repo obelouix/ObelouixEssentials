@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class I18n {
 
@@ -33,9 +35,12 @@ public class I18n {
         ResourceBundle playerMessages;
         if (commandSender instanceof Player) {
             try {
-                final String playerLocale = "messages_" + playerData.getPlayerLocale();
-                playerMessages = ResourceBundle.getBundle(playerLocale);
-            } catch (MissingResourceException e) {
+                // CompletableFuture to not run this on the main thread
+                CompletableFuture<ResourceBundle> completableFuture = CompletableFuture
+                        .supplyAsync(playerData::getPlayerLocale).thenApplyAsync(s -> ResourceBundle.getBundle("messages_" + s));
+
+                playerMessages = completableFuture.get();
+            } catch (MissingResourceException | InterruptedException | ExecutionException e) {
                 playerMessages = ResourceBundle.getBundle("messages_en_US");
             }
 
@@ -45,5 +50,6 @@ public class I18n {
 
         return playerMessages.getString(message);
     }
+
 }
 

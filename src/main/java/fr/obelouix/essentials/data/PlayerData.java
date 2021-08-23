@@ -21,7 +21,7 @@ public class PlayerData implements Listener {
             }
         };
         //execute the task 10 ticks ( = 500 ms) after player logged in
-        bukkitRunnable.runTaskLater(Essentials.getInstance(), 10L);
+        bukkitRunnable.runTaskLaterAsynchronously(Essentials.getInstance(), 10L);
     }
 
     @EventHandler
@@ -33,7 +33,7 @@ public class PlayerData implements Listener {
             }
         };
         //execute the task 10 ticks ( = 500 ms) after player logged in
-        bukkitRunnable.runTaskLater(Essentials.getInstance(), 10L);
+        bukkitRunnable.runTaskLaterAsynchronously(Essentials.getInstance(), 10L);
     }
 
     public String getPlayerLocale() {
