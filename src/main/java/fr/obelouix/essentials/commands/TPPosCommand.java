@@ -28,18 +28,17 @@ public class TPPosCommand extends BukkitCommand {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (IPermission.test(sender, "obelouix.commands.tppos")) {
-            if (sender instanceof Player player) {
-                if (args.length == 3) {
+            if (sender instanceof Player player && args.length == 3) {
 
-                    for (final String argument : args) {
-                        if (!NumericValue.isNumeric(argument)) {
+                for (final String argument : args) {
+                    if (!NumericValue.isNumeric(argument)) {
 
-                            final Component error = Component.text(StringUtils.capitalize(StringUtils.replace(i18n.sendTranslatedMessage(player,
-                                            "obelouix.teleportion_aborted_error"), "{argument}", argument)))
-                                    .color(TextColor.color(255, 0, 0));
+                        final Component error = Component.text(StringUtils.capitalize(StringUtils.replace(i18n.sendTranslatedMessage(player,
+                                        "obelouix.teleportion_aborted_error"), "{argument}", argument)))
+                                .color(TextColor.color(255, 0, 0));
 
-                            player.sendMessage(error);
-                            return false;
+                        player.sendMessage(error);
+                        return false;
                         }
                     }
                     final Location teleportLocation = new Location(((Player) sender).getWorld(),
@@ -51,7 +50,6 @@ public class TPPosCommand extends BukkitCommand {
                     PaperLib.teleportAsync(Objects.requireNonNull(player.getPlayer()), teleportLocation);
 
                 } else CommandManager.wrongCommandUsage(sender, this);
-            }
         }
         return true;
     }
