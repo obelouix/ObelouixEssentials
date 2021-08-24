@@ -2,10 +2,10 @@ package fr.obelouix.essentials.commands;
 
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.utils.TextColors;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -41,9 +41,9 @@ public final class CommandManager {
     public static void wrongCommandUsage(@NotNull CommandSender sender, @NotNull Command command) {
 //        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
         sender.sendMessage(Component.text(I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n")
-                .color(TextColor.color(140, 0, 0))
+                .color(TextColors.DARK_RED.getTextColor())
                 .append(Component.text(command.getUsage())
-                        .color(TextColor.color(255, 85, 85))
+                        .color(TextColors.RED.getTextColor())
                         .clickEvent(ClickEvent.suggestCommand(command.getUsage()))));
     }
 

@@ -101,7 +101,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
     public void disableTeleportation(PlayerTeleportEvent event) {
         final Player player = event.getPlayer();
         final TextComponent baseComponent = Component.text(I18n.getInstance().sendTranslatedMessage(player, "command.freeze.deny.use"))
-                .color(TextColor.color(0xF80400));
+                .color(TextColors.color(0xF80400));
         final Title.Times times = Title.Times.of(Ticks.duration(15), Duration.ofMillis(5000), Ticks.duration(20));
 
         if (player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))) {
