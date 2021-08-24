@@ -12,6 +12,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
 /**
@@ -40,6 +41,7 @@ public final class Essentials extends JavaPlugin {
     public static MCTiming timing(String name) {
         return timingManager.of(name);
     }
+
 
     @Override
     public void onDisable() {
@@ -77,7 +79,16 @@ public final class Essentials extends JavaPlugin {
         } else {
             instance = this;
             timingManager = TimingManager.of(this);
-//            this.saveDefaultConfig();
+
+            CompletableFuture.runAsync(() -> {
+                Config.load();
+                try {
+                    new CommandManager(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                EventRegistry.getInstance().init();
+            });
 
             if (isClassFound("com.comphenix.protocol.ProtocolLib")) {
                 LOGGER.info("Found ProtocolLib");
@@ -101,15 +112,7 @@ public final class Essentials extends JavaPlugin {
                     LOGGER.warning("Land Protection Module is enabled but WorldGuard was not found. Disabling this module...");
                 }
             }
-            // We load the config here
-            Config.load();
 
-            try {
-                new CommandManager(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            EventRegistry.getInstance().init();
 
             try {
                 dbInstance.connect();

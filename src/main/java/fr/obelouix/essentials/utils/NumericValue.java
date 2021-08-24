@@ -7,7 +7,7 @@ public class NumericValue {
             Integer.parseInt(number);
             return true;
         } catch (NumberFormatException exception) {
-            exception.printStackTrace();
+//            exception.printStackTrace();
         }
         return false;
     }
