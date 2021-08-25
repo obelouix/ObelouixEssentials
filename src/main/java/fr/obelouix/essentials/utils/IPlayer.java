@@ -1,6 +1,8 @@
 package fr.obelouix.essentials.utils;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
+import net.luckperms.api.model.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -8,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public interface IPlayer {
+
+    Essentials plugin = Essentials.getInstance();
 
     static boolean isOnline(String playerName, CommandSender sender) {
         if (Bukkit.getPlayer(playerName) == null && !playerName.equals("*")) {
@@ -25,6 +29,11 @@ public interface IPlayer {
      */
     static String getPlayerLocaleString(@NotNull Player player) {
         return player.locale().toString();
+    }
+
+    static String getGroup(Player player) {
+        User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+        return user.getPrimaryGroup();
     }
 
 }

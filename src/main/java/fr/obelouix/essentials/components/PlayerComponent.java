@@ -1,7 +1,9 @@
 package fr.obelouix.essentials.components;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
+import fr.obelouix.essentials.utils.IPlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
@@ -11,6 +13,7 @@ import java.util.Objects;
 
 public class PlayerComponent {
 
+    private final Essentials plugin = Essentials.getInstance();
     private final I18n i18n = I18n.getInstance();
 
     /**
@@ -24,6 +27,8 @@ public class PlayerComponent {
      */
     public Component player(Player player, Player target) {
         Component component = Component.text(target.getName());
+        Component group;
+        HoverEvent<Component> hoverEvent = HoverEvent.showText(Component.text(""));
 
         if (IPermission.simpleTest(player, "obelouix.admin.playerdetails")) {
             final Component IPComponent = Component.text(
@@ -45,10 +50,29 @@ public class PlayerComponent {
                                     + target.getLocation().getBlockZ())
                             .color(TextColor.color(255, 255, 255)));
 
-            component = component.hoverEvent(HoverEvent.showText(IPComponent
+            hoverEvent = Objects.requireNonNull(hoverEvent).asHoverEvent(component1 ->
+                    component1.append(IPComponent)
+                            .append(WorldComponent)
+                            .append(location));
+
+            if (plugin.getLuckPermsAPI() != null) {
+                group = Component.text("\n" + i18n.sendTranslatedMessage(player, "obelouix.group") + ": ")
+                        .color(TextColor.color(255, 186, 6))
+                        .append(Component.text(IPlayer.getGroup(target))
+                                .color(TextColor.color(255, 255, 255)));
+
+                hoverEvent = hoverEvent.asHoverEvent(component1 ->
+                        component1.append(group));
+            }
+
+/*            component = component.hoverEvent(HoverEvent.showText(IPComponent
                     .append(WorldComponent)
-                    .append(location)));
+                    .append(location)));*/
+
+            component = component.hoverEvent(hoverEvent);
+
         }
+
         return component;
     }
 

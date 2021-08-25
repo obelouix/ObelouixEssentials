@@ -25,7 +25,7 @@ public final class Essentials extends JavaPlugin {
     private static TimingManager timingManager;
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
-    private final boolean isCommodoreSupported = false;
+    private RegisteredServiceProvider<LuckPerms> luckPermsProvider;
     private boolean isReloading = false;
     private boolean isWorldGuardEnabled = false;
     private boolean isProtocolLibEnabled = false;
@@ -99,6 +99,7 @@ public final class Essentials extends JavaPlugin {
                 LOGGER.info("Found LuckPerms");
                 final RegisteredServiceProvider<LuckPerms> luckPermsProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
                 if (luckPermsProvider != null) {
+                    this.luckPermsProvider = luckPermsProvider;
                     luckPermsAPI = luckPermsProvider.getProvider();
                 }
             }
@@ -154,15 +155,15 @@ public final class Essentials extends JavaPlugin {
         return luckPermsAPI;
     }
 
-    public boolean isCommodoreSupported() {
-        return isCommodoreSupported;
-    }
-
     public boolean isWorldGuardEnabled() {
         return isWorldGuardEnabled;
     }
 
     public boolean isProtocolLibEnabled() {
         return isProtocolLibEnabled;
+    }
+
+    public RegisteredServiceProvider<LuckPerms> getLuckPermsProvider() {
+        return luckPermsProvider;
     }
 }
