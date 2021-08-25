@@ -26,6 +26,7 @@ public class FlyCommand extends BukkitCommand {
         super(name);
         this.setDescription("Enable/disable your fly");
         this.setUsage("/fly [player]");
+        this.setPermission("obelouix.commands.fly");
     }
 
     @Override
@@ -33,7 +34,7 @@ public class FlyCommand extends BukkitCommand {
         if (args.length <= 1) {
             final boolean allowFlight;
             if (args.length == 0) {
-                if (sender instanceof Player player && IPermission.test(sender, "obelouix.commands.flyy")) {
+                if (sender instanceof Player player && IPermission.test(sender, "obelouix.commands.fly")) {
                     allowFlight = player.getAllowFlight();
                     player.setAllowFlight(!allowFlight);
                     sendFlyMessage(sender, !allowFlight, args);
