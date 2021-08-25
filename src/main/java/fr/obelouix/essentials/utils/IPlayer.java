@@ -15,6 +15,14 @@ public interface IPlayer {
     Essentials plugin = Essentials.getInstance();
     I18n i18n = I18n.getInstance();
 
+    /**
+     * Check if the given player is online, if not
+     * the sender will see a message in his locale
+     *
+     * @param playerName name of the player to check
+     * @param sender     the sender that requested the check
+     * @return {@code true} if the player is online else return {@code false}
+     */
     static boolean isOnline(String playerName, CommandSender sender) {
         if (Bukkit.getPlayer(playerName) == null && !playerName.equals("*")) {
             Component message = Component.text(i18n.sendTranslatedMessage(sender, "player_not_online"))
@@ -41,7 +49,7 @@ public interface IPlayer {
     }
 
     static String getGroup(Player player) {
-        User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+        final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
         return user.getPrimaryGroup();
     }
 
