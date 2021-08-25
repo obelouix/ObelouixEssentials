@@ -7,6 +7,7 @@ import fr.obelouix.essentials.utils.IPlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class PlayerComponent {
                     .append(Component.text(target.getWorld().getName() + "\n")
                             .color(TextColor.color(255, 255, 255)));
 
-            Component location = Component.text(i18n.sendTranslatedMessage(player, "obelouix.location") + ": ")
+            final Component location = Component.text(i18n.sendTranslatedMessage(player, "obelouix.location") + ": ")
                     .color(TextColor.color(255, 186, 6))
                     .append(Component.text(target.getLocation().getBlockX() + " "
                                     + target.getLocation().getBlockY() + " "
@@ -56,7 +57,7 @@ public class PlayerComponent {
                             .append(location));
 
             if (plugin.getLuckPermsAPI() != null) {
-                group = Component.text("\n" + i18n.sendTranslatedMessage(player, "obelouix.group") + ": ")
+                group = Component.text("\n" + StringUtils.capitalize(i18n.sendTranslatedMessage(player, "obelouix.group")) + ": ")
                         .color(TextColor.color(255, 186, 6))
                         .append(Component.text(IPlayer.getGroup(target))
                                 .color(TextColor.color(255, 255, 255)));
@@ -64,10 +65,6 @@ public class PlayerComponent {
                 hoverEvent = hoverEvent.asHoverEvent(component1 ->
                         component1.append(group));
             }
-
-/*            component = component.hoverEvent(HoverEvent.showText(IPComponent
-                    .append(WorldComponent)
-                    .append(location)));*/
 
             component = component.hoverEvent(hoverEvent);
 
