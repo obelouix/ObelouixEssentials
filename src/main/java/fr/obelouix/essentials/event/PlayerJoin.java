@@ -3,11 +3,14 @@ package fr.obelouix.essentials.event;
 import fr.obelouix.essentials.components.PlayerComponent;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.files.PlayerConfig;
+import fr.obelouix.essentials.i18n.I18n;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -15,6 +18,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class PlayerJoin implements Listener {
+
+    private final I18n i18n = I18n.getInstance();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -64,14 +69,23 @@ public class PlayerJoin implements Listener {
         PlayerConfig.save();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void changeJoinMessage(PlayerJoinEvent event) {
 
+        final PlayerComponent playerComponent = new PlayerComponent();
+        final Player target = event.getPlayer();
+
         for (Player player : Bukkit.getOnlinePlayers()) {
-            event.joinMessage(new PlayerComponent().player(player, event.getPlayer())
+            final Component joinMessage = Component.text(i18n.sendTranslatedMessage(player, "obelouix.joinmessage"))
                     .color(TextColor.color(255, 239, 23))
-                    .append(Component.text(" joined the server")));
+                    .replaceText(TextReplacementConfig.builder()
+                            .matchLiteral("{0}")
+                            .replacement(playerComponent.player(player, target))
+                            .build());
+
+            event.joinMessage(joinMessage);
         }
+
     }
 
 }

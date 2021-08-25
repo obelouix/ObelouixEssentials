@@ -3,6 +3,7 @@ package fr.obelouix.essentials.data;
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.utils.IPlayer;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
@@ -12,7 +13,8 @@ public class PlayerData implements Listener {
 
     private static String playerLocale;
 
-    @EventHandler
+    //High priority because we must get the player locale before sending any translated messages
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         final BukkitRunnable bukkitRunnable = new BukkitRunnable() {
             @Override
