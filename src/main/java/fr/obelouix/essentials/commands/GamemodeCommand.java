@@ -1,30 +1,84 @@
 package fr.obelouix.essentials.commands;
 
 import com.google.common.collect.ImmutableList;
+import fr.obelouix.essentials.components.PlayerComponent;
 import fr.obelouix.essentials.i18n.I18n;
-import fr.obelouix.essentials.permissions.IPermission;
 import fr.obelouix.essentials.utils.IPlayer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class GamemodeCommand implements CommandExecutor, TabCompleter {
+public class GamemodeCommand extends BukkitCommand {
 
     private final List<String> OPTIONS = ImmutableList.of("0", "survival", "1", "creative", "2", "adventure", "3", "spectator");
+    private final I18n i18n = I18n.getInstance();
+
+    public GamemodeCommand(@NotNull String name) {
+        super(name);
+    }
+
 
     @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+        if (args.length > 0 && args.length <= 2) {
+            final Player target = getServer().getPlayer(args[0]);
+            PlayerComponent playerComponent = new PlayerComponent();
+            if (args.length == 1) {
+                boolean isArgAPlayer = true;
+                for (String OPTS : OPTIONS) {
+                    if (args[0].equalsIgnoreCase(OPTS)) {
+                        isArgAPlayer = false;
+                        break;
+                    }
+                }
+                if (isArgAPlayer && IPlayer.isOnline(args[0], sender)) {
+                    sender.sendMessage(Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.get"))
+                            .color(TextColor.color(85, 255, 85))
+                            .replaceText(TextReplacementConfig.builder()
+                                    .matchLiteral("{0}")
+                                    .replacement(playerComponent.player((Player) sender, target)
+                                            .color(TextColor.color(85, 255, 255)))
+                                    .build())
+                            .replaceText(TextReplacementConfig.builder()
+                                    .matchLiteral("{1}")
+                                    .replacement(Component.translatable("selectWorld.gameMode." + target.getGameMode().name().toLowerCase())
+                                            .color(TextColor.color(85, 255, 255)))
+                                    .build()));
+                } else {
+                    if (sender instanceof Player player) {
+                        Component message = Component.text(i18n.sendTranslatedMessage(player, "obelouix.commands.gamemode.updated.self"))
+                                .color(TextColor.color(85, 255, 85))
+                                .replaceText(TextReplacementConfig.builder()
+                                        .matchLiteral("{0}")
+                                        .replacement(Component.translatable("selectWorld.gameMode." + args[0])
+                                                .color(TextColor.color(85, 255, 255)))
+                                        .build());
+                        changeGamemode(args[0], player);
+
+                        player.sendMessage(message);
+                    }
+                }
+            }
+        } else CommandManager.wrongCommandUsage(sender, this);
+        return false;
+    }
+
+    /*@Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length > 0 && args.length < 3) {
             final Player target = getServer().getPlayer(args[0]);
@@ -70,9 +124,9 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
             //CommandManager.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
-    }
+    }*/
 
-    private boolean setGameMode(@NotNull String args, Player player) {
+    private boolean changeGamemode(@NotNull String args, Player player) {
         if (args.equals("0") || args.equalsIgnoreCase("survival")) {
             player.setGameMode(GameMode.SURVIVAL);
         } else if (args.equals("1") || args.equalsIgnoreCase("creative")) {
@@ -88,13 +142,13 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     }
 
     private void updateOwnGameMode(Player player, String args) {
-        setGameMode(args, player);
+        changeGamemode(args, player);
         player.sendMessage(ChatColor.GREEN + I18n.getInstance().sendTranslatedMessage(player, "ownGameModeUpdated") + " "
                 + ChatColor.AQUA + I18n.getInstance().sendTranslatedMessage(player, player.getGameMode().toString().toLowerCase(Locale.ROOT)));
     }
 
     private void updateOtherGameMode(CommandSender sender, Player target, String args) {
-        if (setGameMode(args, target)) {
+        if (changeGamemode(args, target)) {
             sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "otherGameModeUpdated"),
                     ChatColor.AQUA + target.getName() + ChatColor.GREEN,
                     ChatColor.AQUA + I18n.getInstance().sendTranslatedMessage(sender, target.getGameMode().toString().toLowerCase())));
@@ -123,9 +177,8 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
                 ChatColor.AQUA + currentGameMode));
     }
 
-
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         final List<String> completion = new ArrayList<>();
         StringUtil.copyPartialMatches(args[0], OPTIONS, completion);
         if (args.length == 1) {

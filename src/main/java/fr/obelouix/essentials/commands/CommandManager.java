@@ -33,6 +33,7 @@ public final class CommandManager {
         registerCommand(new EnderchestCommand("enderchest"), plugin);
         registerCommand(new TPPosCommand("tppos"), plugin);
         registerCommand(new FlyCommand("fly"), plugin);
+        registerCommand(new GamemodeCommand("gamemode"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {
