@@ -48,4 +48,8 @@ public interface IPermission {
     static boolean simpleTest(Player player, String permission) {
         return player.hasPermission(permission);
     }
+
+    static boolean simpleTest(CommandSender sender, String permission) {
+        return sender.hasPermission(permission);
+    }
 }
