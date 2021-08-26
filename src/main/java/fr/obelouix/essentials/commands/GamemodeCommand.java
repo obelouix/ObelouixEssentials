@@ -19,14 +19,15 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class GamemodeCommand extends BukkitCommand {
 
-    private final List<String> OPTIONS = ImmutableList.of("0", "survival", "1", "creative", "2", "adventure", "3", "spectator");
+    private final List<String> OPTIONS = ImmutableList.of("survival", "creative", "adventure", "spectator");
     private final I18n i18n = I18n.getInstance();
+    private final PlayerComponent playerComponent = new PlayerComponent();
 
     public GamemodeCommand(@NotNull String name) {
         super(name);
@@ -36,22 +37,15 @@ public class GamemodeCommand extends BukkitCommand {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (args.length > 0 && args.length <= 2) {
+            Component message;
             final Player target = getServer().getPlayer(args[0]);
-            PlayerComponent playerComponent = new PlayerComponent();
             if (args.length == 1) {
-                boolean isArgAPlayer = true;
-                for (String OPTS : OPTIONS) {
-                    if (args[0].equalsIgnoreCase(OPTS)) {
-                        isArgAPlayer = false;
-                        break;
-                    }
-                }
-                if (isArgAPlayer && IPlayer.isOnline(args[0], sender)) {
+                if (isArgumentAPlayer(args[0]) && IPlayer.isOnline(args[0], sender)) {
                     sender.sendMessage(Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.get"))
                             .color(TextColor.color(85, 255, 85))
                             .replaceText(TextReplacementConfig.builder()
                                     .matchLiteral("{0}")
-                                    .replacement(playerComponent.player((Player) sender, target)
+                                    .replacement(playerComponent.player(sender, Objects.requireNonNull(target))
                                             .color(TextColor.color(85, 255, 255)))
                                     .build())
                             .replaceText(TextReplacementConfig.builder()
@@ -60,71 +54,40 @@ public class GamemodeCommand extends BukkitCommand {
                                             .color(TextColor.color(85, 255, 255)))
                                     .build()));
                 } else {
-                    if (sender instanceof Player player) {
-                        Component message = Component.text(i18n.sendTranslatedMessage(player, "obelouix.commands.gamemode.updated.self"))
-                                .color(TextColor.color(85, 255, 85))
-                                .replaceText(TextReplacementConfig.builder()
-                                        .matchLiteral("{0}")
-                                        .replacement(Component.translatable("selectWorld.gameMode." + args[0])
-                                                .color(TextColor.color(85, 255, 255)))
-                                        .build());
+                    if (!isArgumentAPlayer(args[0]) && sender instanceof Player player) {
                         changeGamemode(args[0], player);
-
-                        player.sendMessage(message);
+                        sender.sendMessage(messageOwnGamemodeChanged(sender, args[0]));
                     }
                 }
-            }
+            } else if (args.length == 2) {
+                if (isArgumentAPlayer(args[0]) && IPlayer.isOnline(args[0], sender)) {
+                    for (String gameMode : OPTIONS) {
+                        if (gameMode.equalsIgnoreCase(args[1])) {
+                            changeGamemode(gameMode, target);
+                            if (Objects.requireNonNull(target).getName().equalsIgnoreCase(sender.getName())) {
+                                sender.sendMessage(messageOwnGamemodeChanged(sender, args[1]));
+                            } else {
+                                sender.sendMessage(messageTargetGamemodeChanged(sender, target, args[1]));
+                            }
+                            break;
+                        }
+                    }
+                }
+
+            } else CommandManager.wrongCommandUsage(sender, this);
         } else CommandManager.wrongCommandUsage(sender, this);
         return false;
     }
 
-    /*@Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length > 0 && args.length < 3) {
-            final Player target = getServer().getPlayer(args[0]);
-            if (args.length == 1) {
-                if (IPermission.test(sender, "obelouix.commands.gamemode")) {
-
-                    if (target == null) {
-
-                        boolean isPlayer = true;
-                        boolean wasSentByConsole = false;
-                        for (final String opt : OPTIONS) {
-                            if (Objects.equals(args[0], opt)) {
-                                if (sender instanceof Player) {
-                                    updateOwnGameMode((Player) sender, args[0]);
-                                } else {
-                                    sender.sendMessage(ChatColor.DARK_RED + "You can't do that as console !");
-                                    wasSentByConsole = true;
-                                    break;
-                                }
-                                isPlayer = false;
-                                break;
-                            }
-                        }
-                        if (isPlayer && !wasSentByConsole) {
-                            IPlayer.isOnline(args[0], sender);
-                        }
-
-                    } else {
-                        getCurrentTargetGameMode(sender, target);
-                    }
-
-                }
-                return true;
-            } else if (args.length == 2) {
-                if (IPlayer.isOnline(args[0], sender)) {
-                    updateOtherGameMode(sender, target, args[1]);
-                }
-            } else {
-                //CommandManager.getInstance().wrongCommandUsage(sender, command);
+    private boolean isArgumentAPlayer(String arg) {
+        for (final String OPTS : OPTIONS) {
+            if (arg.equalsIgnoreCase(OPTS)) {
+                return false;
             }
-            return true;
-        } else {
-            //CommandManager.getInstance().wrongCommandUsage(sender, command);
         }
         return true;
-    }*/
+    }
+
 
     private boolean changeGamemode(@NotNull String args, Player player) {
         if (args.equals("0") || args.equalsIgnoreCase("survival")) {
@@ -141,10 +104,29 @@ public class GamemodeCommand extends BukkitCommand {
         return true;
     }
 
-    private void updateOwnGameMode(Player player, String args) {
-        changeGamemode(args, player);
-        player.sendMessage(ChatColor.GREEN + I18n.getInstance().sendTranslatedMessage(player, "ownGameModeUpdated") + " "
-                + ChatColor.AQUA + I18n.getInstance().sendTranslatedMessage(player, player.getGameMode().toString().toLowerCase(Locale.ROOT)));
+    private Component messageOwnGamemodeChanged(CommandSender sender, String gamemode) {
+        return Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.updated.self"))
+                .color(TextColor.color(85, 255, 85))
+                .replaceText(TextReplacementConfig.builder()
+                        .matchLiteral("{0}")
+                        .replacement(Component.translatable("selectWorld.gameMode." + gamemode)
+                                .color(TextColor.color(85, 255, 255)))
+                        .build());
+    }
+
+    private Component messageTargetGamemodeChanged(CommandSender sender, Player target, String gamemode) {
+        return Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.updated"))
+                .color(TextColor.color(85, 255, 85))
+                .replaceText(TextReplacementConfig.builder()
+                        .matchLiteral("{0}")
+                        .replacement(playerComponent.player(sender, target)
+                                .color(TextColor.color(85, 255, 255)))
+                        .build())
+                .replaceText(TextReplacementConfig.builder()
+                        .matchLiteral("{1}")
+                        .replacement(Component.translatable("selectWorld.gameMode." + gamemode)
+                                .color(TextColor.color(85, 255, 255)))
+                        .build());
     }
 
     private void updateOtherGameMode(CommandSender sender, Player target, String args) {
@@ -162,19 +144,6 @@ public class GamemodeCommand extends BukkitCommand {
         } else {
             // CommandManager.getInstance().wrongCommandUsage(sender, Objects.requireNonNull(getServer().getPluginCommand("gamemode")));
         }
-    }
-
-    private void getCurrentTargetGameMode(CommandSender sender, Player target) {
-        String currentGameMode = null;
-        switch (target.getGameMode()) {
-            case CREATIVE -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "creative");
-            case ADVENTURE -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "adventure");
-            case SPECTATOR -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "spectator");
-            default -> currentGameMode = I18n.getInstance().sendTranslatedMessage(sender, "survival");
-        }
-        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "current_gamemode"),
-                ChatColor.AQUA + target.getName() + ChatColor.GREEN,
-                ChatColor.AQUA + currentGameMode));
     }
 
     @Override
