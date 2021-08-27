@@ -173,7 +173,8 @@ public class ExperienceCommand extends BukkitCommand {
     }
 
     @Override
-    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+    public @NotNull
+    List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         if (sender.hasPermission("bukkit.command.xp")) {
             final List<String> completion = new ArrayList<>();
 
