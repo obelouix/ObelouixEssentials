@@ -175,19 +175,26 @@ public class ExperienceCommand extends BukkitCommand {
     @Override
     public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         if (sender.hasPermission("bukkit.command.xp")) {
-            List<String> completion = new ArrayList<>();
+            final List<String> completion = new ArrayList<>();
+
             if (args.length == 1) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
+
+                for (final Player player : Bukkit.getOnlinePlayers()) {
                     completion.add(player.getName());
+
                 }
             } else if (args.length == 2) {
+
                 completion.add("give");
                 completion.add("set");
                 completion.add("remove");
+
             } else if (args.length == 3) {
+
                 completion.add("1");
                 completion.add("1l");
             }
+
             return completion;
         }
         return super.tabComplete(sender, alias, args);
