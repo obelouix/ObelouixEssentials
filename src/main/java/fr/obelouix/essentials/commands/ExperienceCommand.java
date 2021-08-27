@@ -13,6 +13,8 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -124,15 +126,9 @@ public class ExperienceCommand extends BukkitCommand {
 
         } else if (args.length == 3) {
             switch (args[1].toLowerCase(Locale.ROOT)) {
-                case "give" -> {
-                    component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.give"), TextColor.color(TextColor.color(162, 162, 162)));
-                }
-                case "set" -> {
-                    component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.set"), TextColor.color(TextColor.color(162, 162, 162)));
-                }
-                case "remove" -> {
-                    component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.remove"), TextColor.color(TextColor.color(162, 162, 162)));
-                }
+                case "give" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.give"), TextColor.color(TextColor.color(162, 162, 162)));
+                case "set" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.set"), TextColor.color(TextColor.color(162, 162, 162)));
+                case "remove" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.remove"), TextColor.color(TextColor.color(162, 162, 162)));
             }
 
             if (isArgumentALevel(args[2])) {
@@ -174,5 +170,26 @@ public class ExperienceCommand extends BukkitCommand {
      */
     private boolean isArgumentALevel(String levelArgument) {
         return levelArgument.toLowerCase(Locale.ROOT).contains("l");
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+        if (sender.hasPermission("bukkit.command.xp")) {
+            List<String> completion = new ArrayList<>();
+            if (args.length == 1) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    completion.add(player.getName());
+                }
+            } else if (args.length == 2) {
+                completion.add("give");
+                completion.add("set");
+                completion.add("remove");
+            } else if (args.length == 3) {
+                completion.add("1");
+                completion.add("1l");
+            }
+            return completion;
+        }
+        return super.tabComplete(sender, alias, args);
     }
 }
