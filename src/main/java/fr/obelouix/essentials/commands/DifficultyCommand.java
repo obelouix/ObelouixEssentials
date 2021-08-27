@@ -22,6 +22,8 @@ public class DifficultyCommand extends BukkitCommand {
 
     public DifficultyCommand(String name) {
         super(name);
+        this.setDescription("See or change the difficulty");
+        this.setUsage("/difficulty [difficulty]");
     }
 
     @Override
@@ -40,12 +42,12 @@ public class DifficultyCommand extends BukkitCommand {
                 final World world = Bukkit.getWorld(worldName);
                 if (args.length == 0) {
                     difficultyComponent = Component.translatable("commands.difficulty.query", TextColor.color(162, 162, 162));
-                    difficultyComponent = setDifficultyComponent(difficultyComponent, world);
+                    difficultyComponent = setDifficultyComponent(difficultyComponent, Objects.requireNonNull(world));
                 } else {
 
                     boolean validArgument = false;
 
-                    for (String argument : difficultyList) {
+                    for (final String argument : difficultyList) {
                         if (argument.equalsIgnoreCase(args[0])) {
                             validArgument = true;
                             break;
@@ -60,10 +62,10 @@ public class DifficultyCommand extends BukkitCommand {
                         }
                         difficultyComponent = Component.translatable("commands.difficulty.success", TextColor.color(162, 162, 162));
                         difficultyComponent = setDifficultyComponent(difficultyComponent, Objects.requireNonNull(world));
-                    }
+                    } else CommandManager.wrongCommandUsage(sender, this);
                 }
                 sender.sendMessage(difficultyComponent);
-            }
+            } else CommandManager.wrongCommandUsage(sender, this);
         }
         return true;
     }
