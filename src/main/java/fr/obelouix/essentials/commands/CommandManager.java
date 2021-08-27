@@ -34,6 +34,7 @@ public final class CommandManager {
         registerCommand(new TPPosCommand("tppos"), plugin);
         registerCommand(new FlyCommand("fly"), plugin);
         registerCommand(new GamemodeCommand("gamemode"), plugin);
+        registerCommand(new DifficultyCommand("difficulty"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {
