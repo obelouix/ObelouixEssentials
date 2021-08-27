@@ -152,4 +152,74 @@ bukkit {
     load = STARTUP
     prefix = "Obelouix"
     defaultPermission = OP
+
+    permissions {
+        register("bukkit.command.difficulty") {
+            description = "Allows you to run the difficulty command"
+            default = OP
+        }
+        register("bukkit.command.xp") {
+            description = "Allows you to run the xp command"
+            default = OP
+        }
+
+        register("obelouix.commands.day") {
+            description = "Allows you to run the day command"
+            default = OP
+        }
+
+        register("obelouix.commands.settings") {
+            description = "Allows you to run the settings command"
+            default = OP
+        }
+
+        register("obelouix.commands.admin") {
+            description = "Allows you to run the admin command"
+            default = OP
+        }
+
+        register("obelouix.commands.openinv") {
+            description = "Allows you to run the openinv command"
+            default = OP
+        }
+
+        register("obelouix.commands.enderchest") {
+            description = "Allows you to run the enderchest command"
+            default = OP
+            children = listOf("obelouix.commands.enderchest.others")
+        }
+
+        register("obelouix.commands.tppos") {
+            description = "Allows you to run the tppos command"
+            default = OP
+        }
+
+        register("obelouix.commands.fly") {
+            description = "Allows you to run the fly command"
+            default = OP
+            children = listOf("obelouix.commands.fly.others")
+        }
+
+        register("obelouix.commands.gamemode") {
+            description = "Allows you to run the gamemode command"
+            default = OP
+            children = listOf(
+                "obelouix.commands.gamemode.aventure",
+                "obelouix.commands.gamemode.creative",
+                "obelouix.commands.gamemode.spectator",
+                "obelouix.commands.gamemode.survival",
+                "obelouix.commands.gamemode.others.aventure",
+                "obelouix.commands.gamemode.others.creative",
+                "obelouix.commands.gamemode.others.spectator",
+                "obelouix.commands.gamemode.others.survival"
+            )
+        }
+
+        register("obelouix.admin.playerdetails") {
+            description = "Allows you to see critical informations about a player when hovering his name in the chat"
+            default = OP
+        }
+
+    }
+
 }
