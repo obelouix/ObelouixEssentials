@@ -1,8 +1,0 @@
-time {
-  set {
-    day;
-    noon;
-    night;
-    midnight;
-  }
-}
