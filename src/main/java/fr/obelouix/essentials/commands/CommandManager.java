@@ -35,6 +35,7 @@ public final class CommandManager {
         registerCommand(new FlyCommand("fly"), plugin);
         registerCommand(new GamemodeCommand("gamemode"), plugin);
         registerCommand(new DifficultyCommand("difficulty"), plugin);
+        registerCommand(new ExperienceCommand("xp"), plugin);
     }
 
     public static Map<String, Boolean> getCommandStates() {
