@@ -30,6 +30,9 @@ public class AdminGUI extends BaseGUI {
 
         adminInventory.addItem(skull);
         adminInventory.setItem(4, HeadSkinFetcher.getOfflineSkull("World Management", Heads.GLOBE.toString()));
+
+        adminInventory.setItem(10, new ItemStack(Material.NETHERITE_HELMET));
+
         return adminInventory;
     }
 
@@ -65,6 +68,10 @@ public class AdminGUI extends BaseGUI {
                     new AdminGUI().showInventory(player);
                 }
             }
+            if (clickedItem != null && clickedItem.getType().equals(Material.NETHERITE_HELMET)) {
+                new AdminToolsGUI().showInventory(player);
+            }
+
         }
     }
 }
