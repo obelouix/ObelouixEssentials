@@ -5,6 +5,7 @@ import fr.obelouix.essentials.commands.*;
 import fr.obelouix.essentials.data.PlayerData;
 import fr.obelouix.essentials.features.NightSkip;
 import fr.obelouix.essentials.gui.AdminGUI;
+import fr.obelouix.essentials.gui.AdminToolsGUI;
 import fr.obelouix.essentials.gui.PlayerManagementGUI;
 import fr.obelouix.essentials.security.ChatSecurity;
 import org.bukkit.event.Listener;
@@ -44,6 +45,7 @@ public class EventRegistry {
         registerEvent(new AdminCommand("admin"));
         registerEvent(new AdminGUI());
         registerEvent(new PlayerManagementGUI());
+        registerEvent(new AdminToolsGUI());
 
     }
 
