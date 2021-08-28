@@ -3,7 +3,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.NOT_OP
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.OP
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.STARTUP
-import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     java
@@ -131,15 +130,6 @@ tasks.shadowJar {
 
 tasks.jar {
     enabled = false
-}
-
-tasks.processResources {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-    from("src/main/resources") {
-        include("**/plugin.yml")
-        filter<ReplaceTokens>("tokens" to mapOf("version" to project.version))
-    }
 }
 
 tasks.assemble {
