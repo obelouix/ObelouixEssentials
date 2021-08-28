@@ -4,20 +4,22 @@ import com.google.common.collect.ImmutableList;
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.components.PlayerComponent;
 import fr.obelouix.essentials.i18n.I18n;
+import fr.obelouix.essentials.permissions.IPermission;
 import fr.obelouix.essentials.utils.IPlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
+import org.bukkit.permissions.Permission;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static org.bukkit.Bukkit.getServer;
@@ -36,69 +38,71 @@ public class GamemodeCommand extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if (args.length > 0 && args.length <= 2) {
-            final Player target = getServer().getPlayer(args[0]);
-            if (args.length == 1) {
-                if (isArgumentAPlayer(args[0]) && IPlayer.isOnline(args[0], sender)) {
-                    sender.sendMessage(Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.get"))
-                            .color(TextColor.color(85, 255, 85))
-                            .replaceText(TextReplacementConfig.builder()
-                                    .matchLiteral("{0}")
-                                    .replacement(playerComponent.player(sender, Objects.requireNonNull(target))
-                                            .color(TextColor.color(85, 255, 255)))
-                                    .build())
-                            .replaceText(TextReplacementConfig.builder()
-                                    .matchLiteral("{1}")
-                                    .replacement(Component.translatable("selectWorld.gameMode." + target.getGameMode().name().toLowerCase())
-                                            .color(TextColor.color(85, 255, 255)))
-                                    .build()));
-                } else {
-                    if (!isArgumentAPlayer(args[0]) && sender instanceof Player player) {
-                        changeGamemode(args[0], player);
-                        sender.sendMessage(messageOwnGamemodeChanged(sender, args[0]));
-                    } else plugin.getLOGGER().info("You can only get or update the gamemode of other player as console"
-                            + "\nLike this: gamemode <player> [gamemode]");
-                }
-            } else if (args.length == 2) {
-                if (isArgumentAPlayer(args[0]) && IPlayer.isOnline(args[0], sender)) {
-                    for (final String gameMode : OPTIONS) {
-                        if (gameMode.equalsIgnoreCase(args[1])) {
-                            changeGamemode(gameMode, target);
-                            if (Objects.requireNonNull(target).getName().equalsIgnoreCase(sender.getName())) {
-                                sender.sendMessage(messageOwnGamemodeChanged(sender, args[1]));
-                            } else {
-                                sender.sendMessage(messageTargetGamemodeChanged(sender, target, args[1]));
-                            }
-                            break;
-                        } else CommandManager.wrongCommandUsage(sender, this);
-                    }
-                }
-
-            } else CommandManager.wrongCommandUsage(sender, this);
-        } else CommandManager.wrongCommandUsage(sender, this);
-        return false;
-    }
-
-    private boolean isArgumentAPlayer(String arg) {
-        for (final String OPTS : OPTIONS) {
-            if (arg.equalsIgnoreCase(OPTS)) {
-                return false;
+        if (args.length == 1) {
+            if (sender instanceof Player player) {
+                changeGamemode(player, args[0], player, "obelouix.commands.gamemode");
             }
-        }
+        } else if (args.length == 2) {
+            if (IPlayer.isOnline(args[1], sender)) {
+                final Player target = Bukkit.getPlayer(args[1]);
+                if (Objects.requireNonNull(target).getName().equalsIgnoreCase(sender.getName())) {
+                    if (sender instanceof Player player) {
+                        changeGamemode(sender, args[0], player, "obelouix.commands.gamemode");
+                    }
+                } else {
+                    changeGamemode(sender, args[0], target, "obelouix.commands.gamemode.others");
+                }
+
+            }
+        } else CommandManager.wrongCommandUsage(sender, this);
         return true;
     }
 
 
-    private void changeGamemode(@NotNull String args, Player player) {
-        if (args.equals("0") || args.equalsIgnoreCase("survival")) {
-            player.setGameMode(GameMode.SURVIVAL);
-        } else if (args.equals("1") || args.equalsIgnoreCase("creative")) {
-            player.setGameMode(GameMode.CREATIVE);
-        } else if (args.equals("2") || args.equalsIgnoreCase("adventure")) {
-            player.setGameMode(GameMode.ADVENTURE);
-        } else if (args.equals("3") || args.equalsIgnoreCase("spectator")) {
-            player.setGameMode(GameMode.SPECTATOR);
+    private void changeGamemode(CommandSender sender, @NotNull String gamemode, Player target, String basePermission) {
+        Component message;
+        boolean hasPermission = false;
+        switch (gamemode.toLowerCase(Locale.ROOT)) {
+            case "adventure" -> {
+                if (IPermission.test(sender, basePermission + ".adventure")) {
+                    hasPermission = true;
+                    target.setGameMode(GameMode.ADVENTURE);
+                }
+            }
+            case "creative" -> {
+                if (IPermission.test(sender, basePermission + ".creative")) {
+                    hasPermission = true;
+                    target.setGameMode(GameMode.CREATIVE);
+                }
+            }
+            case "spectator" -> {
+                if (IPermission.test(sender, basePermission + ".spectator")) {
+                    hasPermission = true;
+                    target.setGameMode(GameMode.SPECTATOR);
+                }
+            }
+            case "survival" -> {
+                if (IPermission.test(sender, basePermission + ".survival")) {
+                    hasPermission = true;
+                    target.setGameMode(GameMode.SURVIVAL);
+                }
+            }
+            default -> {
+                if (IPermission.test(sender, "obelouix.commands.gamemode")) {
+                    hasPermission = true;
+                    CommandManager.wrongCommandUsage(sender, this);
+                }
+            }
         }
+        if (hasPermission) {
+            if (sender.getName().equalsIgnoreCase(target.getName())) {
+                message = messageOwnGamemodeChanged(sender, gamemode);
+            } else {
+                message = messageTargetGamemodeChanged(sender, target, gamemode);
+            }
+            sender.sendMessage(message);
+        }
+
     }
 
     private Component messageOwnGamemodeChanged(CommandSender sender, String gamemode) {
@@ -126,20 +130,37 @@ public class GamemodeCommand extends BukkitCommand {
                         .build());
     }
 
+    /**
+     * This check if the {@linkplain CommandSender} has a specific {@linkplain Permission} for changing gamemode
+     * and return a {@link List} with the possibilities he has
+     *
+     * @param sender     the {@linkplain CommandSender}
+     * @param permission the {@linkplain Permission} to check
+     * @return a {@link List}
+     */
+    private List<String> checkGamemodePermission(CommandSender sender, String permission) {
+        final List<String> completion = new ArrayList<>();
+        for (final String gamemode : OPTIONS) {
+            if (sender.hasPermission(permission + gamemode)) {
+                completion.add(gamemode);
+            }
+        }
+        return completion;
+    }
+
     @Override
     public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
-        final List<String> completion = new ArrayList<>();
-        StringUtil.copyPartialMatches(args[0], OPTIONS, completion);
+        List<String> completion = new ArrayList<>();
         if (args.length == 1) {
-            Collections.sort(completion);
-            for (final Player online : getServer().getOnlinePlayers()) {
-                completion.add(online.getName());
-            }
+            completion = checkGamemodePermission(sender, "obelouix.commands.gamemode.");
         }
 
         if (args.length == 2) {
-            completion.clear();
-            StringUtil.copyPartialMatches(args[1], OPTIONS, completion);
+            if (sender.hasPermission("obelouix.commands.gamemode.others")) {
+                for (final Player online : getServer().getOnlinePlayers()) {
+                    completion.add(online.getName());
+                }
+            }
         }
         return completion;
     }
