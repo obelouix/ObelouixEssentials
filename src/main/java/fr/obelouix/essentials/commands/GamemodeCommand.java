@@ -54,7 +54,9 @@ public class GamemodeCommand extends BukkitCommand {
                 }
 
             }
-        } else CommandManager.wrongCommandUsage(sender, this);
+        } else if (IPermission.test(sender, "obelouix.commands.gamemode")) {
+            CommandManager.wrongCommandUsage(sender, this);
+        }
         return true;
     }
 
@@ -155,11 +157,9 @@ public class GamemodeCommand extends BukkitCommand {
             completion = checkGamemodePermission(sender, "obelouix.commands.gamemode.");
         }
 
-        if (args.length == 2) {
-            if (sender.hasPermission("obelouix.commands.gamemode.others")) {
-                for (final Player online : getServer().getOnlinePlayers()) {
-                    completion.add(online.getName());
-                }
+        if (args.length == 2 && sender.hasPermission("obelouix.commands.gamemode.others")) {
+            for (final Player online : getServer().getOnlinePlayers()) {
+                completion.add(online.getName());
             }
         }
         return completion;
