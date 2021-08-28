@@ -21,6 +21,7 @@ java {
 
 
 repositories {
+
     mavenCentral()
     maven {
         setUrl("https://papermc.io/repo/repository/maven-public/")
@@ -93,6 +94,9 @@ dependencies {
     //Sponge Configurate
     implementation("org.spongepowered:configurate-core:4.1.2")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
+
+    //NBT API
+    implementation("de.tr7zw:item-nbt-api-plugin:2.8.0")
 
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
