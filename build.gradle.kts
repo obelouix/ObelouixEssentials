@@ -1,5 +1,6 @@
 // Configure Auto Relocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.NOT_OP
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.OP
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.STARTUP
 import org.apache.tools.ant.filters.ReplaceTokens
@@ -161,6 +162,25 @@ bukkit {
         register("bukkit.command.xp") {
             description = "Allows you to run the xp command"
             default = OP
+        }
+
+        register("obelouix.break.block.*") {
+            description = "Allows you to control which block players are allowed to break"
+            default = NOT_OP
+            childrenMap = mapOf(
+                "obelouix.break.block.minecraft.tnt" to false,
+                "obelouix.break.block.minecraft.lava" to false,
+                "obelouix.break.block.minecraft.bedrock" to false
+            )
+        }
+
+        register("obelouix.place.block.*") {
+            description = "Allows you to control which block players are allowed to place"
+            default = NOT_OP
+            childrenMap = mapOf(
+                "obelouix.place.block.minecraft.tnt" to false,
+                "obelouix.place.block.minecraft.bedrock" to false
+            )
         }
 
         register("obelouix.commands.day") {
