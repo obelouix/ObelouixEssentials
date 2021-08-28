@@ -204,11 +204,11 @@ bukkit {
             description = "Allows you to run the gamemode command"
             default = OP
             children = listOf(
-                "obelouix.commands.gamemode.aventure",
+                "obelouix.commands.gamemode.adventure",
                 "obelouix.commands.gamemode.creative",
                 "obelouix.commands.gamemode.spectator",
                 "obelouix.commands.gamemode.survival",
-                "obelouix.commands.gamemode.others.aventure",
+                "obelouix.commands.gamemode.others.adventure",
                 "obelouix.commands.gamemode.others.creative",
                 "obelouix.commands.gamemode.others.spectator",
                 "obelouix.commands.gamemode.others.survival"
@@ -216,7 +216,7 @@ bukkit {
         }
 
         register("obelouix.admin.playerdetails") {
-            description = "Allows you to see critical informations about a player when hovering his name in the chat"
+            description = "Allows you to see critical information about a player when hovering his name in the chat"
             default = OP
         }
 
