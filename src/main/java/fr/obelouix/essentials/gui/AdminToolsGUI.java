@@ -1,11 +1,11 @@
 package fr.obelouix.essentials.gui;
 
 import com.google.common.collect.ImmutableList;
-import de.tr7zw.nbtapi.NBTCompoundList;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
 import de.tr7zw.nbtapi.NBTListCompound;
 import fr.obelouix.essentials.CustomItem;
+import fr.obelouix.essentials.nbt.NbtWrapper;
 import fr.obelouix.essentials.permissions.IPermission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -173,24 +173,15 @@ public class AdminToolsGUI extends BaseGUI {
 
         final NBTItem nbtItem = new NBTItem(item);
         final NBTList<NBTListCompound> attribute = nbtItem.getCompoundList("AttributeModifiers");
-        addAttribute(attribute, "generic.armor", 30, slot);
-        addAttribute(attribute, "generic.knockback_resistance", 5, slot);
-        addAttribute(attribute, "generic.armor_toughness", 20, slot);
-        addAttribute(attribute, "generic.movement_speed", 1.2, slot);
-        addAttribute(attribute, "generic.max_health", 1024, slot);
+        NbtWrapper.addAttribute(attribute, "generic.armor", 30, slot);
+        NbtWrapper.addAttribute(attribute, "generic.knockback_resistance", 5, slot);
+        NbtWrapper.addAttribute(attribute, "generic.armor_toughness", 20, slot);
+        NbtWrapper.addAttribute(attribute, "generic.movement_speed", 1.2, slot);
+        NbtWrapper.addAttribute(attribute, "generic.max_health", 1024, slot);
 
         item = nbtItem.getItem();
         return item;
     }
 
-    private void addAttribute(NBTList<NBTListCompound> attributeList, String attribute, double amount, String slot) {
-        final NBTListCompound mod = ((NBTCompoundList) attributeList).addCompound();
-        mod.setDouble("Amount", amount);
-        mod.setString("AttributeName", attribute);
-        mod.setString("Name", attribute);
-        mod.setInteger("Operation", 0);
-        mod.setInteger("UUIDLeast", -18788761);
-        mod.setInteger("UUIDMost", 718533190);
-        mod.setString("Slot", slot);
-    }
+
 }
