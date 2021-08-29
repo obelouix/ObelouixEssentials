@@ -42,6 +42,12 @@ public final class CommandManager {
         return commandStates;
     }
 
+    /**
+     * send a message when the user used wrongly a command
+     *
+     * @param sender  the {@link CommandSender}
+     * @param command the {@link Command} used
+     */
     public static void wrongCommandUsage(@NotNull CommandSender sender, @NotNull Command command) {
 //        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
         sender.sendMessage(Component.text(I18n.getInstance().getTranslation(sender, "wrong_command_usage") + "\n")
@@ -51,6 +57,13 @@ public final class CommandManager {
                         .clickEvent(ClickEvent.suggestCommand(command.getUsage()))));
     }
 
+    /**
+     * allow registering of commands in the Bukkit CommandMap instead of using the plugin.yml
+     *
+     * @param command the command to register
+     * @param plugin  the {@link org.bukkit.plugin.java.JavaPlugin} where the command belong
+     * @throws ReflectiveOperationException
+     */
     private void registerCommand(Command command, Essentials plugin)
             throws ReflectiveOperationException {
         //Getting command map from CraftServer

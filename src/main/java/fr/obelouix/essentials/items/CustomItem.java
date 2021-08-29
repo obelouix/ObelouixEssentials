@@ -10,6 +10,13 @@ import java.util.List;
 
 public class CustomItem {
 
+    /**
+     * allows to add an {@link Enchantment}
+     *
+     * @param item         the item that will receive the enchantment
+     * @param enchantment  the {@link Enchantment} to add
+     * @param enchantLevel an {@link Integer} between {@code 0} and {@link 255}
+     */
     public static void addEnchantment(ItemStack item, Enchantment enchantment, int enchantLevel) {
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
@@ -17,6 +24,13 @@ public class CustomItem {
         item.setItemMeta(meta);
     }
 
+    /**
+     * allows to add multiple {@link Enchantment} at once
+     *
+     * @param item         the item that will receive the enchantments
+     * @param enchantments a {@link List} of {@link Enchantment}
+     * @param enchantLevel an {@link Integer} between {@code 0} and {@link 255}
+     */
     public static void addEnchantments(ItemStack item, List<Enchantment> enchantments, int enchantLevel) {
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
@@ -26,12 +40,24 @@ public class CustomItem {
         item.setItemMeta(meta);
     }
 
-    public static void setItemName(ItemStack item, Component title) {
+    /**
+     * change the name of the item
+     *
+     * @param item     the item were we change the name
+     * @param itemName a {@link Component} that will be the name if this item
+     */
+    public static void setItemName(ItemStack item, Component itemName) {
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(title.decoration(TextDecoration.ITALIC, false));
+        meta.displayName(itemName.decoration(TextDecoration.ITALIC, false));
         item.setItemMeta(meta);
     }
 
+    /**
+     * add lore (aka description) to the item
+     *
+     * @param item       the item were whe add the lore
+     * @param components a {@link List} of {@link Component} to show
+     */
     public static void addLore(ItemStack item, List<Component> components) {
         ItemMeta meta = item.getItemMeta();
         meta.lore(components);

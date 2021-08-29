@@ -30,6 +30,12 @@ public class AdminToolsGUI extends BaseGUI {
 
     private ItemStack worldEditSelectionWand;
 
+    /**
+     * Create the admin inventory
+     *
+     * @param player the {@link Player} that will the see the inventory
+     * @return inventory
+     */
     private @NotNull Inventory adminToolsInventory(Player player) {
         final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.getTranslation(player, "obelouix.gui.admin_tools")));
 
