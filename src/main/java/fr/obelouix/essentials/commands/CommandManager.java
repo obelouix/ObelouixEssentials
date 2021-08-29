@@ -49,7 +49,6 @@ public final class CommandManager {
      * @param command the {@link Command} used
      */
     public static void wrongCommandUsage(@NotNull CommandSender sender, @NotNull Command command) {
-//        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
         sender.sendMessage(Component.text(I18n.getInstance().getTranslation(sender, "wrong_command_usage") + "\n")
                 .color(TextColors.DARK_RED.getTextColor())
                 .append(Component.text(command.getUsage())
@@ -75,7 +74,7 @@ public final class CommandManager {
         //Registering the command provided above
         register.invoke(cmdMap, "obelouix", command);
         //All the exceptions thrown above are due to reflection, They will be thrown if any of the above methods
-        //and objects used above change location or turn private. IF they do, let me know to update the thread!
+        //and objects used above change location or turn private
     }
 
 }
