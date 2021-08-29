@@ -46,6 +46,9 @@ repositories {
         setUrl("https://repo.codemc.org/repository/maven-public/")
     }
     maven {
+        setUrl("https://repo.codemc.io/repository/nms/")
+    }
+    maven {
         setUrl("https://repo.aikar.co/content/groups/aikar/")
     }
     maven {
@@ -68,7 +71,9 @@ repositories {
 dependencies {
 
     // Paper
+    compileOnly("io.papermc.paper:paper:1.17.1-R0.1-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-mojangapi:1.17.1-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.6")
 
     // Luckperms
@@ -145,7 +150,7 @@ tasks.assemble {
 bukkit {
     main = "fr.obelouix.essentials.Essentials"
     apiVersion = "1.17"
-    softDepend = listOf("ProtocolLib", "LuckPerms", "WorldGuard")
+    softDepend = listOf("ProtocolLib", "LuckPerms", "WorldEdit", "WorldGuard")
     load = STARTUP
     prefix = "Obelouix"
     defaultPermission = OP
