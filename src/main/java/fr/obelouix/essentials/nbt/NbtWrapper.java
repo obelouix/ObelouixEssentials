@@ -9,6 +9,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class NbtWrapper {
 
+    /**
+     * set the {@link ItemStack}  that will have custom NBT data
+     *
+     * @param item the {@link ItemStack} where we apply NBT
+     * @return {@link NBTItem}
+     */
     public static NBTItem nbtItem(ItemStack item) {
         return new NBTItem(item);
     }
