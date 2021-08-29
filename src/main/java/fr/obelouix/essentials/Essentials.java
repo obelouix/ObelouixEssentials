@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  */
 public final class Essentials extends JavaPlugin {
 
+
     private static final Logger LOGGER = Logger.getLogger("ObelouixEssentials");
     private static Essentials instance;
     private static TimingManager timingManager;
@@ -33,7 +34,6 @@ public final class Essentials extends JavaPlugin {
     private boolean isProtocolLibEnabled = false;
     private boolean isFawePresent = false;
     private LuckPerms luckPermsAPI;
-    private String wandItem;
 
     /**
      * @return instance of {@link Essentials} class
@@ -42,6 +42,10 @@ public final class Essentials extends JavaPlugin {
         return instance;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public static MCTiming timing(String name) {
         return timingManager.of(name);
     }
@@ -62,6 +66,7 @@ public final class Essentials extends JavaPlugin {
             throwables.printStackTrace();
         }*/
     }
+
 
     @Override
     public void onEnable() {
@@ -132,10 +137,20 @@ public final class Essentials extends JavaPlugin {
 
     }
 
+    /**
+     * Allows to use the plugin logger anywhere
+     *
+     * @return an instance of the plugin logger
+     */
     public Logger getLOGGER() {
         return LOGGER;
     }
 
+    /**
+     * Allows to know if the server is in a reloading state
+     *
+     * @return {@code true} if the server is reloading
+     */
     public boolean isReloading() {
         return isReloading;
     }
@@ -156,6 +171,11 @@ public final class Essentials extends JavaPlugin {
         return false;
     }
 
+    /**
+     * Check the Presence of {@link Fawe} plugin and setup an instance of it if its present <br>
+     * <b>This doesn't check the presence of {@link com.sk89q.worldedit.WorldEdit} which is the base of {@link Fawe}</b>
+     * <br>Forcing user to use {@link Fawe} and not the standard WorldEdit or other forks of it
+     */
     private void checkWorldEditPresence() {
 
         if (isClassFound("com.fastasyncworldedit.core.Fawe")) {
@@ -165,6 +185,11 @@ public final class Essentials extends JavaPlugin {
         }
     }
 
+    /**
+     * Allows to get an instance of {@link LuckPerms} API
+     *
+     * @return {@link LuckPerms}
+     */
     public LuckPerms getLuckPermsAPI() {
         return luckPermsAPI;
     }
@@ -181,10 +206,20 @@ public final class Essentials extends JavaPlugin {
         return luckPermsProvider;
     }
 
+    /**
+     * Allow hooking in {@link Fawe} plugin
+     *
+     * @return an instance of {@link Fawe}
+     */
     public Fawe getFAWEProvider() {
         return fawe;
     }
 
+    /**
+     * Tell other classes if {@link Fawe} is present on the server
+     *
+     * @return {@code true} if present else {@code false}
+     */
     public boolean isFawePresent() {
         return isFawePresent;
     }
