@@ -53,16 +53,16 @@ public class AdminToolsGUI extends BaseGUI {
         final List<Component> componentList = new ArrayList<>();
         componentList.add(untradeableItem);
 
-        CustomItem.setItemName(netherite_helmet, Component.text("Admin Helmet", TextColor.color(255, 0, 0), TextDecoration.BOLD));
+        CustomItem.setItemName(netherite_helmet, Component.text(i18n.getTranslation(player, "obelouix.item.admin_helmet"), TextColor.color(255, 0, 0), TextDecoration.BOLD));
         CustomItem.addLore(netherite_helmet, componentList);
 
-        CustomItem.setItemName(netherite_chestplate, Component.text("Admin chestplate", TextColor.color(255, 0, 0), TextDecoration.BOLD));
+        CustomItem.setItemName(netherite_chestplate, Component.text(i18n.getTranslation(player, "obelouix.item.admin_chestplate"), TextColor.color(255, 0, 0), TextDecoration.BOLD));
         CustomItem.addLore(netherite_chestplate, componentList);
 
-        CustomItem.setItemName(netherite_leggings, Component.text("Admin leggings", TextColor.color(255, 0, 0), TextDecoration.BOLD));
+        CustomItem.setItemName(netherite_leggings, Component.text(i18n.getTranslation(player, "obelouix.item.admin_leggings"), TextColor.color(255, 0, 0), TextDecoration.BOLD));
         CustomItem.addLore(netherite_leggings, componentList);
 
-        CustomItem.setItemName(netherite_boots, Component.text("Admin boots", TextColor.color(255, 0, 0), TextDecoration.BOLD));
+        CustomItem.setItemName(netherite_boots, Component.text(i18n.getTranslation(player, "obelouix.item.admin_boots"), TextColor.color(255, 0, 0), TextDecoration.BOLD));
         CustomItem.addLore(netherite_boots, componentList);
 
         // Fire Protection X - Projectile Protection X - Blast Protection X - Protection X
