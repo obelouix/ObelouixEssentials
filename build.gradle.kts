@@ -83,8 +83,8 @@ dependencies {
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
 
     // WorldEdit
-    compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-191") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-191")
+    compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-157") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-157")
 
     // WorldGuard
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT")
