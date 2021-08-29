@@ -5,6 +5,8 @@ import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
 import de.tr7zw.nbtapi.NBTListCompound;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -70,6 +72,8 @@ public class AdminToolsGUI extends BaseGUI {
         inventory.setItem(18, createAdminArmor(netherite_leggings, "legs"));
         inventory.setItem(27, createAdminArmor(netherite_boots, "feet"));
 
+        addBottomNavigationBar(inventory, player);
+
         return inventory;
     }
 
@@ -125,6 +129,13 @@ public class AdminToolsGUI extends BaseGUI {
                 player.getInventory().setBoots(event.getCurrentItem());
             }
         }
+    }
+
+    @Override
+    public void addBottomNavigationBar(@NotNull Inventory inventory, Player player) {
+        //home
+        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
     }
 
     private ItemStack createAdminArmor(ItemStack item, String slot) {
