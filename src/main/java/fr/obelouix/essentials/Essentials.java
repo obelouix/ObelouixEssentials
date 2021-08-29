@@ -2,6 +2,7 @@ package fr.obelouix.essentials;
 
 import co.aikar.timings.lib.MCTiming;
 import co.aikar.timings.lib.TimingManager;
+import com.fastasyncworldedit.core.Fawe;
 import fr.obelouix.essentials.commands.CommandManager;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
@@ -26,10 +27,13 @@ public final class Essentials extends JavaPlugin {
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
     private RegisteredServiceProvider<LuckPerms> luckPermsProvider;
+    private Fawe fawe;
     private boolean isReloading = false;
     private boolean isWorldGuardEnabled = false;
     private boolean isProtocolLibEnabled = false;
+    private boolean isFawePresent = false;
     private LuckPerms luckPermsAPI;
+    private String wandItem;
 
     /**
      * @return instance of {@link Essentials} class
@@ -41,7 +45,6 @@ public final class Essentials extends JavaPlugin {
     public static MCTiming timing(String name) {
         return timingManager.of(name);
     }
-
 
     @Override
     public void onDisable() {
@@ -104,6 +107,8 @@ public final class Essentials extends JavaPlugin {
                 }
             }
 
+            checkWorldEditPresence();
+
             if (isClassFound("com.sk89q.worldguard.bukkit.WorldGuardPlugin")) {
                 LOGGER.info("Found WorldGuard");
 
@@ -151,6 +156,15 @@ public final class Essentials extends JavaPlugin {
         return false;
     }
 
+    private void checkWorldEditPresence() {
+
+        if (isClassFound("com.fastasyncworldedit.core.Fawe")) {
+            this.fawe = Fawe.get();
+            isFawePresent = true;
+            LOGGER.info("Found WorldEdit");
+        }
+    }
+
     public LuckPerms getLuckPermsAPI() {
         return luckPermsAPI;
     }
@@ -165,5 +179,13 @@ public final class Essentials extends JavaPlugin {
 
     public RegisteredServiceProvider<LuckPerms> getLuckPermsProvider() {
         return luckPermsProvider;
+    }
+
+    public Fawe getFAWEProvider() {
+        return fawe;
+    }
+
+    public boolean isFawePresent() {
+        return isFawePresent;
     }
 }
