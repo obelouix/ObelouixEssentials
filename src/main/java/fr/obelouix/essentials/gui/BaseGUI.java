@@ -1,5 +1,6 @@
 package fr.obelouix.essentials.gui;
 
+import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.utils.HeadSkinFetcher;
 import fr.obelouix.essentials.utils.Heads;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class BaseGUI implements Listener {
 
+    protected final Essentials plugin = Essentials.getInstance();
     protected final I18n i18n = I18n.getInstance();
 
     /**
