@@ -22,7 +22,6 @@ public class AdminToolsGUI extends BaseGUI {
 
     private @NotNull Inventory adminToolsInventory(Player player) {
         final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_tools")));
-        final ItemMeta itemMeta = null;
 
         final ItemStack netherite_helmet = new ItemStack(Material.NETHERITE_HELMET, 1);
         final ItemStack netherite_chestplate = new ItemStack(Material.NETHERITE_CHESTPLATE, 1);
