@@ -150,7 +150,7 @@ tasks.assemble {
 bukkit {
     main = "fr.obelouix.essentials.Essentials"
     apiVersion = "1.17"
-    softDepend = listOf("ProtocolLib", "LuckPerms", "WorldEdit", "WorldGuard")
+    softDepend = listOf("ProtocolLib", "LuckPerms", "FastAsyncWorldEdit", "WorldGuard")
     load = STARTUP
     prefix = "Obelouix"
     defaultPermission = OP
