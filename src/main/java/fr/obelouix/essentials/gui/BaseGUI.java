@@ -50,15 +50,15 @@ public abstract class BaseGUI implements Listener {
      */
     public void addBottomNavigationBar(@NotNull Inventory inventory, Player player) {
         //previous arrow
-        inventory.setItem(48, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.previous_page"),
+        inventory.setItem(48, HeadSkinFetcher.getOfflineSkull(i18n.getTranslation(player, "obelouix.previous_page"),
                 Heads.LEFT_ARROW.toString()));
 
         //home
-        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.getTranslation(player, "obelouix.home"))
                 .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
         //next arrow
-        inventory.setItem(50, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.next_page"),
+        inventory.setItem(50, HeadSkinFetcher.getOfflineSkull(i18n.getTranslation(player, "obelouix.next_page"),
                 Heads.RIGHT_ARROW.toString()));
     }
 

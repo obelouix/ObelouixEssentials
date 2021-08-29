@@ -18,12 +18,12 @@ import org.jetbrains.annotations.NotNull;
 public class AdminGUI extends BaseGUI {
 
     private @NotNull Inventory admin(Player player) {
-        final Inventory adminInventory = Bukkit.createInventory(null, 54, Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center")));
+        final Inventory adminInventory = Bukkit.createInventory(null, 54, Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")));
 
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
-        skullMeta.displayName(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management"))
+        skullMeta.displayName(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center.player_management"))
                 .decoration(TextDecoration.ITALIC, false)
                 .color(TextColor.color(255, 0, 0)));
         skull.setItemMeta(skullMeta);
@@ -45,7 +45,7 @@ public class AdminGUI extends BaseGUI {
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")))) {
             event.setCancelled(true);
         }
     }
@@ -57,13 +57,13 @@ public class AdminGUI extends BaseGUI {
         Inventory inventory = event.getClickedInventory();
         Player player = (Player) event.getWhoClicked();
 
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")))) {
             ItemStack clickedItem = event.getCurrentItem();
             if (clickedItem != null && clickedItem.getType().equals(Material.PLAYER_HEAD)) {
                 if (event.getSlot() == 0) {
                     new PlayerManagementGUI().showInventory(player);
                 }
-                if (event.getSlot() == 49 && clickedItem.displayName().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                if (event.getSlot() == 49 && clickedItem.displayName().equals(Component.text(i18n.getTranslation(player, "obelouix.home"))
                         .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false))) {
                     new AdminGUI().showInventory(player);
                 }

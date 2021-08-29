@@ -61,21 +61,21 @@ public class FlyCommand extends BukkitCommand {
 
         if (args.length == 0) {
             if (allowFlight) {
-                message = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.fly.enabled"))
+                message = Component.text(i18n.getTranslation(sender, "obelouix.commands.fly.enabled"))
                         .color(TextColors.GREEN.getTextColor());
             } else {
-                message = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.fly.disabled"))
+                message = Component.text(i18n.getTranslation(sender, "obelouix.commands.fly.disabled"))
                         .color(TextColors.DARK_RED.getTextColor());
             }
         } else {
             player = Component.text(args[0]).color(TextColors.AQUA.getTextColor());
             if (allowFlight) {
 
-                message = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.fly.target.enabled"))
+                message = Component.text(i18n.getTranslation(sender, "obelouix.commands.fly.target.enabled"))
                         .color(TextColors.GREEN.getTextColor())
                         .replaceText(TextReplacementConfig.builder().matchLiteral("{0}").replacement(player).build());
             } else {
-                message = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.fly.target.disabled"))
+                message = Component.text(i18n.getTranslation(sender, "obelouix.commands.fly.target.disabled"))
                         .color(TextColors.DARK_RED.getTextColor())
                         .replaceText(TextReplacementConfig.builder().matchLiteral("{0}").replacement(player).build());
             }

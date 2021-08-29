@@ -108,7 +108,7 @@ public class GamemodeCommand extends BukkitCommand {
     }
 
     private Component messageOwnGamemodeChanged(CommandSender sender, String gamemode) {
-        return Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.updated.self"))
+        return Component.text(i18n.getTranslation(sender, "obelouix.commands.gamemode.updated.self"))
                 .color(TextColor.color(85, 255, 85))
                 .replaceText(TextReplacementConfig.builder()
                         .matchLiteral("{0}")
@@ -118,7 +118,7 @@ public class GamemodeCommand extends BukkitCommand {
     }
 
     private Component messageTargetGamemodeChanged(CommandSender sender, Player target, String gamemode) {
-        return Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.gamemode.updated"))
+        return Component.text(i18n.getTranslation(sender, "obelouix.commands.gamemode.updated"))
                 .color(TextColor.color(85, 255, 85))
                 .replaceText(TextReplacementConfig.builder()
                         .matchLiteral("{0}")

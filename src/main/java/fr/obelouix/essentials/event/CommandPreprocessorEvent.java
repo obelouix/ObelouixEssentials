@@ -22,7 +22,7 @@ public class CommandPreprocessorEvent implements Listener {
            he will be shown this message to ask him to not reload to avoid problems */
         if (message.equals("reload confirm") && event.getPlayer().hasPermission("bukkit.command.reload")) {
             event.getPlayer().sendMessage(ChatColor.DARK_RED +
-                    i18n.sendTranslatedMessage(event.getPlayer(), "avoid_reload"));
+                    i18n.getTranslation(event.getPlayer(), "avoid_reload"));
             pluginInstance.setReloading(true);
         }
     }
@@ -34,7 +34,7 @@ public class CommandPreprocessorEvent implements Listener {
            message to ask to not reload to avoid problems */
         if (command.equals("reload confirm")) {
             event.getSender().sendMessage(ChatColor.DARK_RED +
-                    i18n.sendTranslatedMessage(event.getSender(), "avoid_reload"));
+                    i18n.getTranslation(event.getSender(), "avoid_reload"));
             pluginInstance.setReloading(true);
         }
     }

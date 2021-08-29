@@ -30,7 +30,7 @@ public class I18n {
      * @param message       a {@link String} ID of the message
      * @return the @param message
      */
-    public String sendTranslatedMessage(CommandSender commandSender, String message) {
+    public String getTranslation(CommandSender commandSender, String message) {
         final PlayerData playerData = new PlayerData();
         ResourceBundle playerMessages;
         if (commandSender instanceof Player) {

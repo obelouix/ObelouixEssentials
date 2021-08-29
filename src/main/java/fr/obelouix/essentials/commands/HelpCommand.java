@@ -42,12 +42,12 @@ public class HelpCommand extends BukkitCommand {
                                 Component.text("/" + commandMap.getCommand(command.getKey()).getName() + ":")
                                         .color(TextColor.color(35, 219, 240))
                                         .hoverEvent(HoverEvent.showText(Component.text(
-                                                        i18n.sendTranslatedMessage(sender, "obelouix.usage")
+                                                        i18n.getTranslation(sender, "obelouix.usage")
                                                                 + ": ").color(TextColor.color(255, 186, 6))
                                                 .append(Component.text(commandMap.getCommand(command.getKey()).getUsage())
                                                         .color(TextColor.color(255, 255, 255))
                                                         .append(Component.text("\n"
-                                                                        + i18n.sendTranslatedMessage(sender, "obelouix.commands.help.prefill"))
+                                                                        + i18n.getTranslation(sender, "obelouix.commands.help.prefill"))
                                                                 .color(TextColor.color(35, 255, 5)))
                                                 )))
                                         .clickEvent(ClickEvent.suggestCommand("/" + commandMap.getCommand(command.getKey()).getName()))
@@ -59,7 +59,7 @@ public class HelpCommand extends BukkitCommand {
 
 
             if (args.length == 0 || args[0].equals("1")) {
-                player.sendMessage(Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.help.tip"))
+                player.sendMessage(Component.text(i18n.getTranslation(sender, "obelouix.commands.help.tip"))
                         .color(TextColor.color(255, 186, 6)));
                 player.sendMessage(helpChat(1, player));
             } else {
@@ -83,13 +83,13 @@ public class HelpCommand extends BukkitCommand {
                             .color(TextColor.color(52, 81, 200))
                             .clickEvent(ClickEvent.runCommand("/help " + (page + 1)))
                             .hoverEvent(HoverEvent.showText(
-                                    Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.help.next_page")))));
+                                    Component.text(i18n.getTranslation(sender, "obelouix.commands.help.next_page")))));
         } else if (page > 1 && page < maxPages) {
             navbar = Component.text("<<<")
                     .color(TextColor.color(52, 81, 200))
                     .clickEvent(ClickEvent.runCommand("/help " + (page - 1)))
                     .hoverEvent(HoverEvent.showText(
-                            Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.help.previous_page"))))
+                            Component.text(i18n.getTranslation(sender, "obelouix.commands.help.previous_page"))))
                     .append(Component.text(" ================= ")
                             .color(TextColor.color(66, 213, 49)))
                     .append(Component.text("page " + page + "/" + helpMap.size() / 18)
@@ -100,14 +100,14 @@ public class HelpCommand extends BukkitCommand {
                             .color(TextColor.color(52, 81, 200))
                             .clickEvent(ClickEvent.runCommand("/help " + (page + 1)))
                             .hoverEvent(HoverEvent.showText(
-                                    Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.help.next_page")))));
+                                    Component.text(i18n.getTranslation(sender, "obelouix.commands.help.next_page")))));
 
         } else if (page == maxPages) {
             navbar = Component.text("<<<")
                     .color(TextColor.color(52, 81, 200))
                     .clickEvent(ClickEvent.runCommand("/help " + (page - 1)))
                     .hoverEvent(HoverEvent.showText(
-                            Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.help.previous_page"))))
+                            Component.text(i18n.getTranslation(sender, "obelouix.commands.help.previous_page"))))
                     .append(Component.text(" ================= ")
                             .color(TextColor.color(66, 213, 49)))
                     .append(Component.text("page " + page + "/" + helpMap.size() / 18)

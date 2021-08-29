@@ -22,7 +22,7 @@ public class PingCommand implements CommandExecutor, TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
             if (sender instanceof Player player) {
-                player.sendMessage(ChatColor.GRAY + MessageFormat.format(I18n.getInstance().sendTranslatedMessage(player, "command.ping.own"),
+                player.sendMessage(ChatColor.GRAY + MessageFormat.format(I18n.getInstance().getTranslation(player, "command.ping.own"),
                         formatPingColorString(player) + ChatColor.GRAY));
             } else {
                 sender.sendMessage(ChatColor.DARK_RED + "It's useless to get your ping :p");
@@ -30,7 +30,7 @@ public class PingCommand implements CommandExecutor, TabExecutor {
         } else if (args.length == 1) {
             final Player target = Bukkit.getPlayer(args[0]);
             if (IPlayer.isOnline(args[0], sender)) {
-                sender.sendMessage(ChatColor.GRAY + MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.ping.other"),
+                sender.sendMessage(ChatColor.GRAY + MessageFormat.format(I18n.getInstance().getTranslation(sender, "command.ping.other"),
                         ChatColor.AQUA + target.getName() + ChatColor.GRAY, formatPingColorString(target) + ChatColor.GRAY));
             }
         } else {

@@ -26,7 +26,7 @@ public class ClearChatCommand implements CommandExecutor, TabCompleter {
                         } else if (lineNumber == 95) {
                             onlinePlayer.sendMessage(ChatColor.DARK_RED +
                                     "                      "
-                                    + I18n.getInstance().sendTranslatedMessage(onlinePlayer, "command.clearchat.result"));
+                                    + I18n.getInstance().getTranslation(onlinePlayer, "command.clearchat.result"));
                         } else {
                             onlinePlayer.sendMessage("");
                         }

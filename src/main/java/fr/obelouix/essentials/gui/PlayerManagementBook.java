@@ -29,13 +29,13 @@ public class PlayerManagementBook extends BaseBookGUI {
      */
     @Override
     protected Collection<Component> bookPages(Player player) {
-        final String indexPageTitle = i18n.sendTranslatedMessage(player, "obelouix.book.management");
-        final String punishmentTitle = i18n.sendTranslatedMessage(player, "obelouix.punishment");
+        final String indexPageTitle = i18n.getTranslation(player, "obelouix.book.management");
+        final String punishmentTitle = i18n.getTranslation(player, "obelouix.punishment");
         //first page of the book
         final Component indexPage = Component.text(indexPageTitle + " " + managedPlayerName + "\n\n")
                 .decoration(TextDecoration.UNDERLINED, true)
                 .color(TextColor.color(35, 219, 240))
-                .append(Component.text("> " + i18n.sendTranslatedMessage(player, "obelouix.inventory") + "\n")
+                .append(Component.text("> " + i18n.getTranslation(player, "obelouix.inventory") + "\n")
                         .color(TextColor.color(0, 0, 0))
                         .clickEvent(openTargetInventory()))
                 .append(Component.text("\n> ").append(Component.translatable("container.enderchest"))

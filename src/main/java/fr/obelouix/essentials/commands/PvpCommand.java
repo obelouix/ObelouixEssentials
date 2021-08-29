@@ -36,10 +36,10 @@ public class PvpCommand implements TabExecutor, Listener {
                         final Component defaultDisplayName = player.displayName();
                         player.displayName(Component.text("[pvp]").append(defaultDisplayName));
 
-                        message = Component.text(i18n.sendTranslatedMessage(player, "obelouix.commands.pvp.enabled")).color(TextColor.color(183, 0, 0));
+                        message = Component.text(i18n.getTranslation(player, "obelouix.commands.pvp.enabled")).color(TextColor.color(183, 0, 0));
                     } else {
                         pvpPlayers.remove(player.getPlayer());
-                        message = Component.text(i18n.sendTranslatedMessage(player, "obelouix.commands.pvp.disabled")).color(TextColor.color(0, 213, 0));
+                        message = Component.text(i18n.getTranslation(player, "obelouix.commands.pvp.disabled")).color(TextColor.color(0, 213, 0));
                     }
                     player.sendMessage(message);
                 }

@@ -33,7 +33,7 @@ public class TPPosCommand extends BukkitCommand {
                 for (final String argument : args) {
                     if (!NumericValue.isNumeric(argument)) {
 
-                        final Component error = Component.text(StringUtils.capitalize(StringUtils.replace(i18n.sendTranslatedMessage(player,
+                        final Component error = Component.text(StringUtils.capitalize(StringUtils.replace(i18n.getTranslation(player,
                                         "obelouix.teleportion_aborted_error"), "{argument}", argument)))
                                 .color(TextColor.color(255, 0, 0));
 
@@ -44,8 +44,8 @@ public class TPPosCommand extends BukkitCommand {
                     final Location teleportLocation = new Location(((Player) sender).getWorld(),
                             Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]));
 
-                    player.sendMessage(Component.text(StringUtils.capitalize(i18n.sendTranslatedMessage(player, "obelouix.teleporting")))
-                            .color(TextColor.color(255, 186, 6)));
+                player.sendMessage(Component.text(StringUtils.capitalize(i18n.getTranslation(player, "obelouix.teleporting")))
+                        .color(TextColor.color(255, 186, 6)));
 
                     PaperLib.teleportAsync(Objects.requireNonNull(player.getPlayer()), teleportLocation);
 

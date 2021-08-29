@@ -45,7 +45,7 @@ public class PlayerComponent {
                     .append(Component.text(target.getWorld().getName() + "\n")
                             .color(TextColor.color(255, 255, 255)));
 
-            final Component location = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.location") + ": ")
+            final Component location = Component.text(i18n.getTranslation(sender, "obelouix.location") + ": ")
                     .color(TextColor.color(255, 186, 6))
                     .append(Component.text(target.getLocation().getBlockX() + " "
                                     + target.getLocation().getBlockY() + " "
@@ -58,7 +58,7 @@ public class PlayerComponent {
                             .append(location));
 
             if (plugin.getLuckPermsAPI() != null) {
-                group = Component.text("\n" + StringUtils.capitalize(i18n.sendTranslatedMessage(sender, "obelouix.group")) + ": ")
+                group = Component.text("\n" + StringUtils.capitalize(i18n.getTranslation(sender, "obelouix.group")) + ": ")
                         .color(TextColor.color(255, 186, 6))
                         .append(Component.text(IPlayer.getGroup(target))
                                 .color(TextColor.color(255, 255, 255)));

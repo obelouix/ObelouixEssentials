@@ -13,7 +13,7 @@ public class NbtWrapper {
     }
 
     public static void addAttribute(NBTList<NBTListCompound> attributeList, String attribute, double amount, String slot) {
-        NBTListCompound mod = NBTCompoundList((NBTCompoundList) attributeList, attribute, amount);
+        final NBTListCompound mod = NBTCompoundList((NBTCompoundList) attributeList, attribute, amount);
         mod.setString("Slot", slot);
     }
 

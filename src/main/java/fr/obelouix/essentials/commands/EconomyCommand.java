@@ -34,7 +34,7 @@ public class EconomyCommand implements TabExecutor {
                 final float amount = Float.parseFloat(args[2]);
                 //check if the amount entered by the sender is not negative
                 if (amount < 0 && !args[0].equalsIgnoreCase("set")) {
-                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender,
+                    sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(sender,
                             "obelouix.commands.eco.negative_balance_not_allowed"));
 
                 } else {
@@ -65,8 +65,8 @@ public class EconomyCommand implements TabExecutor {
                 if (operation.equals("give")) {
                     dbInstance.update("UPDATE economy SET money=money+" + amount + " WHERE uuid = '" + UUID + "'");
 
-                    sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
-                            "obelouix.commands.eco.give"),
+                    sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender,
+                                    "obelouix.commands.eco.give"),
                             ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol + ChatColor.GREEN,
                             ChatColor.AQUA + target));
 
@@ -74,21 +74,21 @@ public class EconomyCommand implements TabExecutor {
                     if (Config.allowNegativeBalance && amount < 0) {
                         dbInstance.update("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
 
-                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
-                                "obelouix.commands.eco.set"),
+                        sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender,
+                                        "obelouix.commands.eco.set"),
                                 ChatColor.AQUA + target + ChatColor.GREEN,
                                 ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol));
 
                     } else if (amount < 0) {
 
-                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender,
+                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(sender,
                                 "obelouix.commands.eco.negative_balance_not_allowed"));
 
                     } else {
                         dbInstance.update("UPDATE economy SET money=" + amount + " WHERE uuid = '" + UUID + "'");
 
-                        sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
-                                "obelouix.commands.eco.set"),
+                        sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender,
+                                        "obelouix.commands.eco.set"),
                                 ChatColor.AQUA + target + ChatColor.GREEN,
                                 ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol));
                     }
@@ -96,8 +96,8 @@ public class EconomyCommand implements TabExecutor {
                 } else {
                     dbInstance.update("UPDATE economy SET money=money-" + amount + " WHERE uuid = '" + UUID + "'");
 
-                    sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender,
-                            "obelouix.commands.eco.remove"),
+                    sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender,
+                                    "obelouix.commands.eco.remove"),
                             ChatColor.AQUA + String.valueOf(amount) + Config.economySymbol + ChatColor.GREEN,
                             ChatColor.AQUA + target));
                 }
@@ -107,7 +107,7 @@ public class EconomyCommand implements TabExecutor {
 
         } else {
             sender.sendMessage(MessageFormat.format(ChatColor.DARK_RED +
-                            I18n.getInstance().sendTranslatedMessage(sender, "database.player.not_found"),
+                            I18n.getInstance().getTranslation(sender, "database.player.not_found"),
                     ChatColor.RED + target + ChatColor.DARK_RED));
         }
 

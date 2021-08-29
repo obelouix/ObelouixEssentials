@@ -31,7 +31,7 @@ public class ChatSecurity implements Listener {
             final String chatMessage = PlainTextComponentSerializer.plainText().serialize(event.message()).replace(" ", "").toLowerCase(Locale.ROOT);
             final Predicate<String> matches = Pattern.compile("^((http://|ftp://|)(www.|)[a-zA-Z0-9]+(\\.[a-zA-Z]+)+.*)$").asMatchPredicate();
             if (matches.test(chatMessage)) {
-                player.sendMessage(ChatColor.DARK_RED + i18n.sendTranslatedMessage(player, "chat.security.http.forbidden"));
+                player.sendMessage(ChatColor.DARK_RED + i18n.getTranslation(player, "chat.security.http.forbidden"));
                 event.setCancelled(true);
             }
         }
@@ -45,7 +45,7 @@ public class ChatSecurity implements Listener {
             //this will allow to kick the player if he continue to spam after relogging
             if (identicalLastMessage >= Config.spamThreshold - 1) {
                 Bukkit.getScheduler().runTask(Essentials.getInstance(),
-                        () -> event.getPlayer().kick(Component.text(i18n.sendTranslatedMessage(event.getPlayer(), "kick.spam")).color(TextColor.color(139, 0, 0))));
+                        () -> event.getPlayer().kick(Component.text(i18n.getTranslation(event.getPlayer(), "kick.spam")).color(TextColor.color(139, 0, 0))));
             }
         }
         lastMessage = chatMessage;

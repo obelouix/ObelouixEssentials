@@ -21,7 +21,7 @@ public class PlayerManagementGUI extends BaseGUI {
     private int pageNumber = 0;
 
     private @NotNull Inventory PlayerManagementInventory(Player player) {
-        final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management")));
+        final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center.player_management")));
         addBottomNavigationBar(inventory, player);
         int slot = 0;
 
@@ -50,7 +50,7 @@ public class PlayerManagementGUI extends BaseGUI {
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
         final Player player = (Player) event.getWhoClicked();
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_center.player_management")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center.player_management")))) {
             event.setCancelled(true);
         }
     }
@@ -60,7 +60,7 @@ public class PlayerManagementGUI extends BaseGUI {
     public void onInventoryClickEvent(InventoryClickEvent event) {
 
         if (event.getSlot() == 49) new AdminGUI().showInventory((Player) event.getWhoClicked());
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(event.getWhoClicked(), "obelouix.gui.admin_center.player_management")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(event.getWhoClicked(), "obelouix.gui.admin_center.player_management")))) {
             if (event.getSlot() >= 0 && event.getSlot() <= 44 && Objects.requireNonNull(event.getCurrentItem()).hasItemMeta()) {
                 final PlayerManagementBook managementBook = new PlayerManagementBook();
                 managementBook.setManagedPlayerName(PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())));
@@ -76,26 +76,26 @@ public class PlayerManagementGUI extends BaseGUI {
 
         if (Bukkit.getOnlinePlayers().size() < 44) {
             //home
-            inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+            inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.getTranslation(player, "obelouix.home"))
                     .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
         } else {
             if (pageNumber == 0) {
 
                 //home
-                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.getTranslation(player, "obelouix.home"))
                         .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
                 //next arrow
-                inventory.setItem(50, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.next_page"),
+                inventory.setItem(50, HeadSkinFetcher.getOfflineSkull(i18n.getTranslation(player, "obelouix.next_page"),
                         Heads.RIGHT_ARROW.toString()));
             } else if (pageNumber == Bukkit.getOnlinePlayers().size() / 44) {
 
                 //previous arrow
-                inventory.setItem(48, HeadSkinFetcher.getOfflineSkull(i18n.sendTranslatedMessage(player, "obelouix.previous_page"),
+                inventory.setItem(48, HeadSkinFetcher.getOfflineSkull(i18n.getTranslation(player, "obelouix.previous_page"),
                         Heads.LEFT_ARROW.toString()));
 
                 //home
-                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+                inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.getTranslation(player, "obelouix.home"))
                         .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
 
             } else super.addBottomNavigationBar(inventory, player);

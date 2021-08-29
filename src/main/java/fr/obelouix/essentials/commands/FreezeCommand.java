@@ -77,7 +77,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
         if (frozenPlayers.size() > 0 && player.getName().equalsIgnoreCase(frozenPlayers.get(frozenPlayers.indexOf(player.getName())))
                 && (itemStackClicked != null)) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "state.frozen.deny.moveitem"));
+            player.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(player, "state.frozen.deny.moveitem"));
         }
     }
 
@@ -132,7 +132,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
             }
 
             final TextComponent titleMessage = Component.text(
-                    I18n.getInstance().sendTranslatedMessage(player, "command.freeze.deny.use"))
+                            I18n.getInstance().getTranslation(player, "command.freeze.deny.use"))
                     .color(TextColor.color(0xF80400))
                     .append(Component.text(" (")).color(activeItem.color())
                     .append(activeItem)
@@ -174,10 +174,10 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                                 target.removePotionEffect(potionEffect.getType());
                             }
                             if (sender instanceof Player) {
-                                sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.unfreeze.success"),
+                                sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender, "command.freeze.unfreeze.success"),
                                         ChatColor.AQUA + target.getName() + ChatColor.GREEN));
                             }
-                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().sendTranslatedMessage(target, "command.freeze.unfreeze.inform"));
+                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().getTranslation(target, "command.freeze.unfreeze.inform"));
                         }
                         //freeze part
                         else {
@@ -187,18 +187,18 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                             PlayerConfig.save();
                             frozenPlayers.add(target.getName());
                             freezePlayer(target);
-                            sender.sendMessage(MessageFormat.format(I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.success"),
+                            sender.sendMessage(MessageFormat.format(I18n.getInstance().getTranslation(sender, "command.freeze.success"),
                                     ChatColor.AQUA + target.getName() + ChatColor.GREEN));
-                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().sendTranslatedMessage(target, "command.freeze.inform"));
+                            target.sendMessage(ChatColor.GRAY + I18n.getInstance().getTranslation(target, "command.freeze.inform"));
                         }
                     } else {
-                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.exempt"));
+                        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(sender, "command.freeze.exempt"));
                     }
 
                 } //show every frozen player in a list
                 else if (target == null && args[0].equalsIgnoreCase("list")) {
                     if (frozenPlayers.size() > 0) {
-                        final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.list") + ": ");
+                        final StringBuilder msg = new StringBuilder(ChatColor.GOLD + I18n.getInstance().getTranslation(sender, "command.freeze.list") + ": ");
                         for (final String player : frozenPlayers) {
                             msg.append(ChatColor.DARK_RED).append(player);
                             if (!Objects.equals(player, frozenPlayers.get(frozenPlayers.lastIndexOf(player)))) {
@@ -207,7 +207,7 @@ public class FreezeCommand implements CommandExecutor, TabCompleter, Listener {
                         }
                         sender.sendMessage(String.valueOf(msg));
                     } else {
-                        sender.sendMessage(ChatColor.GREEN + I18n.getInstance().sendTranslatedMessage(sender, "command.freeze.list.empty"));
+                        sender.sendMessage(ChatColor.GREEN + I18n.getInstance().getTranslation(sender, "command.freeze.list.empty"));
                     }
                 }
             }

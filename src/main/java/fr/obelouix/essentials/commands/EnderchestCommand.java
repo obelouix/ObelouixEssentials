@@ -30,7 +30,7 @@ public class EnderchestCommand extends BukkitCommand {
                     player.openInventory(target.getEnderChest());
                 } else {
                     player.sendMessage(ChatColor.GOLD + args[0] + " "
-                            + ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(player, "player_not_online"));
+                            + ChatColor.DARK_RED + I18n.getInstance().getTranslation(player, "player_not_online"));
                 }
             }
         }

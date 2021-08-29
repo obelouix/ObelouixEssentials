@@ -44,7 +44,7 @@ public final class CommandManager {
 
     public static void wrongCommandUsage(@NotNull CommandSender sender, @NotNull Command command) {
 //        sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n" + ChatColor.RED + command.getUsage());
-        sender.sendMessage(Component.text(I18n.getInstance().sendTranslatedMessage(sender, "wrong_command_usage") + "\n")
+        sender.sendMessage(Component.text(I18n.getInstance().getTranslation(sender, "wrong_command_usage") + "\n")
                 .color(TextColors.DARK_RED.getTextColor())
                 .append(Component.text(command.getUsage())
                         .color(TextColors.RED.getTextColor())

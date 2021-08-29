@@ -31,7 +31,7 @@ public class AdminToolsGUI extends BaseGUI {
     private ItemStack worldEditSelectionWand;
 
     private @NotNull Inventory adminToolsInventory(Player player) {
-        final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_tools")));
+        final Inventory inventory = Bukkit.createInventory(null, 54, Component.text(i18n.getTranslation(player, "obelouix.gui.admin_tools")));
 
         final ItemStack netherite_helmet = new ItemStack(Material.NETHERITE_HELMET, 1);
         final ItemStack netherite_chestplate = new ItemStack(Material.NETHERITE_CHESTPLATE, 1);
@@ -41,7 +41,7 @@ public class AdminToolsGUI extends BaseGUI {
         final List<Enchantment> protectionEnchantments = ImmutableList.of(Enchantment.PROTECTION_FIRE,
                 Enchantment.PROTECTION_PROJECTILE, Enchantment.PROTECTION_EXPLOSIONS, Enchantment.PROTECTION_ENVIRONMENTAL);
 
-        final Component untradeableItem = Component.text(i18n.sendTranslatedMessage(player, "obelouix.untradeable_item"),
+        final Component untradeableItem = Component.text(i18n.getTranslation(player, "obelouix.untradeable_item"),
                 TextColor.color(255, 0, 0)).decoration(TextDecoration.ITALIC, false);
 
         final List<Component> componentList = new ArrayList<>();
@@ -114,7 +114,7 @@ public class AdminToolsGUI extends BaseGUI {
     @EventHandler
     public void cancelClick(InventoryClickEvent event) {
         final Player player = (Player) event.getWhoClicked();
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_tools")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_tools")))) {
             event.setCancelled(true);
         }
     }
@@ -123,7 +123,7 @@ public class AdminToolsGUI extends BaseGUI {
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {
         final Player player = (Player) event.getWhoClicked();
-        if (event.getView().title().equals(Component.text(i18n.sendTranslatedMessage(player, "obelouix.gui.admin_tools")))) {
+        if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_tools")))) {
             if (event.getSlot() == 0) {
 
                 if (player.getInventory().getHelmet() != null) {
@@ -165,7 +165,7 @@ public class AdminToolsGUI extends BaseGUI {
     @Override
     public void addBottomNavigationBar(@NotNull Inventory inventory, Player player) {
         //home
-        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.sendTranslatedMessage(player, "obelouix.home"))
+        inventory.setItem(49, ItemsGUI.createGuiItem(new ItemStack(Material.BARRIER), Component.text(i18n.getTranslation(player, "obelouix.home"))
                 .color(TextColor.color(255, 255, 255)).decoration(TextDecoration.ITALIC, false), null));
     }
 

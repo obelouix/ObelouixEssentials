@@ -21,7 +21,7 @@ public interface IPermission {
      */
     static boolean test(Player player, String permission) {
         if (!player.hasPermission(permission)) {
-            Component message = Component.text(I18n.getInstance().sendTranslatedMessage(player, "no_permission")).color(TextColor.color(183, 0, 0));
+            Component message = Component.text(I18n.getInstance().getTranslation(player, "no_permission")).color(TextColor.color(183, 0, 0));
             player.sendMessage(message);
             Essentials.getInstance().getLOGGER().info("Refused command to " + player.getName());
             return false;
@@ -38,7 +38,7 @@ public interface IPermission {
      */
     static boolean test(CommandSender sender, String permission) {
         if (!sender.hasPermission(permission)) {
-            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "no_permission"));
+            sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(sender, "no_permission"));
             Essentials.getInstance().getLOGGER().info("Refused command to " + sender.getName());
             return false;
         }

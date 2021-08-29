@@ -31,7 +31,7 @@ public class SpawnCommand implements TabExecutor {
                 if (IPermission.test(sender, "obelouix.commands.spawn")) {
                     if (sender instanceof Player player) {
                         player.teleport(overworld.getSpawnLocation());
-                        player.sendMessage(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn"));
+                        player.sendMessage(ChatColor.GOLD + i18n.getTranslation(sender, "obelouix.commands.spawn"));
                     } else {
                         plugin.getLOGGER().info("You must be a player to teleport yourself to spawn !");
                         //CommandManager.getInstance().wrongCommandUsage(sender, command);
@@ -45,7 +45,7 @@ public class SpawnCommand implements TabExecutor {
                             for (final Player player : Bukkit.getOnlinePlayers()) {
                                 player.teleport(overworld.getSpawnLocation());
                                 if (sender instanceof Player player1) {
-                                    player1.sendMessage(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn.everyone"));
+                                    player1.sendMessage(ChatColor.GOLD + i18n.getTranslation(sender, "obelouix.commands.spawn.everyone"));
                                 }
                                 plugin.getLOGGER().info(sender.getName() + " teleported " + player.getName() + " to spawn");
                             }
@@ -53,7 +53,7 @@ public class SpawnCommand implements TabExecutor {
                             final Player target = Bukkit.getPlayer(args[0]);
                             Objects.requireNonNull(target).teleport(overworld.getSpawnLocation());
                             if (sender instanceof Player player) {
-                                player.sendMessage(MessageFormat.format(ChatColor.GOLD + i18n.sendTranslatedMessage(sender, "obelouix.commands.spawn.others"),
+                                player.sendMessage(MessageFormat.format(ChatColor.GOLD + i18n.getTranslation(sender, "obelouix.commands.spawn.others"),
                                         ChatColor.RED + target.getName() + ChatColor.GOLD));
                             }
                             plugin.getLOGGER().info(sender.getName() + " teleported " + target.getName() + " to spawn");
@@ -65,7 +65,7 @@ public class SpawnCommand implements TabExecutor {
             if (sender.hasPermission("obelouix.commands.spawn") || sender.hasPermission("obelouix.commands.spawn.others")) {
                 //CommandManager.getInstance().wrongCommandUsage(sender, command);
             } else
-                sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().sendTranslatedMessage(sender, "no_permission"));
+                sender.sendMessage(ChatColor.DARK_RED + I18n.getInstance().getTranslation(sender, "no_permission"));
         }
         return true;
     }

@@ -110,9 +110,9 @@ public class ExperienceCommand extends BukkitCommand {
         Component component = Component.text("");
         if (args.length == 1) {
             if (player.getLevel() <= 1) {
-                component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.get"), TextColor.color(TextColor.color(162, 162, 162)));
+                component = Component.text(i18n.getTranslation(sender, "obelouix.commands.xp.get"), TextColor.color(TextColor.color(162, 162, 162)));
             } else {
-                component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.get.multiple_levels"), TextColor.color(TextColor.color(162, 162, 162)));
+                component = Component.text(i18n.getTranslation(sender, "obelouix.commands.xp.get.multiple_levels"), TextColor.color(TextColor.color(162, 162, 162)));
             }
 
             component = component.replaceText(TextReplacementConfig.builder()
@@ -126,21 +126,21 @@ public class ExperienceCommand extends BukkitCommand {
 
         } else if (args.length == 3) {
             switch (args[1].toLowerCase(Locale.ROOT)) {
-                case "give" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.give"), TextColor.color(TextColor.color(162, 162, 162)));
-                case "set" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.set"), TextColor.color(TextColor.color(162, 162, 162)));
-                case "remove" -> component = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.xp.remove"), TextColor.color(TextColor.color(162, 162, 162)));
+                case "give" -> component = Component.text(i18n.getTranslation(sender, "obelouix.commands.xp.give"), TextColor.color(TextColor.color(162, 162, 162)));
+                case "set" -> component = Component.text(i18n.getTranslation(sender, "obelouix.commands.xp.set"), TextColor.color(TextColor.color(162, 162, 162)));
+                case "remove" -> component = Component.text(i18n.getTranslation(sender, "obelouix.commands.xp.remove"), TextColor.color(TextColor.color(162, 162, 162)));
             }
 
             if (isArgumentALevel(args[2])) {
                 if (Integer.parseInt(args[2].toLowerCase(Locale.ROOT).replace("l", "")) <= 1) {
                     component = component.replaceText(TextReplacementConfig.builder()
-                            .matchLiteral(i18n.sendTranslatedMessage(sender, "obelouix.levels"))
-                            .replacement(Component.text(i18n.sendTranslatedMessage(sender, "obelouix.level")))
+                            .matchLiteral(i18n.getTranslation(sender, "obelouix.levels"))
+                            .replacement(Component.text(i18n.getTranslation(sender, "obelouix.level")))
                             .build());
                 }
             } else {
                 component = component.replaceText(TextReplacementConfig.builder()
-                        .matchLiteral(i18n.sendTranslatedMessage(sender, "obelouix.levels"))
+                        .matchLiteral(i18n.getTranslation(sender, "obelouix.levels"))
                         .replacement(Component.text("xp"))
                         .build());
 

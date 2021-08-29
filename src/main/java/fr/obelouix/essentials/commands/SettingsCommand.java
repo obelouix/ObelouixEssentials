@@ -34,7 +34,7 @@ public class SettingsCommand extends BukkitCommand {
                 CommandManager.wrongCommandUsage(sender, this);
             } else {
                 if (Config.getCommandList().contains(args[0])) {
-                    Component commandAlready = Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.already") + " ")
+                    Component commandAlready = Component.text(i18n.getTranslation(sender, "obelouix.commands.settings.already") + " ")
                             .color(TextColor.color(255, 0, 0));
                     switch (args[1]) {
                         case "on" -> {
@@ -48,7 +48,7 @@ public class SettingsCommand extends BukkitCommand {
 
                             } else {
                                 commandAlready = commandAlready.append(
-                                        Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.enabled"))
+                                        Component.text(i18n.getTranslation(sender, "obelouix.commands.settings.enabled"))
                                                 .color(TextColor.color(255, 0, 0)));
                                 sender.sendMessage(commandAlready);
                             }
@@ -65,7 +65,7 @@ public class SettingsCommand extends BukkitCommand {
 
                             } else {
                                 commandAlready = commandAlready.append(
-                                        Component.text(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.disabled"))
+                                        Component.text(i18n.getTranslation(sender, "obelouix.commands.settings.disabled"))
                                                 .color(TextColor.color(255, 0, 0)));
                                 sender.sendMessage(commandAlready);
                             }
@@ -81,28 +81,28 @@ public class SettingsCommand extends BukkitCommand {
 
     private Component message(String command, CommandSender sender, boolean enabled) {
         final Matcher matcher = Pattern.compile("\\{command}")
-                .matcher(i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.base"));
+                .matcher(i18n.getTranslation(sender, "obelouix.commands.settings.base"));
 
         Component baseMessage = Component.text(matcher.replaceAll(command) + " ")
                 .color(TextColor.color(159, 162, 166))
                 .hoverEvent(HoverEvent.showText(Component.text(command)
                         .color(TextColor.color(0, 240, 0))
                         .append(Component.text("\n\n"
-                                        + i18n.sendTranslatedMessage(sender, "obelouix.commands." + command + ".description"))
+                                        + i18n.getTranslation(sender, "obelouix.commands." + command + ".description"))
                                 .color(TextColor.color(35, 219, 240)))
 
                 ));
 
         if (enabled)
-            baseMessage = baseMessage.append(Component.text(I18n.getInstance().sendTranslatedMessage(sender, "obelouix.commands.settings.enabled"))
+            baseMessage = baseMessage.append(Component.text(I18n.getInstance().getTranslation(sender, "obelouix.commands.settings.enabled"))
                     .color(TextColor.color(35, 255, 5)));
         else
-            baseMessage = baseMessage.append(Component.text(I18n.getInstance().sendTranslatedMessage(sender, "obelouix.commands.settings.disabled"))
+            baseMessage = baseMessage.append(Component.text(I18n.getInstance().getTranslation(sender, "obelouix.commands.settings.disabled"))
                     .color(TextColor.color(255, 54, 30)));
 
-        return baseMessage.append(Component.text("\n" + i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.effective_next_restart"))
+        return baseMessage.append(Component.text("\n" + i18n.getTranslation(sender, "obelouix.commands.settings.effective_next_restart"))
                         .color(TextColor.color(35, 255, 5)))
-                .append(Component.text(" (" + i18n.sendTranslatedMessage(sender, "obelouix.commands.settings.no_reload") + ")")
+                .append(Component.text(" (" + i18n.getTranslation(sender, "obelouix.commands.settings.no_reload") + ")")
                         .color(TextColor.color(255, 54, 30)).decorate(TextDecoration.BOLD));
     }
 

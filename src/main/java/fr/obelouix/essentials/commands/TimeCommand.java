@@ -34,7 +34,7 @@ public class TimeCommand implements CommandExecutor {
         if (worldHour > 23) {
             worldHour = worldHour - 24;
         }
-        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(i18n.sendTranslatedMessage(player, "command.time.set"),
+        sender.sendMessage(ChatColor.GOLD + MessageFormat.format(i18n.getTranslation(player, "command.time.set"),
                 ChatColor.RED + player.getWorld().getName() + ChatColor.GOLD,
                 ChatColor.RED + format.format(worldHour) + "h" + format.format(worldMinute) + ChatColor.GOLD
         ));

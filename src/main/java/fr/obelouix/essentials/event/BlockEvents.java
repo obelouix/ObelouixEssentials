@@ -47,7 +47,7 @@ public class BlockEvents implements Listener {
         final Player player = event.getPlayer();
         if (!IPermission.simpleTest(player, "obelouix.break." + event.getBlock().getTranslationKey())) {
             final TranslatableComponent blockComponent = Component.translatable(event.getBlock().getTranslationKey());
-            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.break.disallowed"))
+            final Component component = Component.text(i18n.getTranslation(player, "obelouix.break.disallowed"))
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
@@ -69,7 +69,7 @@ public class BlockEvents implements Listener {
         final Player player = event.getPlayer();
         if (!IPermission.simpleTest(player, "obelouix.place." + event.getBlock().getTranslationKey())) {
             final TranslatableComponent blockComponent = Component.translatable(event.getBlock().getTranslationKey());
-            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.place.disallowed"))
+            final Component component = Component.text(i18n.getTranslation(player, "obelouix.place.disallowed"))
                     .color(TextColor.color(183, 0, 0))
                     .append(blockComponent.color(TextColor.color(215, 0, 0)));
             player.sendMessage(component);
@@ -85,7 +85,7 @@ public class BlockEvents implements Listener {
     public void onPlayerEnterBed(PlayerBedEnterEvent event) {
         final Player player = event.getPlayer();
         if (!IPermission.simpleTest(player, "obelouix.sleep")) {
-            final Component component = Component.text(i18n.sendTranslatedMessage(player, "obelouix.not_allowed_to_sleep"))
+            final Component component = Component.text(i18n.getTranslation(player, "obelouix.not_allowed_to_sleep"))
                     .color(TextColor.color(183, 0, 0));
             player.sendMessage(component);
             event.setCancelled(true);
