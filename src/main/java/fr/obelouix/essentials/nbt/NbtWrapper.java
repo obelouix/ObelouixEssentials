@@ -13,14 +13,23 @@ public class NbtWrapper {
     }
 
     public static void addAttribute(NBTList<NBTListCompound> attributeList, String attribute, double amount, String slot) {
-        final NBTListCompound mod = ((NBTCompoundList) attributeList).addCompound();
+        NBTListCompound mod = NBTCompoundList((NBTCompoundList) attributeList, attribute, amount);
+        mod.setString("Slot", slot);
+    }
+
+    public static void addAttribute(NBTList<NBTListCompound> attributeList, String attribute, double amount) {
+        NBTCompoundList((NBTCompoundList) attributeList, attribute, amount);
+    }
+
+    private static NBTListCompound NBTCompoundList(NBTCompoundList attributeList, String attribute, double amount) {
+        final NBTListCompound mod = attributeList.addCompound();
         mod.setDouble("Amount", amount);
         mod.setString("AttributeName", attribute);
         mod.setString("Name", attribute);
         mod.setInteger("Operation", 0);
         mod.setInteger("UUIDLeast", -18788761);
         mod.setInteger("UUIDMost", 718533190);
-        mod.setString("Slot", slot);
+        return mod;
     }
 
 }
