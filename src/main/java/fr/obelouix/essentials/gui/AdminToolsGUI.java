@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
 import de.tr7zw.nbtapi.NBTListCompound;
-import fr.obelouix.essentials.CustomItem;
+import fr.obelouix.essentials.items.CustomItem;
 import fr.obelouix.essentials.nbt.NbtWrapper;
 import fr.obelouix.essentials.permissions.IPermission;
 import net.kyori.adventure.text.Component;

@@ -1,4 +1,4 @@
-package fr.obelouix.essentials;
+package fr.obelouix.essentials.items;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
