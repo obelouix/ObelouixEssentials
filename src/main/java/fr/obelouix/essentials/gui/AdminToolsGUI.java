@@ -171,7 +171,7 @@ public class AdminToolsGUI extends BaseGUI {
 
     private ItemStack createAdminArmor(ItemStack item, String slot) {
 
-        final NBTItem nbtItem = new NBTItem(item);
+        final NBTItem nbtItem = NbtWrapper.nbtItem(item);
         final NBTList<NBTListCompound> attribute = nbtItem.getCompoundList("AttributeModifiers");
         NbtWrapper.addAttribute(attribute, "generic.armor", 30, slot);
         NbtWrapper.addAttribute(attribute, "generic.knockback_resistance", 5, slot);
