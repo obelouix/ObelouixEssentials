@@ -30,42 +30,42 @@ public class AdminToolsGUI extends BaseGUI {
         final ItemStack netherite_boots = new ItemStack(Material.NETHERITE_BOOTS, 1);
 
         // Protection X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        addEnchantment(netherite_chestplate, itemMeta, Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        addEnchantment(netherite_leggings, itemMeta, Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        addEnchantment(netherite_boots, itemMeta, Enchantment.PROTECTION_ENVIRONMENTAL, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.PROTECTION_ENVIRONMENTAL, 10);
+        addEnchantment(netherite_chestplate, netherite_chestplate.getItemMeta(), Enchantment.PROTECTION_ENVIRONMENTAL, 10);
+        addEnchantment(netherite_leggings, netherite_leggings.getItemMeta(), Enchantment.PROTECTION_ENVIRONMENTAL, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.PROTECTION_ENVIRONMENTAL, 10);
 
         // Blast Protection X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.PROTECTION_EXPLOSIONS, 10);
-        addEnchantment(netherite_chestplate, itemMeta, Enchantment.PROTECTION_EXPLOSIONS, 10);
-        addEnchantment(netherite_leggings, itemMeta, Enchantment.PROTECTION_EXPLOSIONS, 10);
-        addEnchantment(netherite_boots, itemMeta, Enchantment.PROTECTION_EXPLOSIONS, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.PROTECTION_EXPLOSIONS, 10);
+        addEnchantment(netherite_chestplate, netherite_chestplate.getItemMeta(), Enchantment.PROTECTION_EXPLOSIONS, 10);
+        addEnchantment(netherite_leggings, netherite_leggings.getItemMeta(), Enchantment.PROTECTION_EXPLOSIONS, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.PROTECTION_EXPLOSIONS, 10);
 
         // Fire Protection X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.PROTECTION_FIRE, 10);
-        addEnchantment(netherite_chestplate, itemMeta, Enchantment.PROTECTION_FIRE, 10);
-        addEnchantment(netherite_leggings, itemMeta, Enchantment.PROTECTION_FIRE, 10);
-        addEnchantment(netherite_boots, itemMeta, Enchantment.PROTECTION_FIRE, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.PROTECTION_FIRE, 10);
+        addEnchantment(netherite_chestplate, netherite_chestplate.getItemMeta(), Enchantment.PROTECTION_FIRE, 10);
+        addEnchantment(netherite_leggings, netherite_leggings.getItemMeta(), Enchantment.PROTECTION_FIRE, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.PROTECTION_FIRE, 10);
 
         // Projectile Protection X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.PROTECTION_PROJECTILE, 10);
-        addEnchantment(netherite_chestplate, itemMeta, Enchantment.PROTECTION_PROJECTILE, 10);
-        addEnchantment(netherite_leggings, itemMeta, Enchantment.PROTECTION_PROJECTILE, 10);
-        addEnchantment(netherite_boots, itemMeta, Enchantment.PROTECTION_PROJECTILE, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.PROTECTION_PROJECTILE, 10);
+        addEnchantment(netherite_chestplate, netherite_chestplate.getItemMeta(), Enchantment.PROTECTION_PROJECTILE, 10);
+        addEnchantment(netherite_leggings, netherite_leggings.getItemMeta(), Enchantment.PROTECTION_PROJECTILE, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.PROTECTION_PROJECTILE, 10);
 
         // Thorns X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.THORNS, 10);
-        addEnchantment(netherite_chestplate, itemMeta, Enchantment.THORNS, 10);
-        addEnchantment(netherite_leggings, itemMeta, Enchantment.THORNS, 10);
-        addEnchantment(netherite_boots, itemMeta, Enchantment.THORNS, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.THORNS, 10);
+        addEnchantment(netherite_chestplate, netherite_chestplate.getItemMeta(), Enchantment.THORNS, 10);
+        addEnchantment(netherite_leggings, netherite_leggings.getItemMeta(), Enchantment.THORNS, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.THORNS, 10);
 
         // Respiration X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.OXYGEN, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.OXYGEN, 10);
 
-        addEnchantment(netherite_boots, itemMeta, Enchantment.PROTECTION_FALL, 10);
+        addEnchantment(netherite_boots, netherite_boots.getItemMeta(), Enchantment.PROTECTION_FALL, 10);
 
         // Aqua Affinity X
-        addEnchantment(netherite_helmet, itemMeta, Enchantment.WATER_WORKER, 10);
+        addEnchantment(netherite_helmet, netherite_helmet.getItemMeta(), Enchantment.WATER_WORKER, 10);
 
         inventory.setItem(0, createAdminArmor(netherite_helmet, "head"));
         inventory.setItem(9, createAdminArmor(netherite_chestplate, "chest"));
