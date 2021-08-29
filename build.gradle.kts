@@ -60,6 +60,9 @@ repositories {
     maven {
         setUrl("https://repo.incendo.org/content/repositories/snapshots")
     }
+    maven {
+        setUrl("https://mvn.intellectualsites.com/content/groups/public/")
+    }
 }
 
 dependencies {
@@ -74,6 +77,10 @@ dependencies {
     // ProtocolLib
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
 
+    // WorldEdit
+    compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-191") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-191")
+
     // WorldGuard
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT")
 
@@ -86,11 +93,6 @@ dependencies {
     // Dynmap
     compileOnly("us.dynmap:dynmap-api:3.2-beta-1")
 
-    /*  // Cloud command framework
-      implementation("cloud.commandframework:cloud-paper:1.5.0")
-      implementation("cloud.commandframework:cloud-minecraft-extras:1.5.0")
-      implementation("cloud.commandframework:cloud-annotations:1.5.0")
-  */
     //Sponge Configurate
     implementation("org.spongepowered:configurate-core:4.1.2")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
