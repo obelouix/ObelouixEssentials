@@ -2,11 +2,14 @@ package fr.obelouix.essentials;
 
 import co.aikar.timings.lib.MCTiming;
 import co.aikar.timings.lib.TimingManager;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.fastasyncworldedit.core.Fawe;
 import fr.obelouix.essentials.commands.CommandManager;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
+import fr.obelouix.essentials.items.WorldEditWand;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -27,11 +30,12 @@ public final class Essentials extends JavaPlugin {
     private static TimingManager timingManager;
     public final String SERVER_VERSION = Bukkit.getVersion();
     private final ObelouixEssentialsDB dbInstance = ObelouixEssentialsDB.getInstance();
+    private final boolean isProtocolLibEnabled = false;
     private RegisteredServiceProvider<LuckPerms> luckPermsProvider;
     private Fawe fawe;
     private boolean isReloading = false;
     private boolean isWorldGuardEnabled = false;
-    private boolean isProtocolLibEnabled = false;
+    private ProtocolManager protocolManager;
     private boolean isFawePresent = false;
     private LuckPerms luckPermsAPI;
 
@@ -67,7 +71,6 @@ public final class Essentials extends JavaPlugin {
         }*/
     }
 
-
     @Override
     public void onEnable() {
 
@@ -98,10 +101,7 @@ public final class Essentials extends JavaPlugin {
                 EventRegistry.getInstance().init();
             });
 
-            if (isClassFound("com.comphenix.protocol.ProtocolLib")) {
-                LOGGER.info("Found ProtocolLib");
-                if (this.getServer().getPluginManager().isPluginEnabled("ProtocolLib")) isProtocolLibEnabled = true;
-            }
+            setupProtocolManager();
 
             if (isClassFound("net.luckperms.api.LuckPerms")) {
                 LOGGER.info("Found LuckPerms");
@@ -171,6 +171,18 @@ public final class Essentials extends JavaPlugin {
         return false;
     }
 
+    private void setupProtocolManager() {
+        if (isClassFound("com.comphenix.protocol.ProtocolLib")) {
+
+            LOGGER.info("Found ProtocolLib");
+            protocolManager = ProtocolLibrary.getProtocolManager();
+
+        } else {
+            LOGGER.severe("ProtocolLib is missing, please install it");
+            getServer().getPluginManager().disablePlugin(this);
+        }
+    }
+
     /**
      * Check the Presence of {@link Fawe} plugin and setup an instance of it if its present <br>
      * <b>This doesn't check the presence of {@link com.sk89q.worldedit.WorldEdit} which is the base of {@link Fawe}</b>
@@ -179,9 +191,10 @@ public final class Essentials extends JavaPlugin {
     private void checkWorldEditPresence() {
 
         if (isClassFound("com.fastasyncworldedit.core.Fawe")) {
+            LOGGER.info("Found WorldEdit");
             this.fawe = Fawe.get();
             isFawePresent = true;
-            LOGGER.info("Found WorldEdit");
+            new WorldEditWand().setupSelectionWand();
         }
     }
 
@@ -222,5 +235,9 @@ public final class Essentials extends JavaPlugin {
      */
     public boolean isFawePresent() {
         return isFawePresent;
+    }
+
+    public ProtocolManager getProtocolManager() {
+        return protocolManager;
     }
 }

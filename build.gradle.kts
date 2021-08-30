@@ -98,11 +98,11 @@ dependencies {
     // Dynmap
     compileOnly("us.dynmap:dynmap-api:3.2-beta-1")
 
-    //Sponge Configurate
+    // Sponge Configurate
     implementation("org.spongepowered:configurate-core:4.1.2")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
 
-    //NBT API
+    // NBT API
     implementation("de.tr7zw:item-nbt-api-plugin:2.8.0")
 
     //test dependencies

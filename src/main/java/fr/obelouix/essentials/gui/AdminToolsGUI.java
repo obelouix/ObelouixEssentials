@@ -5,12 +5,12 @@ import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
 import de.tr7zw.nbtapi.NBTListCompound;
 import fr.obelouix.essentials.items.CustomItem;
+import fr.obelouix.essentials.items.WorldEditWand;
 import fr.obelouix.essentials.nbt.NbtWrapper;
 import fr.obelouix.essentials.permissions.IPermission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class AdminToolsGUI extends BaseGUI {
@@ -97,17 +96,13 @@ public class AdminToolsGUI extends BaseGUI {
         inventory.setItem(18, createAdminArmor(netherite_leggings, "legs"));
         inventory.setItem(27, createAdminArmor(netherite_boots, "feet"));
 
-        if (plugin.isFawePresent()) {
-            worldEditSelectionWand = new ItemStack(
-                    Material.valueOf(
-                            StringUtils.substringAfter(
-                                    plugin.getFAWEProvider().getWorldEdit().getConfiguration().wandItem.toUpperCase(Locale.ROOT), ":")));
-        }
+        worldEditSelectionWand = WorldEditWand.getWorldEditSelectionWand();
+        new WorldEditWand().setupMeta(player, worldEditSelectionWand);
 
         addBottomNavigationBar(inventory, player);
 
-        inventory.setItem(32, new ItemStack(worldEditSelectionWand));
 
+        inventory.setItem(32, new ItemStack(worldEditSelectionWand));
         return inventory;
     }
 

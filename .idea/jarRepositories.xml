@@ -91,5 +91,10 @@
       <option name="name" value="maven8" />
       <option name="url" value="https://repo.codemc.io/repository/nms/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven15" />
+      <option name="name" value="maven15" />
+      <option name="url" value="https://repo.inventivetalent.org/content/groups/public/" />
+    </remote-repository>
   </component>
 </project>
