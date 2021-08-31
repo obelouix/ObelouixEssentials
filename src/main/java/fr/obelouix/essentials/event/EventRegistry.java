@@ -1,6 +1,7 @@
 package fr.obelouix.essentials.event;
 
 import fr.obelouix.essentials.Essentials;
+import fr.obelouix.essentials.audience.Audiences;
 import fr.obelouix.essentials.commands.*;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.data.PlayerData;
@@ -38,6 +39,7 @@ public class EventRegistry {
         if (Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")) {
             registerEvent(new NightSkip());
         }
+        registerEvent(new Audiences());
         registerEvent(new ChatEvent());
         registerEvent(new ChatSecurity());
         registerEvent(new VanishCommand());
