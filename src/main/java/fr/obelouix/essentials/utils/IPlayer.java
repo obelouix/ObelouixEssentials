@@ -58,4 +58,29 @@ public interface IPlayer {
         final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
         return user.getPrimaryGroup();
     }
+
+    /**
+     * Retrieve {@link Player} prefixes
+     *
+     * @param player the player
+     * @return player prefixes
+     */
+    static String getPrefix(Player player) {
+        final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+        final String prefix = user.getCachedData().getMetaData().getPrefix();
+        return prefix != null ? prefix : "";
+    }
+
+    /**
+     * Retrieve {@link Player} suffixes
+     *
+     * @param player the player
+     * @return player suffixes
+     */
+    static String getSuffix(Player player) {
+        final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+        final String suffix = user.getCachedData().getMetaData().getSuffix();
+        return suffix != null ? suffix : "";
+    }
+
 }

@@ -38,8 +38,8 @@ public class EventRegistry {
         if (Essentials.getInstance().getConfig().getBoolean("enable-night-skipping")) {
             registerEvent(new NightSkip());
         }
+        registerEvent(new ChatEvent());
         registerEvent(new ChatSecurity());
-        registerEvent(new MessageEvent());
         registerEvent(new VanishCommand());
         if (!Essentials.getInstance().SERVER_VERSION.contains("Purpur")) {
             registerEvent(new TPSBarCommand("tpsbar"));
