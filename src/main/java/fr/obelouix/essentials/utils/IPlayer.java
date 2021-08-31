@@ -60,7 +60,7 @@ public interface IPlayer {
     }
 
     /**
-     * Retrieve {@link Player} prefixes
+     * Retrieve {@link Player} prefixes from LuckPerms
      *
      * @param player the player
      * @return player prefixes
@@ -75,7 +75,7 @@ public interface IPlayer {
     }
 
     /**
-     * Retrieve {@link Player} suffixes
+     * Retrieve {@link Player} suffixes from LuckPerms
      *
      * @param player the player
      * @return player suffixes
