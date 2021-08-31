@@ -51,6 +51,7 @@ public class Config {
     public static int requiredSleepingPlayerPercentage = Essentials.getInstance().getConfig().getInt("player-sleep-percentage");
     public static ConfigurationNode debugNode;
     private static CommentedConfigurationNode root;
+    public static boolean showPingInTab = false;
 
     public static void load() {
         try {
@@ -62,6 +63,9 @@ public class Config {
                     CommandManager.getCommandStates().put(command.toString(), booleanValue.getBoolean());
                 }
             }
+
+            showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
+
             plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
 
@@ -87,6 +91,11 @@ public class Config {
                 }
 
             });
+
+            root.node("tablist").act(n -> {
+                n.node("show-player-ping").raw(true);
+            });
+
             configLoader.save(root);
         }
     }
