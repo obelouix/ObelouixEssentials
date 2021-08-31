@@ -1,16 +1,21 @@
 package fr.obelouix.essentials.event;
 
+import fr.obelouix.essentials.Essentials;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class CustomTabEvent implements Listener {
 
     private BukkitRunnable runnable;
+    private final Essentials plugin = Essentials.getInstance();
 
-/*    @EventHandler
+    @EventHandler
     public void setupTabOnPlayerJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         runnable = new BukkitRunnable() {
@@ -19,13 +24,13 @@ public class CustomTabEvent implements Listener {
                 player.playerListName(setPlayerPingComponent(player));
             }
         };
-        runnable.runTaskTimerAsynchronously(Essentials.getInstance(), 0, 20);
+        runnable.runTaskTimerAsynchronously(plugin, 0, 20);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (!runnable.isCancelled()) runnable.cancel();
-    }*/
+    }
 
     private Component setPlayerPingComponent(Player player) {
         Component ping = Component.text(player.getPing());

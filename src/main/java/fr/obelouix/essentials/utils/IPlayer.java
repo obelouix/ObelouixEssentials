@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-
 public interface IPlayer {
 
     Essentials plugin = Essentials.getInstance();
@@ -60,22 +58,4 @@ public interface IPlayer {
         final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
         return user.getPrimaryGroup();
     }
-
-    /**
-     * Get the Player ping using NMS Reflection
-     *
-     * @param player the player to check
-     * @return the player ping
-     */
-    static int getPing(Player player) {
-        try {
-            Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit" + Bukkit.getServer().getClass().getPackageName().substring(23) + ".entity.CraftPlayer");
-            Object obj = craftPlayer.getMethod("getHandle").invoke(player);
-            return (int) obj.getClass().getDeclaredField("ping").get(obj);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
 }
