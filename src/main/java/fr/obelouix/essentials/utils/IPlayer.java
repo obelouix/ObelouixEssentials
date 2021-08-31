@@ -66,9 +66,12 @@ public interface IPlayer {
      * @return player prefixes
      */
     static String getPrefix(Player player) {
-        final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
-        final String prefix = user.getCachedData().getMetaData().getPrefix();
-        return prefix != null ? prefix : "";
+        if (plugin.getLuckPermsAPI() != null) {
+            final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+            final String prefix = user.getCachedData().getMetaData().getPrefix();
+            return prefix != null ? prefix : "";
+        }
+        return "";
     }
 
     /**
@@ -78,9 +81,12 @@ public interface IPlayer {
      * @return player suffixes
      */
     static String getSuffix(Player player) {
-        final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
-        final String suffix = user.getCachedData().getMetaData().getSuffix();
-        return suffix != null ? suffix : "";
+        if (plugin.getLuckPermsAPI() != null) {
+            final User user = plugin.getLuckPermsAPI().getPlayerAdapter(Player.class).getUser(player);
+            final String suffix = user.getCachedData().getMetaData().getSuffix();
+            return suffix != null ? suffix : "";
+        }
+        return "";
     }
 
 }
