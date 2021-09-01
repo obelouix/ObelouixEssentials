@@ -52,6 +52,7 @@ public class Config {
     public static ConfigurationNode debugNode;
     private static CommentedConfigurationNode root;
     public static boolean showPingInTab = false;
+    public static String chatSeparator;
 
     public static void load() {
         try {
@@ -65,6 +66,7 @@ public class Config {
             }
 
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
+            chatSeparator = root.node("chat", "separator").getString();
 
             plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
@@ -89,11 +91,14 @@ public class Config {
                 for (String command : commandList) {
                     n.node(command).raw(true);
                 }
-
             });
 
             root.node("tablist").act(n -> {
                 n.node("show-player-ping").raw(true);
+            });
+
+            root.node("chat").act(n -> {
+                n.node("separator").set(":");
             });
 
             configLoader.save(root);

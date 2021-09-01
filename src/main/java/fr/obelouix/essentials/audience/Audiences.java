@@ -1,48 +1,30 @@
 package fr.obelouix.essentials.audience;
 
 import net.kyori.adventure.audience.Audience;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Audiences implements Listener {
 
-    private final List<Player> adminList = new ArrayList<>();
-    private final List<Player> moderatorList = new ArrayList<>();
-    private final List<Player> defaultList = new ArrayList<>();
     // This audience will receive everything
-    private Audience adminAudience;
+    private static Audience adminAudience;
     // This audience will receive moderation things
-    private Audience moderatorAudience;
+    private static Audience moderatorAudience;
     // This audience will receive basic things
-    private Audience globalAudience;
-
-    @EventHandler(ignoreCancelled = true)
-    public void setupAudiences(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        if (player.hasPermission("obelouix.audience.admin")) {
-            adminList.add(player);
-        }
-        if (player.hasPermission("obelouix.audience.moderator")) {
-            moderatorList.add(player);
-        }
-
-        defaultList.add(player);
-        adminAudience = Audience.audience(adminAudience);
-        moderatorAudience = Audience.audience(moderatorAudience, adminAudience);
-        globalAudience = Audience.audience(defaultList);
-    }
+    private static Audience globalAudience;
+    private final List<UUID> adminList = new ArrayList<>();
+    private final List<UUID> moderatorList = new ArrayList<>();
+    private final List<UUID> defaultList = new ArrayList<>();
 
     /**
      * The Admin audience is the audience with the highest level, moderators are excluded from this one
      *
      * @return the admin audience
      */
-    public Audience getAdminAudience() {
+    public static Audience getAdminAudience() {
         return adminAudience;
     }
 
@@ -51,7 +33,7 @@ public class Audiences implements Listener {
      *
      * @return the moderator audience
      */
-    public Audience getModeratorAudience() {
+    public static Audience getModeratorAudience() {
         return moderatorAudience;
     }
 
@@ -60,7 +42,44 @@ public class Audiences implements Listener {
      *
      * @return the global audience
      */
-    public Audience getGlobalAudience() {
+    public static Audience getGlobalAudience() {
         return globalAudience;
     }
+/*
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    public void setupAudiences(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (player.hasPermission("obelouix.audience.admin")) {
+            adminList.add(player.getUniqueId());
+        } else if (player.hasPermission("obelouix.audience.moderator")) {
+            moderatorList.add(player.getUniqueId());
+        }
+
+        defaultList.add(player.getUniqueId());
+        adminAudience = Audience.audience(adminAudience);
+        moderatorAudience = Audience.audience(moderatorAudience, adminAudience);
+        globalAudience = Audience.audience((Audience) defaultList);
+    }
+*/
+
+/*    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    public void updateAudience(AsyncChatEvent event) {
+        Player player = event.getPlayer();
+
+        if (player.hasPermission("obelouix.audience.admin") && !adminList.contains(player)) {
+            adminList.add(player.getUniqueId());
+        } else if (player.hasPermission("obelouix.audience.moderator") && !moderatorList.contains(player)) {
+            moderatorList.add(player.getUniqueId());
+        }
+
+        if (adminList.contains(player.getUniqueId()) && !player.hasPermission("obelouix.audience.admin")) {
+            adminList.remove(player.getUniqueId());
+            adminAudience = Audience.audience((Audience) adminList);
+        } else if (moderatorList.contains(player.getUniqueId()) && !player.hasPermission("obelouix.audience.moderator")) {
+            moderatorList.remove(player.getUniqueId());
+            moderatorAudience = Audience.audience((Audience) moderatorList);
+        }
+
+    }*/
 }
