@@ -15,8 +15,8 @@ public class TextColorFormatter {
      * @return a colorized component
      */
     public static @NotNull TextComponent colorFormatter(Component component) {
-        @NotNull String plainText = PlainTextComponentSerializer.plainText().serialize(component);
-        LegacyComponentSerializer serializer = LegacyComponentSerializer.builder()
+        final @NotNull String plainText = PlainTextComponentSerializer.plainText().serialize(component);
+        final LegacyComponentSerializer serializer = LegacyComponentSerializer.builder()
                 .hexColors()
                 .character('&')
                 .hexCharacter('#')

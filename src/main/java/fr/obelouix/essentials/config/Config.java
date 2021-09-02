@@ -63,7 +63,7 @@ public class Config {
             root = configLoader.load();
             createFile();
 
-            for (Object command : root.node("commands").childrenMap().keySet()) {
+            for (final Object command : root.node("commands").childrenMap().keySet()) {
                 for (CommentedConfigurationNode booleanValue : root.node("commands").childrenMap().values()) {
                     CommandManager.getCommandStates().put(command.toString(), booleanValue.getBoolean());
                 }
@@ -71,7 +71,7 @@ public class Config {
 
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
 
-            for (Object group : root.node("chat", "format").childrenMap().keySet()) {
+            for (final Object group : root.node("chat", "format").childrenMap().keySet()) {
                 chatFormat.put(group.toString(), root.node("chat", "format", group.toString()).getString());
             }
 

@@ -25,8 +25,8 @@ public class ChatEvent implements Listener {
     private @NotNull Component chatRender(@NotNull Player player, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience audience) {
         final @NotNull TextComponent prefix = Component.text(IPlayer.getPrefix(player));
         final @NotNull TextComponent suffix = Component.text(IPlayer.getSuffix(player));
-        @NotNull Component chatFormat = Component.text(Config.chatFormat.get(IPlayer.getGroup(player)));
-        @NotNull String serializedFormat = PlainTextComponentSerializer.plainText().serialize(chatFormat)
+        final @NotNull Component chatFormat = Component.text(Config.chatFormat.get(IPlayer.getGroup(player)));
+        final @NotNull String serializedFormat = PlainTextComponentSerializer.plainText().serialize(chatFormat)
                 .replaceFirst("\\{world}", player.getWorld().getName())
                 .replaceFirst("\\{prefix}", PlainTextComponentSerializer.plainText().serialize(prefix))
                 .replaceFirst("\\{displayname}", player.getName())
