@@ -250,6 +250,11 @@ bukkit {
             default = OP
         }
 
+        register("obelouix.fly"){
+            description = "Allows you to fly without being kicked or banned by watchdog"
+            default = OP
+        }
+
     }
 
 }

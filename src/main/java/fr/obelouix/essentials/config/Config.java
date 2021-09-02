@@ -53,10 +53,12 @@ public class Config {
     public static final int spamThreshold = pluginConfig.getInt("spam-kick-threshold");
     public static final boolean isLandProtectionModuleEnabled = pluginConfig.getBoolean("enable-land-protection-module");
     public static int requiredSleepingPlayerPercentage = Essentials.getInstance().getConfig().getInt("player-sleep-percentage");
+
+    private static CommentedConfigurationNode root;
     public static ConfigurationNode debugNode;
     public static boolean showPingInTab = false;
     public static Map<String, String> chatFormat = new HashMap<>();
-    private static CommentedConfigurationNode root;
+    private static boolean isWatchdogEnabled = false;
 
     public static void load() {
         try {
@@ -69,6 +71,8 @@ public class Config {
                 }
             }
 
+            plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
+
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
             if (plugin.getLuckPermsAPI() != null) {
                 for (final Object group : root.node("chat", "format").childrenMap().keySet()) {
@@ -77,9 +81,8 @@ public class Config {
 
             }
 
-            plugin.getLOGGER().info(String.valueOf(chatFormat));
+            isWatchdogEnabled = root.node("watchdog", "enabled").getBoolean();
 
-            plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
 
         } catch (ConfigurateException e) {
@@ -120,6 +123,15 @@ public class Config {
                 }
             }
 
+            root.node("watchdog", "enabled").raw(true);
+            root.node("watchdog", "fly").act(
+                    n -> {
+                        n.node("protect-creative-mode").raw(true);
+                        n.node("action").set(String.class, "ban");
+                        n.node("tempban").raw(false);
+                    }
+            );
+
             configLoader.save(root);
         }
     }
@@ -138,5 +150,9 @@ public class Config {
 
     public static CommentedConfigurationNode getRoot() {
         return root;
+    }
+
+    public static boolean isIsWatchdogEnabled() {
+        return isWatchdogEnabled;
     }
 }

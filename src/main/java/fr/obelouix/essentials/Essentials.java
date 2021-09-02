@@ -10,6 +10,7 @@ import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.database.ObelouixEssentialsDB;
 import fr.obelouix.essentials.event.EventRegistry;
 import fr.obelouix.essentials.items.WorldEditWand;
+import fr.obelouix.essentials.watchdog.Watchdog;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -99,6 +100,7 @@ public final class Essentials extends JavaPlugin {
                     e.printStackTrace();
                 }
                 EventRegistry.getInstance().init();
+                Watchdog.getInstance().register();
             });
 
             setupProtocolManager();

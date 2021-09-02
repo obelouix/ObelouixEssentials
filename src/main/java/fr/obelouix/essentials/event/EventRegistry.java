@@ -55,7 +55,7 @@ public class EventRegistry {
         registerEvent(new AdminToolsGUI());
     }
 
-    private void registerEvent(Listener listener){
+    public void registerEvent(Listener listener){
         Essentials.getInstance().getServer().getPluginManager().registerEvents(listener, Essentials.getInstance());
     }
 
