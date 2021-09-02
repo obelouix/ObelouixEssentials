@@ -34,7 +34,7 @@ public class CustomItem {
     public static void addEnchantments(ItemStack item, List<Enchantment> enchantments, int enchantLevel) {
         final ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
-        for (Enchantment enchantment : enchantments) {
+        for (final Enchantment enchantment : enchantments) {
             meta.addEnchant(enchantment, enchantLevel, true);
         }
         item.setItemMeta(meta);

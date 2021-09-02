@@ -1,7 +1,6 @@
 package fr.obelouix.essentials.commands;
 
 import com.google.common.collect.ImmutableList;
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.components.PlayerComponent;
 import fr.obelouix.essentials.i18n.I18n;
 import fr.obelouix.essentials.permissions.IPermission;
@@ -26,7 +25,6 @@ import static org.bukkit.Bukkit.getServer;
 
 public class GamemodeCommand extends BukkitCommand {
 
-    private final Essentials plugin = Essentials.getInstance();
     private final List<String> OPTIONS = ImmutableList.of("survival", "creative", "adventure", "spectator");
     private final I18n i18n = I18n.getInstance();
     private final PlayerComponent playerComponent = new PlayerComponent();

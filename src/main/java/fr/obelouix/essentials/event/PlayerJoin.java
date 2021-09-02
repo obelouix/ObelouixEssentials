@@ -75,7 +75,7 @@ public class PlayerJoin implements Listener {
         final PlayerComponent playerComponent = new PlayerComponent();
         final Player target = event.getPlayer();
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (final Player player : Bukkit.getOnlinePlayers()) {
             final Component joinMessage = Component.text(i18n.getTranslation(player, "obelouix.joinmessage"))
                     .color(TextColor.color(255, 239, 23))
                     .replaceText(TextReplacementConfig.builder()

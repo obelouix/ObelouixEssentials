@@ -97,7 +97,7 @@ public class Config {
 
             root.node("commands").act(n -> {
                 n.commentIfAbsent("Allow you to control which commands you want on your server");
-                for (String command : commandList) {
+                for (final String command : commandList) {
                     n.node(command).raw(true);
                 }
             });
