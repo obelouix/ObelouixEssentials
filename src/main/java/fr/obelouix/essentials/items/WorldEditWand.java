@@ -34,15 +34,15 @@ public class WorldEditWand implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteractWithSelectionWand(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 //        com.sk89q.worldedit.entity.Player wePlayer = BukkitAdapter.adapt(player);
-        BaseItemStack wand = BukkitAdapter.adapt(worldEditSelectionWand);
+        final BaseItemStack wand = BukkitAdapter.adapt(worldEditSelectionWand);
         setupMeta(player, worldEditSelectionWand);
 
 //        SessionManager sessionManager = new SessionManager(plugin.getFAWEProvider().getWorldEdit());
-        com.sk89q.worldedit.entity.Player wePlayer = BukkitAdapter.adapt(player);
-        LocalSession sessionManager = plugin.getFAWEProvider().getWorldEdit().getSessionManager().get(wePlayer);
-        EditSession editSession = sessionManager.createEditSession(wePlayer);
+        final com.sk89q.worldedit.entity.Player wePlayer = BukkitAdapter.adapt(player);
+        final LocalSession sessionManager = plugin.getFAWEProvider().getWorldEdit().getSessionManager().get(wePlayer);
+        final EditSession editSession = sessionManager.createEditSession(wePlayer);
         if (player.getInventory().getItemInMainHand().equals(worldEditSelectionWand)) {
             Region regionSelector = sessionManager.getSelection(wePlayer.getWorld());
             regionSelector.flush();

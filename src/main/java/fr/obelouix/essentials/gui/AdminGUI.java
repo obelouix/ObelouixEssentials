@@ -20,8 +20,8 @@ public class AdminGUI extends BaseGUI {
     private @NotNull Inventory admin(Player player) {
         final Inventory adminInventory = Bukkit.createInventory(null, 54, Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")));
 
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        final ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        final SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
         skullMeta.displayName(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center.player_management"))
                 .decoration(TextDecoration.ITALIC, false)
@@ -44,7 +44,7 @@ public class AdminGUI extends BaseGUI {
     @Override
     @EventHandler
     public void cancelClick(@NotNull InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
         if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")))) {
             event.setCancelled(true);
         }
@@ -54,11 +54,10 @@ public class AdminGUI extends BaseGUI {
     @Override
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {
-        Inventory inventory = event.getClickedInventory();
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
 
         if (event.getView().title().equals(Component.text(i18n.getTranslation(player, "obelouix.gui.admin_center")))) {
-            ItemStack clickedItem = event.getCurrentItem();
+            final ItemStack clickedItem = event.getCurrentItem();
             if (clickedItem != null && clickedItem.getType().equals(Material.PLAYER_HEAD)) {
                 if (event.getSlot() == 0) {
                     new PlayerManagementGUI().showInventory(player);

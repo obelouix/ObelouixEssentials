@@ -36,7 +36,7 @@ public class I18n {
         if (commandSender instanceof Player) {
             try {
                 // CompletableFuture to not run this on the main thread
-                CompletableFuture<ResourceBundle> completableFuture = CompletableFuture
+                final CompletableFuture<ResourceBundle> completableFuture = CompletableFuture
                         .supplyAsync(playerData::getPlayerLocale).thenApplyAsync(s -> ResourceBundle.getBundle("messages_" + s));
 
                 playerMessages = completableFuture.get();

@@ -26,7 +26,7 @@ public class PlayerManagementGUI extends BaseGUI {
         int slot = 0;
 
         for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
-            Player p = (Player) Bukkit.getOnlinePlayers().toArray()[i + (44 * pageNumber)];
+            final Player p = (Player) Bukkit.getOnlinePlayers().toArray()[i + (44 * pageNumber)];
             inventory.setItem(slot, HeadSkinFetcher.getOnlineSkull(p));
             if (i == Bukkit.getOnlinePlayers().size()) {
                 break;

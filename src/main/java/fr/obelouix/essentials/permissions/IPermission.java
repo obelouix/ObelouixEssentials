@@ -21,7 +21,7 @@ public interface IPermission {
      */
     static boolean test(Player player, String permission) {
         if (!player.hasPermission(permission)) {
-            Component message = Component.text(I18n.getInstance().getTranslation(player, "no_permission")).color(TextColor.color(183, 0, 0));
+            final Component message = Component.text(I18n.getInstance().getTranslation(player, "no_permission")).color(TextColor.color(183, 0, 0));
             player.sendMessage(message);
             Essentials.getInstance().getLOGGER().info("Refused command to " + player.getName());
             return false;

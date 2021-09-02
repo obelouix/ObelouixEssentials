@@ -25,7 +25,7 @@ public interface IPlayer {
      */
     static boolean isOnline(String playerName, CommandSender sender) {
         if (Bukkit.getPlayer(playerName) == null && !playerName.equals("*")) {
-            Component message = Component.text(i18n.getTranslation(sender, "player_not_online"))
+            final Component message = Component.text(i18n.getTranslation(sender, "player_not_online"))
                     .color(TextColors.DARK_RED.getTextColor())
                     .replaceText(TextReplacementConfig.builder()
                             .matchLiteral("{0}")

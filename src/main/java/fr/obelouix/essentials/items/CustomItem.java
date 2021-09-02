@@ -18,7 +18,7 @@ public class CustomItem {
      * @param enchantLevel an {@link Integer} between {@code 0} and {@link 255}
      */
     public static void addEnchantment(ItemStack item, Enchantment enchantment, int enchantLevel) {
-        ItemMeta meta = item.getItemMeta();
+        final ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
         meta.addEnchant(enchantment, enchantLevel, true);
         item.setItemMeta(meta);
@@ -32,7 +32,7 @@ public class CustomItem {
      * @param enchantLevel an {@link Integer} between {@code 0} and {@link 255}
      */
     public static void addEnchantments(ItemStack item, List<Enchantment> enchantments, int enchantLevel) {
-        ItemMeta meta = item.getItemMeta();
+        final ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
         for (Enchantment enchantment : enchantments) {
             meta.addEnchant(enchantment, enchantLevel, true);
@@ -47,7 +47,7 @@ public class CustomItem {
      * @param itemName a {@link Component} that will be the name if this item
      */
     public static void setItemName(ItemStack item, Component itemName) {
-        ItemMeta meta = item.getItemMeta();
+        final ItemMeta meta = item.getItemMeta();
         meta.displayName(itemName.decoration(TextDecoration.ITALIC, false));
         item.setItemMeta(meta);
     }
@@ -59,7 +59,7 @@ public class CustomItem {
      * @param components a {@link List} of {@link Component} to show
      */
     public static void addLore(ItemStack item, List<Component> components) {
-        ItemMeta meta = item.getItemMeta();
+        final ItemMeta meta = item.getItemMeta();
         meta.lore(components);
         item.setItemMeta(meta);
     }
