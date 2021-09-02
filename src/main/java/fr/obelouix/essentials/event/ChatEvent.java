@@ -33,15 +33,17 @@ public class ChatEvent implements Listener {
 
         // If the message sender doesn't have the permission to format his message, remove all formatting codes
         if (!IPermission.simpleTest(player, "obelouix.chat.formatting")) {
-            msg = msg.replaceText(builder -> builder.match(Pattern.compile("(&)?&([0-9a-fk-orA-FK-OR])"))
-                            .replacement(""))
-                    .replaceText(builder -> builder.match(Pattern.compile("(&)?&#([0-9a-fA-F]{6})")).replacement(""));
+            msg = msg.replaceText(standardColor -> standardColor.match(Pattern.compile("(&)?&([0-9a-fk-orA-FK-OR])")).replacement(""))
+                    .replaceText(hexColor -> hexColor.match(Pattern.compile("(&)?&#([0-9a-fA-F]{6})")).replacement(""));
         }
-        if (plugin.getLuckPermsAPI() != null) {
-            final @NotNull TextComponent prefix = Component.text(IPlayer.getPrefix(player));
-            final @NotNull TextComponent suffix = Component.text(IPlayer.getSuffix(player));
-            final @NotNull Component chatFormat = Component.text(Config.chatFormat.get(IPlayer.getGroup(player)));
 
+        if (plugin.getLuckPermsAPI() != null) {
+            //LuckPerms player prefix
+            final @NotNull TextComponent prefix = Component.text(IPlayer.getPrefix(player));
+            //LuckPerms player suffix
+            final @NotNull TextComponent suffix = Component.text(IPlayer.getSuffix(player));
+            //The chat format retrieved from the config file
+            final @NotNull Component chatFormat = Component.text(Config.chatFormat.get(IPlayer.getGroup(player)));
 
             final @NotNull String serializedFormat = PlainTextComponentSerializer.plainText().serialize(chatFormat)
                     .replaceFirst("\\{world}", player.getWorld().getName())
@@ -52,6 +54,7 @@ public class ChatEvent implements Listener {
 
             return TextColorFormatter.colorFormatter(PlainTextComponentSerializer.plainText().deserialize(serializedFormat));
         }
+        // Return this simple chat format is LuckPerms is not installed
         return sourceDisplayName.append(Component.text(": ")).append(msg);
     }
 
