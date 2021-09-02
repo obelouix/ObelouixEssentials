@@ -1,13 +1,14 @@
 package fr.obelouix.essentials.event;
 
 import fr.obelouix.essentials.components.PlayerComponent;
+import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.utils.IPlayer;
+import fr.obelouix.essentials.utils.TextColorFormatter;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -67,6 +68,10 @@ public class ChatEvent implements Listener {
     private @NotNull Component chatRender(@NotNull Player player, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience audience) {
         final @NotNull TextComponent prefix = Component.text(IPlayer.getPrefix(player));
         final @NotNull TextComponent suffix = Component.text(IPlayer.getSuffix(player));
+        @NotNull Component chatFormat = Component.text(Config.chatFormat);
+        @NotNull String serializedFormat = PlainTextComponentSerializer.plainText().serialize(chatFormat)
+                .replaceFirst("\\{displayname}", player.getName())
+                .replaceFirst("\\{message}", PlainTextComponentSerializer.plainText().serialize(message));
         playerMessage = message;
 
         if (!IPlayer.getGroup(player).equals("default")) {
@@ -76,26 +81,7 @@ public class ChatEvent implements Listener {
             playerMessage = message.color(TextColor.color(117, 117, 117));
         }
 
-        return Component.text()
-                .append(sourceDisplayName)
-                .append(Component.text(": "))
-                .append(colorFormatter(message)).build();
+        return TextColorFormatter.colorFormatter(PlainTextComponentSerializer.plainText().deserialize(serializedFormat));
     }
 
-    /**
-     * Convert hex color codes and < 1.16 codes into components color codes
-     *
-     * @param component the component to colorize
-     * @return a colorized component
-     */
-    private @NotNull TextComponent colorFormatter(Component component) {
-        @NotNull String plainText = PlainTextComponentSerializer.plainText().serialize(component);
-        LegacyComponentSerializer serializer = LegacyComponentSerializer.builder()
-                .hexColors()
-                .character('&')
-                .hexCharacter('#')
-                .build();
-
-        return serializer.deserialize(plainText);
-    }
 }

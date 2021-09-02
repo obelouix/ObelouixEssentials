@@ -3,6 +3,7 @@ package fr.obelouix.essentials.config;
 import com.google.common.collect.ImmutableList;
 import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.commands.CommandManager;
+import net.luckperms.api.model.group.Group;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -13,6 +14,8 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class serve only to get data from the configuration file
@@ -67,7 +70,7 @@ public class Config {
             }
 
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
-            chatFormat = root.node("chat", "format").getString().toLowerCase(Locale.ROOT);
+            chatFormat = Objects.requireNonNull(root.node("chat", "format").getString()).toLowerCase(Locale.ROOT);
 
             plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
@@ -98,9 +101,13 @@ public class Config {
                 n.node("show-player-ping").raw(true);
             });
 
-            root.node("chat").act(n -> {
-                n.node("format").set("{displaynme}: {message}");
-            });
+            Set<Group> groups = plugin.getLuckPermsAPI().getGroupManager().getLoadedGroups();
+            for (Group group : groups) {
+                root.node("chat").act(n -> {
+                    n.node("format", group.getName()).set("{displaynme}: {message}");
+                });
+            }
+
 
             configLoader.save(root);
         }
