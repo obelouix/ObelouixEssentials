@@ -70,9 +70,11 @@ public class Config {
             }
 
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
+            if (plugin.getLuckPermsAPI() != null) {
+                for (final Object group : root.node("chat", "format").childrenMap().keySet()) {
+                    chatFormat.put(group.toString(), root.node("chat", "format", group.toString()).getString());
+                }
 
-            for (final Object group : root.node("chat", "format").childrenMap().keySet()) {
-                chatFormat.put(group.toString(), root.node("chat", "format", group.toString()).getString());
             }
 
             plugin.getLOGGER().info(String.valueOf(chatFormat));
@@ -105,18 +107,18 @@ public class Config {
             root.node("tablist").act(n -> n.node("show-player-ping").raw(true));
 
             // Get all groups and generate the config dynamically
+            if (plugin.getLuckPermsAPI() != null) {
+                for (Group group : LuckPermsGroups.getGroups()) {
+                    root.node("chat").act(n -> {
+                        if (group.getName().equals("default")) {
+                            n.node("format").node(group.getName()).set("&#808080{displayname}: {message}");
+                        } else {
+                            n.node("format").node(group.getName()).set("&#32cd32[{world}]&r{prefix}{displayname}{suffix}: &r{message}");
+                        }
 
-            for (Group group : LuckPermsGroups.getGroups()) {
-                root.node("chat").act(n -> {
-                    if (group.getName().equals("default")) {
-                        n.node("format").node(group.getName()).set("&808080{displayname}: {message}");
-                    } else {
-                        n.node("format").node(group.getName()).set("&#32cd32[{world}]&r{prefix}{displayname}{suffix}: &r{message}");
-                    }
-
-                });
+                    });
+                }
             }
-
 
             configLoader.save(root);
         }
