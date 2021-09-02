@@ -102,9 +102,7 @@ public class Config {
                 }
             });
 
-            root.node("tablist").act(n -> {
-                n.node("show-player-ping").raw(true);
-            });
+            root.node("tablist").act(n -> n.node("show-player-ping").raw(true));
 
             // Get all groups and generate the config dynamically
 
@@ -113,7 +111,7 @@ public class Config {
                     if (group.getName().equals("default")) {
                         n.node("format").node(group.getName()).set("&808080{displayname}: {message}");
                     } else {
-                        n.node("format").node(group.getName()).set("&#32cd32[{world}]{prefix}{displayname}{suffix}: &r{message}");
+                        n.node("format").node(group.getName()).set("&#32cd32[{world}]&r{prefix}{displayname}{suffix}: &r{message}");
                     }
 
                 });
