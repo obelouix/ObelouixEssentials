@@ -12,6 +12,7 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Locale;
 
 /**
  * This class serve only to get data from the configuration file
@@ -52,7 +53,7 @@ public class Config {
     public static ConfigurationNode debugNode;
     private static CommentedConfigurationNode root;
     public static boolean showPingInTab = false;
-    public static String chatSeparator;
+    public static String chatFormat;
 
     public static void load() {
         try {
@@ -66,7 +67,7 @@ public class Config {
             }
 
             showPingInTab = root.node("tablist", "show-player-ping").getBoolean();
-            chatSeparator = root.node("chat", "separator").getString();
+            chatFormat = root.node("chat", "format").getString().toLowerCase(Locale.ROOT);
 
             plugin.getLOGGER().info(String.valueOf(CommandManager.getCommandStates()));
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
@@ -98,7 +99,7 @@ public class Config {
             });
 
             root.node("chat").act(n -> {
-                n.node("separator").set(":");
+                n.node("format").set("{displaynme}: {message}");
             });
 
             configLoader.save(root);
