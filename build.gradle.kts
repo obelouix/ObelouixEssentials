@@ -245,6 +245,11 @@ bukkit {
             default = OP
         }
 
+        register("obelouix.chat.formatting") {
+            description = "Allows you to colorize and format the chat"
+            default = OP
+        }
+
     }
 
 }
