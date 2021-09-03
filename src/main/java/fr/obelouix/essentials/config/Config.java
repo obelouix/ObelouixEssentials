@@ -46,11 +46,8 @@ public class Config {
      * Enabling this allow players to send any URLs that are not <b>HTTPS</b>
      */
     public static final boolean allowHTTPURL = pluginConfig.getBoolean("allow-insecure-url");
-    /**
-     * Threshold for kicking the player
-     * Eg: if someone spam 3 times the same message, he will be kicked
-     */
-    public static final int spamThreshold = pluginConfig.getInt("spam-kick-threshold");
+
+
     public static final boolean isLandProtectionModuleEnabled = pluginConfig.getBoolean("enable-land-protection-module");
     public static int requiredSleepingPlayerPercentage = Essentials.getInstance().getConfig().getInt("player-sleep-percentage");
 
@@ -59,6 +56,11 @@ public class Config {
     public static boolean showPingInTab = false;
     public static Map<String, String> chatFormat = new HashMap<>();
     private static boolean isWatchdogEnabled = false;
+    /**
+     * Threshold for taking action against the spamming players
+     * Eg: if someone spam 3 times the same message, he will be kicked
+     */
+    private static int spamThreshold;
 
     public static void load() {
         try {
@@ -82,6 +84,7 @@ public class Config {
             }
 
             isWatchdogEnabled = root.node("watchdog", "enabled").getBoolean();
+            spamThreshold = root.node("watchdog", "antispam", "matches-before-action").getInt();
 
             if (!plugin.isReloading()) Essentials.getInstance().getLOGGER().info("Configuration loaded");
 
@@ -132,6 +135,10 @@ public class Config {
                     }
             );
 
+            root.node("watchdog", "antispam").act(n -> {
+                n.node("matches-before-action").set(3);
+            });
+
             configLoader.save(root);
         }
     }
@@ -154,5 +161,9 @@ public class Config {
 
     public static boolean isIsWatchdogEnabled() {
         return isWatchdogEnabled;
+    }
+
+    public static int getSpamThreshold() {
+        return spamThreshold;
     }
 }

@@ -10,7 +10,6 @@ import fr.obelouix.essentials.gui.AdminGUI;
 import fr.obelouix.essentials.gui.AdminToolsGUI;
 import fr.obelouix.essentials.gui.PlayerManagementGUI;
 import fr.obelouix.essentials.items.WorldEditWand;
-import fr.obelouix.essentials.security.ChatSecurity;
 import fr.obelouix.essentials.tablist.PlayerPing;
 import org.bukkit.event.Listener;
 
@@ -41,7 +40,7 @@ public class EventRegistry {
         }
         registerEvent(new Audiences());
         registerEvent(new ChatEvent());
-        registerEvent(new ChatSecurity());
+//        registerEvent(new ChatSecurity());
         registerEvent(new VanishCommand());
         if (!Essentials.getInstance().SERVER_VERSION.contains("Purpur")) {
             registerEvent(new TPSBarCommand("tpsbar"));

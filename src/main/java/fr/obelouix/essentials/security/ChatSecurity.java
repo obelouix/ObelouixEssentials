@@ -1,13 +1,9 @@
 package fr.obelouix.essentials.security;
 
-import fr.obelouix.essentials.Essentials;
 import fr.obelouix.essentials.config.Config;
 import fr.obelouix.essentials.i18n.I18n;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,9 +15,9 @@ import java.util.regex.Pattern;
 
 public class ChatSecurity implements Listener {
 
-    private static String lastMessage = "";
+    private static final String lastMessage = "";
     private final I18n i18n = I18n.getInstance();
-    private int identicalLastMessage = 0;
+    private final int identicalLastMessage = 0;
 
     @EventHandler
     public void onPlayerSendLink(AsyncChatEvent event) {
@@ -37,6 +33,7 @@ public class ChatSecurity implements Listener {
         }
     }
 
+/*
     @EventHandler
     public void kickOnSpam(AsyncChatEvent event) {
         final String chatMessage = PlainTextComponentSerializer.plainText().serialize(event.message());
@@ -50,5 +47,6 @@ public class ChatSecurity implements Listener {
         }
         lastMessage = chatMessage;
     }
+*/
 
 }

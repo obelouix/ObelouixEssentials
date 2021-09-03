@@ -109,9 +109,12 @@ dependencies {
     // NBT API
     implementation("de.tr7zw:item-nbt-api-plugin:2.8.0")
 
+    implementation("org.apache.commons:commons-collections4:4.4")
+
     //test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+
 }
 
 tasks.test {
