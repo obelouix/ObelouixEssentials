@@ -94,7 +94,7 @@ dependencies {
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT")
 
     // Commodore (Minecraft Brigadier)
-    implementation("me.lucko:commodore:1.10")
+    implementation("me.lucko:commodore:2.2")
 
     // Aikar's Timing
     implementation("co.aikar:minecraft-timings:1.0.4")
